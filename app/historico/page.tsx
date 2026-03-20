@@ -56,7 +56,7 @@ export default function Historico() {
   const [tempSelectedValue, setTempSelectedValue] = useState(1);
   const [showGraphic, setShowGraphic] = useState(true);
   const [selectedCicloId, setSelectedCicloId] = useState<number | null>(null);
-  const { t } = useTranslation("grafico");
+  const { t } = useTranslation();
   const [tempDateRange, setTempDateRange] = useState<{
     startDate: string | null;
     endDate: string | null;
@@ -162,8 +162,8 @@ export default function Historico() {
   }, [isInitialLoad]);
 
   return (
-    <section className="flex flex-col w-[100%] items-center justify-center gap-[20px]">
-      <div className="flex flex-row items-center justify-between bg-black p-[8px] w-[100%] rounded-md">
+    <section className="flex flex-col w-full items-center justify-center gap-[20px]">
+      <div className="flex flex-row items-center justify-between bg-black p-[8px] w-full rounded-md">
         <div className="flex gap-[10px] ml-[10px]">
           <BotonInforme
             cicloId={selectedCicloId}
@@ -193,7 +193,7 @@ export default function Historico() {
         </div>
       </div>
 
-      <div className="w-[100%] h-[80vh]">
+      <div className="w-full h-[80vh]">
         <GraficoHistorico
           contextType={selectedType === "cocina" ? "cocinas" : "enfriadores"}
           endDate={tempDateRange.endDate}
@@ -205,7 +205,7 @@ export default function Historico() {
           onTableClose={() => setShowGraphic(true)}
         />
       </div>
-      <div className="w-[100%] h-auto">
+      <div className="w-full h-auto">
         <Productividad />
       </div>
     </section>

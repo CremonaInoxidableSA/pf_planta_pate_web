@@ -22,16 +22,16 @@ const HeaderSecundario = () => {
   const opcionesBotones = [
     {
       id: 1,
-      path: "/",
-      text: t("mayus.general"),
-      styleClass: "",
+      path: "/cocinas",
+      text: t("mayus.cocinas"),
+      styleClass: "text-orange text-xl",
     },
     {
       id: 2,
-      path: "/armado",
-      text: t("mayus.armado"),
-      styleClass: "",
-    }
+      path: "/enfriadores",
+      text: t("mayus.enfriadores"),
+      styleClass: "text-blue text-xl",
+    },
   ];
 
   return (

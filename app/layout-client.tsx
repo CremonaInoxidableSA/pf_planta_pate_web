@@ -11,6 +11,9 @@ import { Toaster } from "@/components/ui/sonner";
 
 import { I18nextProvider } from "react-i18next";
 import { i18n } from "@/i18n";
+import { WebSocketProvider } from "@/context/WebSocketContext";
+import { CocinaProvider } from "@/context/CocinaContext";
+import { EnfriadorProvider } from "@/context/EnfriadorContext";
 
 export default function LayoutClient({
   children,
@@ -47,17 +50,23 @@ export default function LayoutClient({
           {!hideHeaderFooter && <HeaderPrincipal currentPath={pathname} />}
           {!hideHeaderFooter && <HeaderSecundario />}
         </div>
-        <main
-          className={`grow flex w-full min-w-0 ${
-            pathname === "/login" ||
-            pathname === "/login/recuperacion" ||
-            pathname === "/login/recuperacion/reset_pass"
-              ? "flex justify-center items-center"
-              : ""
-          }`}
-        >
-          {children}
-        </main>
+        <WebSocketProvider>
+          <CocinaProvider>
+            <EnfriadorProvider>
+              <main
+                className={`grow flex w-full min-w-0 ${
+                  pathname === "/login" ||
+                  pathname === "/login/recuperacion" ||
+                  pathname === "/login/recuperacion/reset_pass"
+                    ? "flex justify-center items-center"
+                    : ""
+                }`}
+              >
+                {children}
+              </main>
+            </EnfriadorProvider>
+          </CocinaProvider>
+        </WebSocketProvider>
         <Toaster />
         <div className={isDesarmadoPage ? "pl-67.5" : ""}>
           {!hideHeaderFooter && <Footer />}

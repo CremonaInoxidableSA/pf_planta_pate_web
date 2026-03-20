@@ -12,7 +12,7 @@ const lineas = {
 } as const;
 
 const Monitoreo = () => {
-  const { t } = useTranslation("monitoreo");
+  const { t } = useTranslation();
   const { lineaSeleccionada, lineasData } = useLinea();
   const linea = lineas[lineaSeleccionada as keyof typeof lineas];
 
