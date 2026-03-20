@@ -380,8 +380,6 @@ const Tabla: React.FC = () => {
     }
   };
 
-  // ─── Render ──────────────────────────────────────────────────────────────────
-
   return (
     <div className="w-full bg-background1 rounded-[15px] p-5 text-[#d9d9d9]">
       {/* ── Toolbar ── */}
