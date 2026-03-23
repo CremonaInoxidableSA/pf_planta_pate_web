@@ -7,7 +7,7 @@ import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 
 import Selector from "./selectores/selectorEquipos";
-import Grafico from "./graficos/grafico";
+import Grafico from "./cocinas&enfriadores/grafico";
 import CicloActivo from "./monitoreoIndividual/cicloActivo";
 import EstadoEquipo from "./monitoreoIndividual/estadoEquipo";
 import SectorIO from "./monitoreoIndividual/sectorIO";
@@ -176,12 +176,12 @@ export default function EquipoPage({ type }: EquipoPageProps) {
         <p
           className={`${bgColor} flex justify-start items-center h-12.5 p-3.75 ${borderColor} text-2xl font-semibold rounded-md text-texto`}
         >
-          {t("titulo.receta")}: {equipo?.detalles.nom_receta ?? "N/A"}
+          {t("receta")}: {equipo?.detalles.nom_receta ?? "N/A"}
         </p>
         <p
           className={`bg-background2 flex justify-start items-center h-12.5 p-3.75 ${borderColor} text-2xl font-semibold rounded-md text-texto`}
         >
-          {t("titulo.estado")}: {equipo?.info.estado ?? "N/A"}
+          {t("estado")}: {equipo?.info.estado ?? "N/A"}
         </p>
       </div>
 

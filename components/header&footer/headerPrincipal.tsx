@@ -54,7 +54,12 @@ export const HeaderPrincipal: React.FC<Header> = ({ currentPath }) => {
     { id: 4, icon: <ThemeSwitcher /> },
   ];
 
-  const opcionesMenu: OpcionMenu[] = [{ id: 1, url: "/", text: t("min.home") }];
+  const opcionesMenu: OpcionMenu[] = 
+  [
+    { id: 1, url: "/", text: t("min.home") },
+    { id: 2, url:"/historico", text: t("min.historico") },
+    { id: 3, url:"/monitoreo", text: t("min.monitoreo") }
+  ];
 
   return (
     <header className="flex bg-header-bg text-texto-header p-5">

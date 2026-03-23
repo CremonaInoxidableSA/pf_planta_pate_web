@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
-import Selector from "../selectores/selectorLineasProductividad";
-import SelectorEquipos from "../selectores/selectorEquipo";
-import ButtonAplicar from "../botones/botonAplicarProductividad";
-import BotonInformeProductividad from "../botones/botonInformeProductividad"; // Importar el nuevo botón
+import Selector from "../../../components/selectores/selectorLineasProductividad";
+import SelectorEquipos from "../../../components/selectores/selectorEquipo";
+import ButtonAplicar from "../../../components/botones/botonAplicarProductividad";
+import BotonInformeProductividad from "../../../components/botones/botonInformeProductividad"; // Importar el nuevo botón
 
 import DatePicker from "@/ui/datePickerProductividad";
 

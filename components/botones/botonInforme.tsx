@@ -5,7 +5,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { toast } from "sonner";
 
-import logoDataURL from "../../public/cremonabase64";
+import logoDataURL from "@/public/logo/cremonabase64";
 
 interface BotonInformeProps {
   selectClasses?: string;

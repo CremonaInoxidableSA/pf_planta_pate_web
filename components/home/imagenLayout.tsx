@@ -166,11 +166,11 @@ export function ImagenLayout() {
   return (
     <div className="w-full h-full relative flex flex-col">
       <div className="flex flex-col justify-center items-center">
-        <h1 className="text-4xl text-texto font-semibold">{t("titulo")}</h1>
-        <p className="text-xl text-texto">{t("subtitulo")}</p>
+        <h1 className="text-4xl text-texto font-semibold">{t("cocinasEnfriadores")}</h1>
+        <p className="text-xl text-texto">{t("paneoGeneral")}</p>
       </div>
 
-      <div className="relative w-full flex-grow">
+      <div className="relative w-full grow">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           alt="Imagen de prueba"

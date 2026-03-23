@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import {
   Select,
   SelectContent,
@@ -29,15 +28,15 @@ const Selector = ({ value = 1 }) => {
 
   return (
     <Select value={value.toString()}>
-      <SelectTrigger className="bg-[#27272a] text-texto h-[50px] rounded-lg w-full">
+      <SelectTrigger className="text-texto h-12.5 rounded-lg w-full">
         <SelectValue placeholder="Seleccionar" />
       </SelectTrigger>
-      <SelectContent className="bg-black text-texto rounded-lg">
+      <SelectContent className="bg-background4 text-texto rounded-md w-(--radix-select-trigger-width)">
         {itemsList.map((item) => (
           <SelectItem
             key={item.id.toString()}
             value={item.id.toString()}
-            className="text-texto hover:bg-gray-800 rounded-lg mx-1 px-2"
+            className="text-texto hover:bg-gray-800 rounded-md mx-1 px-2"
           >
             {item.name}
           </SelectItem>

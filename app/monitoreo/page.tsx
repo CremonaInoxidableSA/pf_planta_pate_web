@@ -3,7 +3,7 @@
 import { useTranslation } from "react-i18next";
 
 import { useLinea } from "@/context/LineaContext";
-import GraficoMonitoreo from "@/components/graficos/graficoMonitoreo";
+import GraficoMonitoreo from "@/components/cocinas&enfriadores/graficoMonitoreo";
 import Selector from "@/components/selectores/selectorLineas";
 
 const lineas = {
