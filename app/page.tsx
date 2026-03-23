@@ -10,10 +10,10 @@ export default function Home() {
     <section className="p-5 flex flex-row w-full gap-5 items-center bg-background2 rounded-md">
       <div className="w-1/6 h-full flex flex-col items-center justify-center">
         <h1 className="flex justify-center w-full text-4xl text-texto font-semibold">
-          {t("alarmas")}
+          {t("mayus.alarmas")}
         </h1>
         <p className="flex justify-center w-full text-xl text-texto">
-          {t("activas")}
+          {t("mayus.activas")}
         </p>
 
         <div className="w-full h-full py-5 flex flex-col justify-between items-center">

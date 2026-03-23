@@ -25,8 +25,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "PF MORTADELA",
-  description: "Aplicacion de gestion de produccion PF Mortadela by Creminox",
+  title: "Cocinas y Enfriadores",
+  description: "Aplicacion de gestion de produccion PF Pate by Creminox",
 };
 
 export default function RootLayout({

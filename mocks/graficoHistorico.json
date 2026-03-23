@@ -1,0 +1,61 @@
+[
+  {
+    "idCiclo": 1,
+    "nroTorre": 3,
+    "lote": "L-2026-001",
+    "idEquipo": 101,
+    "historial": [
+      { "timestamp": "2026-03-20T08:00:00", "temperatura": 25.3 },
+      { "timestamp": "2026-03-20T09:00:00", "temperatura": 28.7 },
+      { "timestamp": "2026-03-20T10:00:00", "temperatura": 32.1 },
+      { "timestamp": "2026-03-20T11:00:00", "temperatura": 35.4 },
+      { "timestamp": "2026-03-20T12:00:00", "temperatura": 38.2 },
+      { "timestamp": "2026-03-20T13:00:00", "temperatura": 40.5 },
+      { "timestamp": "2026-03-20T14:00:00", "temperatura": 42.0 },
+      { "timestamp": "2026-03-20T15:00:00", "temperatura": 43.3 },
+      { "timestamp": "2026-03-20T16:00:00", "temperatura": 44.1 },
+      { "timestamp": "2026-03-20T17:00:00", "temperatura": 45.0 },
+      { "timestamp": "2026-03-20T18:00:00", "temperatura": 45.5 },
+      { "timestamp": "2026-03-20T19:00:00", "temperatura": 45.8 },
+      { "timestamp": "2026-03-20T20:30:00", "temperatura": 46.0 }
+    ]
+  },
+  {
+    "idCiclo": 2,
+    "nroTorre": 1,
+    "lote": "L-2026-002",
+    "idEquipo": 102,
+    "historial": [
+      { "timestamp": "2026-03-18T06:30:00", "temperatura": 24.0 },
+      { "timestamp": "2026-03-18T08:30:00", "temperatura": 27.5 },
+      { "timestamp": "2026-03-18T10:30:00", "temperatura": 30.2 },
+      { "timestamp": "2026-03-18T12:30:00", "temperatura": 33.8 },
+      { "timestamp": "2026-03-18T14:30:00", "temperatura": 36.9 },
+      { "timestamp": "2026-03-18T16:30:00", "temperatura": 39.4 },
+      { "timestamp": "2026-03-18T18:30:00", "temperatura": 41.0 },
+      { "timestamp": "2026-03-18T20:30:00", "temperatura": 42.6 },
+      { "timestamp": "2026-03-18T22:30:00", "temperatura": 43.8 },
+      { "timestamp": "2026-03-19T00:30:00", "temperatura": 44.5 },
+      { "timestamp": "2026-03-19T03:30:00", "temperatura": 45.2 },
+      { "timestamp": "2026-03-19T06:30:00", "temperatura": 45.9 }
+    ]
+  },
+  {
+    "idCiclo": 3,
+    "nroTorre": 2,
+    "lote": "L-2026-003",
+    "idEquipo": 103,
+    "historial": [
+      { "timestamp": "2026-03-22T10:15:00", "temperatura": 26.1 },
+      { "timestamp": "2026-03-22T11:15:00", "temperatura": 29.3 },
+      { "timestamp": "2026-03-22T12:15:00", "temperatura": 33.0 },
+      { "timestamp": "2026-03-22T13:15:00", "temperatura": 36.7 },
+      { "timestamp": "2026-03-22T14:15:00", "temperatura": 39.8 },
+      { "timestamp": "2026-03-22T15:15:00", "temperatura": 42.2 },
+      { "timestamp": "2026-03-22T16:15:00", "temperatura": 43.9 },
+      { "timestamp": "2026-03-22T17:15:00", "temperatura": 44.8 },
+      { "timestamp": "2026-03-22T18:15:00", "temperatura": 45.5 },
+      { "timestamp": "2026-03-22T19:00:00", "temperatura": 46.1 }
+    ]
+  }
+]

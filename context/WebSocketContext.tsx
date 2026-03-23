@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext } from "react";
 
-import useWebSocket from "@/services/websocket";
+// import useWebSocket from "@/services/websocket";
 
 interface WebSocketContextType {
   data: any;
@@ -19,13 +19,13 @@ export const WebSocketProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const { data, isConnected, error } = useWebSocket("datos-generales");
+  // WebSocket temporalmente desactivado
+  // const { data, isConnected, error } = useWebSocket("datos-generales");
 
-  // Proporcionar un valor inicial seguro
   const value = {
-    data: data || { "datos-cocinas": [], "datos-enfriadores": [] },
-    isConnected,
-    error,
+    data: { "datos-cocinas": [], "datos-enfriadores": [] },
+    isConnected: false,
+    error: null,
   };
 
   return (

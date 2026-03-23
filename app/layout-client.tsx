@@ -14,6 +14,7 @@ import { i18n } from "@/i18n";
 import { WebSocketProvider } from "@/context/WebSocketContext";
 import { CocinaProvider } from "@/context/CocinaContext";
 import { EnfriadorProvider } from "@/context/EnfriadorContext";
+import { LineaProvider } from "@/context/LineaContext";
 
 export default function LayoutClient({
   children,
@@ -53,17 +54,19 @@ export default function LayoutClient({
         <WebSocketProvider>
           <CocinaProvider>
             <EnfriadorProvider>
-              <main
-                className={`grow flex w-full min-w-0 p-5 ${
-                  pathname === "/login" ||
-                  pathname === "/login/recuperacion" ||
-                  pathname === "/login/recuperacion/reset_pass"
-                    ? "flex justify-center items-center"
-                    : ""
-                }`}
-              >
-                {children}
-              </main>
+              <LineaProvider>
+                <main
+                  className={`grow flex w-full min-w-0 p-5 ${
+                    pathname === "/login" ||
+                    pathname === "/login/recuperacion" ||
+                    pathname === "/login/recuperacion/reset_pass"
+                      ? "flex justify-center items-center"
+                      : ""
+                  }`}
+                >
+                  {children}
+                </main>
+              </LineaProvider>
             </EnfriadorProvider>
           </CocinaProvider>
         </WebSocketProvider>

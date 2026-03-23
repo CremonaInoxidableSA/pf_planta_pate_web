@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --hostname 192.168.20.150",
+    "dev": "node --max-old-space-size=4096 node_modules/next/dist/bin/next dev --hostname 192.168.20.150",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
