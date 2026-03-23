@@ -29,7 +29,7 @@ export default function LayoutClient({
     "/bootstrap",
   ].includes(pathname);
 
-  const isDesarmadoPage = pathname === "/armado";
+  const isDesarmadoPage = pathname === "/";
 
   useEffect(() => {
     const saved =
@@ -48,13 +48,13 @@ export default function LayoutClient({
       <div className="flex flex-col min-h-screen">
         <div className="sticky top-0 left-0 w-full z-551">
           {!hideHeaderFooter && <HeaderPrincipal currentPath={pathname} />}
-          {!hideHeaderFooter && <HeaderSecundario />}
+          {!hideHeaderFooter && !isDesarmadoPage && <HeaderSecundario />}
         </div>
         <WebSocketProvider>
           <CocinaProvider>
             <EnfriadorProvider>
               <main
-                className={`grow flex w-full min-w-0 ${
+                className={`grow flex w-full min-w-0 p-5 ${
                   pathname === "/login" ||
                   pathname === "/login/recuperacion" ||
                   pathname === "/login/recuperacion/reset_pass"
@@ -68,9 +68,7 @@ export default function LayoutClient({
           </CocinaProvider>
         </WebSocketProvider>
         <Toaster />
-        <div className={isDesarmadoPage ? "pl-67.5" : ""}>
-          {!hideHeaderFooter && <Footer />}
-        </div>
+        {!hideHeaderFooter && <Footer />}
       </div>
     </I18nextProvider>
   );

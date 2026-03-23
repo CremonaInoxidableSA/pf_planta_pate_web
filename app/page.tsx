@@ -10,7 +10,7 @@ export default function Home() {
         <Alarmas />
       </div>
 
-      <hr className="h-[95%] w-0.5 mx-0.5 border-none bg-white/30 z-500" />
+      <hr className="h-[95%] w-0.5 mx-0.5 border-none bg-background6 z-500" />
 
       <div className="w-full h-full flex items-center justify-center">
         <ImagenLayout />

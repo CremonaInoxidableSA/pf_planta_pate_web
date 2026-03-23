@@ -31,14 +31,14 @@ const EstadoEquipo: React.FC<EstadoEquipoProps> = ({
 
   return (
     <>
-      <h2 className="text-xl text-white w-auto ">{t("estadoEquipo.titulo")}</h2>
+      <h2 className="text-xl text-texto w-auto ">{t("estadoEquipo.titulo")}</h2>
       <ul className="flex flex-col justify-between grow gap-[1vh]">
         {datos.map((dato, index) => (
           <li
             key={`${dato.label}-${index}`}
-            className="bg-grey flex flex-col px-[20px] py-[1vh] rounded-md"
+            className="bg-background3 flex flex-col px-5 py-[1vh] rounded-md"
           >
-            <span className="text-[calc(0.6vw+1vh)] text-white">
+            <span className="text-[calc(0.6vw+1vh)] text-texto">
               {dato.label}:
             </span>
             <span

@@ -8,10 +8,10 @@ export function Alarmas() {
   return (
     <div className="w-full h-full">
       <div className="h-[8%]">
-        <h1 className="flex justify-center w-full text-4xl text-white font-semibold">
+        <h1 className="flex justify-center w-full text-4xl text-texto font-semibold">
           {t("titulo2")}
         </h1>
-        <p className="flex justify-center w-full text-xl text-white">
+        <p className="flex justify-center w-full text-xl text-texto">
           {t("subtitulo2")}
         </p>
       </div>

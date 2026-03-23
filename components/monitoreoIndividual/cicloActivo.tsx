@@ -20,14 +20,14 @@ const CicloActivo: React.FC<CicloActivoProps> = ({
 
   return (
     <>
-      <h2 className="text-xl text-white">{t("cicloActivo.titulo")}</h2>
+      <h2 className="text-xl text-texto">{t("cicloActivo.titulo")}</h2>
       <ul className="flex flex-col justify-between grow gap-[1vh]">
         {datosCiclo.map((dato) => (
           <li
             key={dato.label}
-            className="bg-grey flex flex-col px-[20px] py-[1vh] rounded-md"
+            className="bg-background3 flex flex-col px-5 py-[1vh] rounded-md"
           >
-            <p className="text-[calc(0.6vw+1vh)] text-white">{dato.label}</p>
+            <p className="text-[calc(0.6vw+1vh)] text-texto">{dato.label}</p>
             <p
               className={`text-[calc(0.5vw+1vh)] ${getColorClass(dato.label, dato.value, defaultColor)}`}
             >

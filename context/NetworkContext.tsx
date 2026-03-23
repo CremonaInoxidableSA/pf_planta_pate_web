@@ -14,8 +14,6 @@ interface NetworkContextType {
   baseURL: string | null;
   loginURL: string | null;
   redirectURL: string | null;
-  camarasURL: string | null;
-  mediaMTXBaseURL: string | null;
   isLoading: boolean;
 }
 
@@ -29,8 +27,6 @@ const NetworkContext = createContext<NetworkContextType>({
   baseURL: null,
   loginURL: null,
   redirectURL: null,
-  camarasURL: null,
-  mediaMTXBaseURL: null,
   isLoading: true,
 });
 
@@ -42,8 +38,6 @@ export const NetworkProvider = ({ children }: NetworkProviderProps) => {
   const [baseURL, setBaseURL] = useState<string | null>(null);
   const [loginURL, setLoginURL] = useState<string | null>(null);
   const [redirectURL, setRedirectURL] = useState<string | null>(null);
-  const [camarasURL, setCamarasURL] = useState<string | null>(null);
-  const [mediaMTXBaseURL, setMediaMTXBaseURL] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -56,8 +50,6 @@ export const NetworkProvider = ({ children }: NetworkProviderProps) => {
         let base = null;
         let login = null;
         let redirect = null;
-        let camaras = null;
-        let mediaMTX = null;
 
         if (hostname.startsWith("192.168.")) {
           const parts = hostname.split(".");
@@ -68,8 +60,6 @@ export const NetworkProvider = ({ children }: NetworkProviderProps) => {
             base = `http://${frontIP}:3000`;
             login = `http://${frontIP}:3000`;
             redirect = `http://${frontIP}:3000`;
-            camaras = `http://${hostname}:3000/camaras`;
-            mediaMTX = `http://${hostname}:8888`;
             setClientIP(hostname);
             setTargetAddress(frontIP);
           }
@@ -78,8 +68,6 @@ export const NetworkProvider = ({ children }: NetworkProviderProps) => {
           base = "http://localhost:3000";
           login = "http://localhost:3000";
           redirect = "http://localhost:3000";
-          camaras = "http://localhost:3000/camaras";
-          mediaMTX = "http://localhost:8888";
           setClientIP(hostname);
           setTargetAddress("localhost");
         }
@@ -87,16 +75,12 @@ export const NetworkProvider = ({ children }: NetworkProviderProps) => {
         setBaseURL(base);
         setLoginURL(login);
         setRedirectURL(redirect);
-        setCamarasURL(camaras);
-        setMediaMTXBaseURL(mediaMTX);
 
         // Guardar en sessionStorage
-        if (base && login && redirect && camaras && mediaMTX) {
+        if (base && login && redirect) {
           sessionStorage.setItem("baseURL", base);
           sessionStorage.setItem("loginURL", login);
           sessionStorage.setItem("redirectURL", redirect);
-          sessionStorage.setItem("camarasURL", camaras);
-          sessionStorage.setItem("mediaMTXBaseURL", mediaMTX);
           sessionStorage.setItem("clientIP", hostname);
         }
 
@@ -109,23 +93,13 @@ export const NetworkProvider = ({ children }: NetworkProviderProps) => {
       const storedBase = sessionStorage.getItem("baseURL");
       const storedLogin = sessionStorage.getItem("loginURL");
       const storedRedirect = sessionStorage.getItem("redirectURL");
-      const storedCamaras = sessionStorage.getItem("camarasURL");
-      const storedMediaMTX = sessionStorage.getItem("mediaMTXBaseURL");
       const storedClientIP = sessionStorage.getItem("clientIP");
       const storedTargetAddress = sessionStorage.getItem("targetAddress");
 
-      if (
-        storedBase &&
-        storedLogin &&
-        storedRedirect &&
-        storedCamaras &&
-        storedMediaMTX
-      ) {
+      if (storedBase && storedLogin && storedRedirect) {
         setBaseURL(storedBase); // eslint-disable-line react-hooks/set-state-in-effect
         setLoginURL(storedLogin);
         setRedirectURL(storedRedirect);
-        setCamarasURL(storedCamaras);
-        setMediaMTXBaseURL(storedMediaMTX);
         setClientIP(storedClientIP);
         setTargetAddress(storedTargetAddress);
         setIsLoading(false);
@@ -141,8 +115,6 @@ export const NetworkProvider = ({ children }: NetworkProviderProps) => {
     baseURL,
     loginURL,
     redirectURL,
-    camarasURL,
-    mediaMTXBaseURL,
     isLoading,
   };
 

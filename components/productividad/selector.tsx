@@ -14,8 +14,8 @@ const Selector: React.FC = () => {
     <select
       className="
                 bg-[#0001] h-full w-full px-[20px] border-b-[2px] border-white 
-                focus:border-white focus:outline-none text-lg text-white 
-                hover:text-white transition-colors cursor-pointer
+                focus:border-white focus:outline-none text-lg text-texto 
+                hover:text-texto transition-colors cursor-pointer
             "
       value={lineaSeleccionada}
       onChange={(e) => {
@@ -28,7 +28,7 @@ const Selector: React.FC = () => {
       {lineaList.map((linea) => (
         <option
           key={linea.id}
-          className="p-[2px] text-white hover:text-white bg-black font-bold"
+          className="p-[2px] text-texto hover:text-texto bg-black font-bold"
           value={linea.id}
         >
           {linea.name}

@@ -172,7 +172,7 @@ export default function Historico() {
           />
         </div>
 
-        <div className="text-center text-white ml-[110px]">
+        <div className="text-center text-texto ml-[110px]">
           <h2 className="text-lg font-bold uppercase mb-[-6px]">
             {t("filtroPeriodo.titulo")}
           </h2>
@@ -181,13 +181,13 @@ export default function Historico() {
 
         <div className="flex gap-[5px] items-center pr-[10px]">
           <Selector
-            selectClasses="text-white hover:bg-gray-700"
+            selectClasses="text-texto hover:bg-gray-700"
             value={tempSelectedValue}
             onChange={handleChange}
           />
           <DatePicker onDateChange={handleDateChange} />
           <BotonAplicar
-            selectClasses="text-white hover:bg-gray-700 px-[4px] py-[2px] min-h-[40px]"
+            selectClasses="text-texto hover:bg-gray-700 px-[4px] py-[2px] min-h-[40px]"
             onClick={handleApplyClick}
           />
         </div>

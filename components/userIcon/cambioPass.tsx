@@ -101,7 +101,7 @@ const CambioPass = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="mt-2 w-full border border-botonblueborder bg-botonblue hover:bg-botonbluehover text-white cursor-pointer">
+        <Button className="mt-2 w-full border border-botonblueborder bg-botonblue hover:bg-botonbluehover text-texto cursor-pointer">
           <p className="text-botonblueborder font-medium">
             {t("min.cambiarContra")}
           </p>

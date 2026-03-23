@@ -52,19 +52,19 @@ const Metrics: React.FC<MetricsProps> = ({
 
   return (
     <div>
-      <h2 className="text-3xl text-white font-bold mb-[-3px]">{t("titulo")}</h2>
+      <h2 className="text-3xl text-texto font-bold mb-[-3px]">{t("titulo")}</h2>
       <div>
         <span className="text-l text-orange">{dateRange.start}</span>
-        <span className="text-l text-white"> - </span>
+        <span className="text-l text-texto"> - </span>
         <span className="text-l text-orange">{dateRange.end}</span>
       </div>
       <div className="w-full flex items-center justify-evenly">
         {metrics.map((m) => (
           <div key={m.id} className="text-center">
-            <div className="flex items-center justify-center text-5xl text-white font-bold">
+            <div className="flex items-center justify-center text-5xl text-texto font-bold">
               {m.dato}
             </div>
-            <div className="text-2xl text-white">{m.titulo}</div>
+            <div className="text-2xl text-texto">{m.titulo}</div>
           </div>
         ))}
       </div>

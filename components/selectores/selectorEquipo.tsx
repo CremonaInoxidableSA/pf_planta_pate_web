@@ -59,7 +59,7 @@ const Selector: React.FC<SelectorProps> = ({
 
   return (
     <select
-      className={`${selectClasses || "bg-[#0001] h-full w-full px-[20px] border-b-2 border-white focus:border-white focus:outline-none text-lg text-white hover:text-white transition-colors cursor-pointer"} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+      className={`${selectClasses || "bg-[#0001] h-full w-full px-[20px] border-b-2 border-white focus:border-white focus:outline-none text-lg text-texto hover:text-texto transition-colors cursor-pointer"} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
       disabled={disabled}
       value={selectedEquipo}
       onChange={handleChange}
@@ -67,7 +67,7 @@ const Selector: React.FC<SelectorProps> = ({
       {equipoList.map((equipo) => (
         <option
           key={equipo.id}
-          className="p-[2px] text-white hover:text-white bg-black font-bold"
+          className="p-[2px] text-texto hover:text-texto bg-black font-bold"
           value={equipo.id}
         >
           {equipo.name}

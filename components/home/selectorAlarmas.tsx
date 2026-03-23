@@ -29,15 +29,15 @@ const Selector = ({ value = 1 }) => {
 
   return (
     <Select value={value.toString()}>
-      <SelectTrigger className="bg-[#27272a] text-white h-[50px] rounded-lg w-full">
+      <SelectTrigger className="bg-[#27272a] text-texto h-[50px] rounded-lg w-full">
         <SelectValue placeholder="Seleccionar" />
       </SelectTrigger>
-      <SelectContent className="bg-black text-white rounded-lg">
+      <SelectContent className="bg-black text-texto rounded-lg">
         {itemsList.map((item) => (
           <SelectItem
             key={item.id.toString()}
             value={item.id.toString()}
-            className="text-white hover:bg-gray-800 rounded-lg mx-1 px-2"
+            className="text-texto hover:bg-gray-800 rounded-lg mx-1 px-2"
           >
             {item.name}
           </SelectItem>

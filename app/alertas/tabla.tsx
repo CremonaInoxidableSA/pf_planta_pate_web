@@ -82,7 +82,7 @@ const highlightText = (text: string, filter: string): React.ReactNode => {
       part.toLowerCase() === filter.toLowerCase() ? (
         <mark
           key={i}
-          className="bg-yellow-400/40 text-white font-bold rounded-sm"
+          className="bg-yellow-400/40 text-texto font-bold rounded-sm"
         >
           {part}
         </mark>
@@ -388,7 +388,7 @@ const Tabla: React.FC = () => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
-              className="bg-[#761122] hover:bg-[#8f1529] text-white"
+              className="bg-[#761122] hover:bg-[#8f1529] text-texto"
               size="sm"
             >
               <Download className="size-4" />
@@ -460,7 +460,7 @@ const Tabla: React.FC = () => {
         <Button
           variant="outline"
           size="sm"
-          className="border-[#515151] text-[#d9d9d9] bg-transparent hover:bg-white/5 hover:text-white"
+          className="border-[#515151] text-[#d9d9d9] bg-transparent hover:bg-white/5 hover:text-texto"
           onClick={handleClearFilters}
         >
           <FilterX className="size-4" />
@@ -470,7 +470,7 @@ const Tabla: React.FC = () => {
         {error && (
           <Button
             size="sm"
-            className="bg-[#761122] hover:bg-[#8f1529] text-white"
+            className="bg-[#761122] hover:bg-[#8f1529] text-texto"
             onClick={connectWebSocket}
           >
             {t("reintentar")}

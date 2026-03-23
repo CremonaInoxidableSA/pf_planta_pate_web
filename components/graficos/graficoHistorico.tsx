@@ -505,7 +505,7 @@ const GraficoHistorico: React.FC<GraficoProps> = ({
       {/* Botones de control */}
       <div className="absolute top-8.75 right-8.75 flex gap-5 z-5 pdf-ignore">
         <Button
-          className="text-white bg-grey hover:bg-lightGrey/25 px-2.5 py-5 rounded-md backdrop-blur-sm border border-grey/50"
+          className="text-texto bg-grey hover:bg-lightGrey/25 px-2.5 py-5 rounded-md backdrop-blur-sm border border-grey/50"
           onClick={() => setShowTable(!showTable)}
         >
           {showTable
@@ -513,7 +513,7 @@ const GraficoHistorico: React.FC<GraficoProps> = ({
             : t("graficoHistorico.botonCiclos")}
         </Button>
         <Button
-          className="text-white bg-grey hover:bg-lightGrey/25 px-2.5 py-5 rounded-md backdrop-blur-sm border border-grey/50"
+          className="text-texto bg-grey hover:bg-lightGrey/25 px-2.5 py-5 rounded-md backdrop-blur-sm border border-grey/50"
           onClick={resetZoom}
         >
           {t("graficoHistorico.botonZoom")}
@@ -528,7 +528,7 @@ const GraficoHistorico: React.FC<GraficoProps> = ({
       ) : data && data.general ? (
         <div className="mb-[5px] ml-[5px]">
           <div className="flex items-center gap-[8px] pdf-info-section">
-            <div className="text-white">
+            <div className="text-texto">
               <h2 className="text-[32px] font-bold">
                 {t("graficoHistorico.titulo")}
               </h2>
@@ -543,7 +543,7 @@ const GraficoHistorico: React.FC<GraficoProps> = ({
             </div>
 
             <div className="grid grid-cols-4 gap-[12px] ml-[5px]">
-              <div className="bg-[#4bc04b] bg-opacity-25 text-white text-sm p-[0px] rounded-lg border border-[#4bc04b]/50">
+              <div className="bg-[#4bc04b] bg-opacity-25 text-texto text-sm p-[0px] rounded-lg border border-[#4bc04b]/50">
                 <div className="font-bold text-center mt-[5px] mb-[-5px]">
                   {t("datosHistorico.tempProd")}
                 </div>
@@ -559,7 +559,7 @@ const GraficoHistorico: React.FC<GraficoProps> = ({
                 </div>
               </div>
 
-              <div className="bg-[#3666cc] bg-opacity-25 text-white text-sm p-[0px] rounded-lg border border-[#3666cc]/50">
+              <div className="bg-[#3666cc] bg-opacity-25 text-texto text-sm p-[0px] rounded-lg border border-[#3666cc]/50">
                 <div className="font-bold text-center mt-[5px] mb-[-5px]">
                   {t("datosHistorico.tempAgua")}
                 </div>
@@ -575,7 +575,7 @@ const GraficoHistorico: React.FC<GraficoProps> = ({
                 </div>
               </div>
 
-              <div className="bg-yellow-500 bg-opacity-25 text-white text-sm p-[0px] rounded-lg border border-yellow-500/50">
+              <div className="bg-yellow-500 bg-opacity-25 text-texto text-sm p-[0px] rounded-lg border border-yellow-500/50">
                 <div className="font-bold text-center mt-[5px] mb-[-5px]">
                   {t("datosHistorico.nivelAgua")}
                 </div>
@@ -591,7 +591,7 @@ const GraficoHistorico: React.FC<GraficoProps> = ({
                 </div>
               </div>
 
-              <div className="bg-[#e82a31] bg-opacity-25 text-white text-sm p-[0px] rounded-lg border border-[#e82a31]/50">
+              <div className="bg-[#e82a31] bg-opacity-25 text-texto text-sm p-[0px] rounded-lg border border-[#e82a31]/50">
                 <div className="grid grid-cols-2 m-2">
                   <span className="font-bold">
                     {t("datosHistorico.hInicio")}
@@ -614,7 +614,7 @@ const GraficoHistorico: React.FC<GraficoProps> = ({
             </div>
             <div className="flex-1 flex justify-center ml-[-200px]">
               {data?.general?.id_ciclo && (
-                <p className="text-white text-lg font-semibold">
+                <p className="text-texto text-lg font-semibold">
                   <strong>{t("graficoHistorico.ciclo")}</strong>{" "}
                   {data.general.id_ciclo}
                 </p>

@@ -1,6 +1,13 @@
 "use client";
 
-import React from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 interface SelectorProps {
   value: number;
@@ -26,14 +33,22 @@ export default function Selector({
 
     // Determinar la línea (1 o 2)
     const lineNumber = isCocina
-      ? globalNumber <= 3 ? "1" : "2"
-      : globalNumber <= 4 ? "1" : "2";
-    
+      ? globalNumber <= 3
+        ? "1"
+        : "2"
+      : globalNumber <= 4
+        ? "1"
+        : "2";
+
     // Determinar el número de equipo en la línea (1-3 para cocinas, 1-4 para enfriadores)
-    const equipmentInLine = isCocina 
-      ? globalNumber <= 3 ? globalNumber : globalNumber - 3
-      : globalNumber <= 4 ? globalNumber : globalNumber - 4;
-    
+    const equipmentInLine = isCocina
+      ? globalNumber <= 3
+        ? globalNumber
+        : globalNumber - 3
+      : globalNumber <= 4
+        ? globalNumber
+        : globalNumber - 4;
+
     // Crear el código del equipo (C11, E21, etc.)
     const equipmentCode = `${isCocina ? "C" : "E"}${lineNumber}${equipmentInLine}`;
 
@@ -50,11 +65,10 @@ export default function Selector({
     : Math.min(Math.max(7, value), 14);
 
   return (
-    <select
-      className={selectClasses}
-      value={validValue}
-      onChange={(e) => {
-        const newValue = parseInt(e.target.value);
+    <Select
+      value={String(validValue)}
+      onValueChange={(val) => {
+        const newValue = parseInt(val);
         const minValue = isCocina ? 1 : 7;
         const maxValue = isCocina ? 6 : 14;
 
@@ -63,15 +77,28 @@ export default function Selector({
         }
       }}
     >
-      {options.map((option) => (
-        <option
-          key={option.value}
-          className={optionClasses}
-          value={option.value}
-        >
-          {option.label}
-        </option>
-      ))}
-    </select>
+      <SelectTrigger
+        className={cn(
+          "border-0 shadow-none focus-visible:ring-0 focus-visible:border-0 h-full!",
+          selectClasses,
+        )}
+      >
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent
+        position="popper"
+        className="bg-background2 border-border w-(--radix-select-trigger-width)"
+      >
+        {options.map((option) => (
+          <SelectItem
+            key={option.value}
+            value={String(option.value)}
+            className={cn("cursor-pointer w-full", optionClasses)}
+          >
+            {option.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 }

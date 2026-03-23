@@ -95,7 +95,7 @@ const Recuperacion = () => {
           <Button
             disabled={loading}
             onClick={handleSubmit}
-            className="bg-[#e82a31] mt-1.25 p-1 rounded-md w-full h-13 flex items-center justify-center border-none font-semibold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed text-white"
+            className="bg-[#e82a31] mt-1.25 p-1 rounded-md w-full h-13 flex items-center justify-center border-none font-semibold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed text-texto"
           >
             {loading ? <Spinner /> : t("min.enviarCorreoRecuperacion")}
           </Button>

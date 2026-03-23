@@ -6,7 +6,7 @@ import { GoGear } from "react-icons/go";
 
 import Link from "next/link";
 import Image from "next/image";
-import { JSX, useEffect, useState } from "react";
+import { JSX } from "react";
 
 import DropdownBanderas from "@/components/translate/dropdownBanderas";
 import UserIcon from "@/components/userIcon/userIcon";
@@ -31,12 +31,6 @@ interface OpcionMenu {
 
 export const HeaderPrincipal: React.FC<Header> = ({ currentPath }) => {
   const { t } = useTranslation();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setMounted(true), 0);
-    return () => clearTimeout(timer);
-  }, []);
 
   const opcionesIconos: OpcionIcono[] = [
     {
@@ -56,30 +50,12 @@ export const HeaderPrincipal: React.FC<Header> = ({ currentPath }) => {
         </Link>
       ),
     },
-    {
-      id: 3,
-      icon: (
-        <Link
-          className="group relative flex items-center justify-center w-6.25 h-6.25 ease-in-out"
-          href="/config_equipos"
-        >
-          <div className="absolute inset-0 rounded-md bg-gray-400/0 group-hover:bg-gray-400/20 ease-in-out group-hover:scale-150 pointer-events-none" />
-          <GoGear className="w-6.25 h-6.25 transition-transform ease-in-out group-hover:scale-110" />
-        </Link>
-      ),
-    },
-    { id: 4, icon: <DropdownBanderas /> },
-    { id: 5, icon: <ThemeSwitcher /> },
+    { id: 3, icon: <DropdownBanderas /> },
+    { id: 4, icon: <ThemeSwitcher /> },
   ];
 
-  const opcionesMenu: OpcionMenu[] = [
-    { id: 1, url: "/", text: t("min.home") },
-    { id: 2, url: "/camaras", text: t("min.camaras") },
-  ];
+  const opcionesMenu: OpcionMenu[] = [{ id: 1, url: "/", text: t("min.home") }];
 
-  if (!mounted) {
-    return null;
-  }
   return (
     <header className="flex bg-header-bg text-texto-header p-5">
       <div className="flex flex-row h-full w-[30%] justify-start gap-7.5 items-center">
@@ -126,7 +102,13 @@ export const HeaderPrincipal: React.FC<Header> = ({ currentPath }) => {
             rel="noopener noreferrer"
             target="_blank"
           >
-            <Image src={Logo} alt="Creminox logo" className="h-6 w-auto" />
+            <Image
+              src={Logo}
+              alt="Creminox logo"
+              className="h-6 w-auto"
+              priority
+              loading="eager"
+            />
           </Link>
         </ul>
       </div>

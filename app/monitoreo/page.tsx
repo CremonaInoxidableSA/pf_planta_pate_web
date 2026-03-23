@@ -26,7 +26,7 @@ const Monitoreo = () => {
     <section className="flex flex-col h-screen max-h-screen w-full min-w-[720px] overflow-hidden">
       {/* Header con título y selector - altura fija */}
       <div className="flex w-full justify-between mb-[10px]">
-        <h1 className="text-2xl font-semibold text-white">{t("monitoreo")}</h1>
+        <h1 className="text-2xl font-semibold text-texto">{t("monitoreo")}</h1>
         <div className="w-1/5">
           <Selector />
         </div>

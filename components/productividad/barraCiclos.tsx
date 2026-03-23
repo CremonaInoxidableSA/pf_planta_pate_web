@@ -19,7 +19,7 @@ const BarraCiclos: React.FC<BarraCiclosProps> = ({
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-white">
+      <h2 className="text-xl font-bold text-texto">
         % {t("barraCiclos.texto")}
       </h2>
       <div className="flex h-[20px] rounded-[5px] overflow-hidden bg-[#444] mb-[15px]">
@@ -35,13 +35,13 @@ const BarraCiclos: React.FC<BarraCiclosProps> = ({
       <div className="flex justify-around flex-wrap">
         <div className="flex items-center my-[5px] mx-[10px]">
           <span className="w-[15px] h-[15px] rounded-[3px] mr-[5px] bg-green" />
-          <p className="text-white">
+          <p className="text-texto">
             {`${t("barraCiclos.correctos")} - ${porcentajeCorrectos}% [${ciclosCorrectos} ${t("barraCiclos.ciclos")}]`}
           </p>
         </div>
         <div className="flex items-center my-[5px] mx-[10px]">
           <span className="w-[15px] h-[15px] rounded-[3px] mr-[5px] bg-red" />
-          <p className="text-white">
+          <p className="text-texto">
             {`${t("barraCiclos.incorrectos")} - ${porcentajeIncorrectos}% [${ciclosIncorrectos} ${t("barraCiclos.ciclos")}]`}
           </p>
         </div>

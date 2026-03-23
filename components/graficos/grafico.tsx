@@ -511,9 +511,9 @@ const Grafico: React.FC<{ contextType: "cocinas" | "enfriadores" }> = ({
 
   if (!equipo) {
     return (
-      <div className="bg-midGrey p-[20px] h-full w-full rounded-md flex flex-col items-center justify-center text-white gap-[20px]">
+      <div className="bg-midGrey p-[20px] h-full w-full rounded-md flex flex-col items-center justify-center text-texto gap-[20px]">
         <AiOutlineExclamationCircle className="w-auto h-1/4" />
-        <p className="text-3xl text-white jutify-center">
+        <p className="text-3xl text-texto jutify-center">
           {t("equipoNoEncontrado")}
         </p>
       </div>
@@ -529,12 +529,12 @@ const Grafico: React.FC<{ contextType: "cocinas" | "enfriadores" }> = ({
           : t("equipo.desconocido");
 
     return (
-      <div className="bg-midGrey p-[20px] h-full w-full rounded-md flex flex-col items-center justify-center text-white gap-[20px]">
+      <div className="bg-midGrey p-[20px] h-full w-full rounded-md flex flex-col items-center justify-center text-texto gap-[20px]">
         <AiOutlineExclamationCircle className="w-auto h-1/4" />
-        <p className="text-3xl text-white">
+        <p className="text-3xl text-texto">
           {nombreEquipo} - {t("inactividad.titulo")}
         </p>
-        <p className="text-xl text-white">{t("inactividad.mensaje")}</p>
+        <p className="text-xl text-texto">{t("inactividad.mensaje")}</p>
       </div>
     );
   }
@@ -547,12 +547,12 @@ const Grafico: React.FC<{ contextType: "cocinas" | "enfriadores" }> = ({
           : t("equipo.desconocido");
 
     return (
-      <div className="bg-redChill p-[20px] h-full w-full rounded-md flex flex-col items-center justify-center text-white gap-[20px]">
+      <div className="bg-redChill p-[20px] h-full w-full rounded-md flex flex-col items-center justify-center text-texto gap-[20px]">
         <AiOutlineExclamationCircle className="w-auto h-1/4" />
-        <p className="text-3xl text-white">
+        <p className="text-3xl text-texto">
           {nombreEquipo} - {t("error.titulo")}
         </p>
-        <p className="w-full text-center text-3xl text-white">
+        <p className="w-full text-center text-3xl text-texto">
           {t("error.mensaje")}
         </p>
       </div>
@@ -571,7 +571,7 @@ const Grafico: React.FC<{ contextType: "cocinas" | "enfriadores" }> = ({
         </div>
       )}
       <Button
-        className="absolute top-[20px] right-[20px] text-white bg-grey hover:text-black hover:bg-lightGrey px-[3px] rounded-md"
+        className="absolute top-[20px] right-[20px] text-texto bg-grey hover:text-black hover:bg-lightGrey px-[3px] rounded-md"
         style={{
           backgroundColor: "#333",
           border: "1px solid #CCC",

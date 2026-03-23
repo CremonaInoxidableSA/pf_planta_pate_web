@@ -92,10 +92,10 @@ const FiltroPeriodo: React.FC<FiltroPeriodoProps> = ({ onApplyFilters }) => {
 
   return (
     <div className="flex flex-col items-center justify-center h-full gap-[15px]">
-      <h2 className="flex items-center justify-center text-xl text-white font-bold">
+      <h2 className="flex items-center justify-center text-xl text-texto font-bold">
         {t("filtro.titulo")}
       </h2>
-      <h2 className="flex items-center justify-center text-l text-white mt-[-18px]">
+      <h2 className="flex items-center justify-center text-l text-texto mt-[-18px]">
         {t("filtro.subtitulo")}
       </h2>
 

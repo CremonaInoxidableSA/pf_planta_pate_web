@@ -163,35 +163,33 @@ export default function EquipoPage({ type }: EquipoPageProps) {
   };
 
   return (
-    <section className="flex flex-col gap-[20px] min-h-[90vh] pt-[40px]">
+    <div className="w-full flex flex-col gap-5 p-5">
       {/* SELECCIÓN Y ESTADO */}
-      <div className="flex w-full h-full gap-[20px]">
-        <div className="w-1/3">
-          <Selector
-            isCocina={isCocina}
-            optionClasses="p-[2px] bg-black font-bold"
-            selectClasses={`w-full h-full bg-[#1f1f1f] px-[20px] border-b-[2px] ${borderColor} focus:outline-none text-lg text-${color} hover:text-${color} transition-colors cursor-pointer`}
-            value={currentId}
-            onChange={handleSelectionChange}
-          />
-        </div>
+      <div className="w-full flex gap-5">
+        <Selector
+          isCocina={isCocina}
+          optionClasses="p-[2px] bg-background2 font-bold"
+          selectClasses={`w-1/3 h-full bg-background2 px-5 border-b-[2px] ${borderColor} focus:outline-none text-lg text-${color} hover:text-${color} transition-colors cursor-pointer`}
+          value={currentId}
+          onChange={handleSelectionChange}
+        />
         <p
-          className={`${bgColor} flex justify-start items-center h-[50px] p-[15px] w-1/3 ${borderColor} text-[calc(1vw+0.7vh)] font-semibold rounded-md text-white`}
+          className={`${bgColor} flex justify-start items-center h-12.5 p-3.75 w-1/3 ${borderColor} text-[calc(1vw+0.7vh)] font-semibold rounded-md text-texto`}
         >
           {t("titulo.receta")}: {equipo?.detalles.nom_receta ?? "N/A"}
         </p>
         <p
-          className={`bg-black flex justify-start items-center h-[50px] p-[15px] w-1/3 ${borderColor} text-[calc(1vw+0.7vh)] font-semibold rounded-md text-white`}
+          className={`bg-background2 flex justify-start items-center h-12.5 p-3.75 w-1/3 ${borderColor} text-[calc(1vw+0.7vh)] font-semibold rounded-md text-texto`}
         >
           {t("titulo.estado")}: {equipo?.info.estado ?? "N/A"}
         </p>
       </div>
 
       {/* SECCIONES DE INFORMACIÓN */}
-      <div className="flex flex-col w-full min-h-full gap-[20px] 1365:flex-row flex-[1px]">
-        <div className="flex w-full gap-[20px] 1365:flex 1365:flex-col 1365:w-1/3">
-          <div className="flex w-2/3 gap-[20px] 1365:w-full">
-            <div className="bg-black flex flex-col p-[20px] w-full h-full rounded-md">
+      <div className="">
+        <div className="">
+          <div className="">
+            <div className="">
               <EstadoEquipo
                 datos={datosEquipo}
                 displayData={formattedDisplayData}
@@ -200,7 +198,7 @@ export default function EquipoPage({ type }: EquipoPageProps) {
                 }
               />
             </div>
-            <div className="bg-black flex flex-col p-[20px] w-full h-full rounded-md">
+            <div className="">
               <CicloActivo
                 datosCiclo={datosCiclo}
                 defaultColor={color}
@@ -208,7 +206,7 @@ export default function EquipoPage({ type }: EquipoPageProps) {
               />
             </div>
           </div>
-          <div className="bg-black flex flex-col h-full p-[20px] w-1/3 flex-grow rounded-md 1365:w-full">
+          <div className="">
             <SectorIO
               datosIO={datosIO}
               getColorClass={(label, value) =>
@@ -217,10 +215,10 @@ export default function EquipoPage({ type }: EquipoPageProps) {
             />
           </div>
         </div>
-        <div className="w-full 1365:w-2/3">
+        <div className="">
           <Grafico contextType={isCocina ? "cocinas" : "enfriadores"} />
         </div>
       </div>
-    </section>
+    </div>
   );
 }

@@ -61,7 +61,7 @@ const UserIcon = () => {
 
             {rol === "admin" || rol === "superadmin" ? (
               <Button
-                className="mt-2 w-full border border-botonblueborder bg-botonblue hover:bg-botonbluehover text-white cursor-pointer"
+                className="mt-2 w-full border border-botonblueborder bg-botonblue hover:bg-botonbluehover text-texto cursor-pointer"
                 onClick={() => {
                   router.push("/config_user");
                   setOpen(false);
@@ -75,7 +75,7 @@ const UserIcon = () => {
               <CambioPass />
             )}
             <Button
-              className="mt-2 w-full bg-redlogo hover:bg-red2 text-white cursor-pointer"
+              className="mt-2 w-full bg-redlogo hover:bg-red2 text-texto cursor-pointer"
               onClick={closeSession}
               disabled={loggingOut}
             >

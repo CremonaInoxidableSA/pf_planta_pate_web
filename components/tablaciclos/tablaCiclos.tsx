@@ -103,7 +103,7 @@ const TablaCiclos: React.FC<TablaCiclosProps> = ({
     <div className="max-h-[600px] overflow-y-auto overflow-x-hidden">
       <Table
         aria-label="Tabla de ciclos"
-        className="min-w-[600px] bg-black/50 backdrop-blur-sm text-white"
+        className="min-w-[600px] bg-black/50 backdrop-blur-sm text-texto"
       >
         <TableHeader>
           <TableRow>

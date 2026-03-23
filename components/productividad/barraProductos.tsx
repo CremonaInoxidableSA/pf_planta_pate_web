@@ -49,7 +49,7 @@ const BarraProductos: React.FC<ProductBarProps> = ({ data }) => {
 
   return (
     <div>
-      <h3 className="text-xl font-bold text-white">
+      <h3 className="text-xl font-bold text-texto">
         % {t("barraProductos.texto")}
       </h3>
       <div className="flex h-[20px] rounded-[5px] overflow-hidden bg-[#444] mb-[15px]">
@@ -63,7 +63,7 @@ const BarraProductos: React.FC<ProductBarProps> = ({ data }) => {
             }}
           >
             {/* Tooltip siempre visible */}
-            <span className="absolute product-tooltip bg-[rgba(0,0,0,0.7)] text-white px-[10px] py-[5px] rounded-[5px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap z-10 pointer-events-none">
+            <span className="absolute product-tooltip bg-[rgba(0,0,0,0.7)] text-texto px-[10px] py-[5px] rounded-[5px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap z-10 pointer-events-none">
               {`Ciclos: ${producto.cantidadCiclos}`}
             </span>
           </div>
@@ -76,7 +76,7 @@ const BarraProductos: React.FC<ProductBarProps> = ({ data }) => {
               className="w-[15px] h-[15px] rounded-[3px] mr-[5px]"
               style={{ backgroundColor: producto.color }}
             />
-            <p className="text-white">{`${producto.nombre} - ${producto.porcentaje}% (${producto.peso})`}</p>
+            <p className="text-texto">{`${producto.nombre} - ${producto.porcentaje}% (${producto.peso})`}</p>
           </div>
         ))}
       </div>

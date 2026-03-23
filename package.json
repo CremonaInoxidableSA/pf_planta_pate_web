@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --hostname 192.168.20.150",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
@@ -25,10 +25,9 @@
     "chartjs-plugin-zoom": "^2.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "country-flag-icons": "^1.6.4",
+    "country-flag-icons": "^1.6.15",
     "date-fns": "^4.1.0",
-    "hls.js": "^1.6.15",
-    "i18next": "^25.7.3",
+    "i18next": "^25.10.5",
     "js-cookie": "^3.0.5",
     "jspdf": "^4.2.1",
     "jspdf-autotable": "^5.0.7",
