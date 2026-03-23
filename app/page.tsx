@@ -5,7 +5,7 @@ import { Alarmas } from "@/components/home/alarmas";
 
 export default function Home() {
   return (
-    <section className="p-5 flex flex-row w-full gap-5 items-center bg-background1 rounded-md">
+    <section className="p-5 flex flex-row w-full gap-5 items-center bg-background2 rounded-md">
       <div className="w-1/6 h-full flex items-center justify-center">
         <Alarmas />
       </div>

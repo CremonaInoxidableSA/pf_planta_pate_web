@@ -163,60 +163,52 @@ export default function EquipoPage({ type }: EquipoPageProps) {
   };
 
   return (
-    <div className="w-full flex flex-col gap-5 p-5">
+    <div className="w-full flex flex-col gap-5">
       {/* SELECCIÓN Y ESTADO */}
-      <div className="w-full flex gap-5">
+      <div className="w-full grid grid-cols-3 gap-5">
         <Selector
           isCocina={isCocina}
-          optionClasses="p-[2px] bg-background2 font-bold"
-          selectClasses={`w-1/3 h-full bg-background2 px-5 border-b-[2px] ${borderColor} focus:outline-none text-lg text-${color} hover:text-${color} transition-colors cursor-pointer`}
+          optionClasses="p-0.5 bg-background2 font-bold"
+          selectClasses={`w-full h-full bg-background2 px-5 border-b-[2px] ${borderColor} focus:outline-none text-lg text-${color} hover:text-${color} transition-colors cursor-pointer`}
           value={currentId}
           onChange={handleSelectionChange}
         />
         <p
-          className={`${bgColor} flex justify-start items-center h-12.5 p-3.75 w-1/3 ${borderColor} text-[calc(1vw+0.7vh)] font-semibold rounded-md text-texto`}
+          className={`${bgColor} flex justify-start items-center h-12.5 p-3.75 ${borderColor} text-2xl font-semibold rounded-md text-texto`}
         >
           {t("titulo.receta")}: {equipo?.detalles.nom_receta ?? "N/A"}
         </p>
         <p
-          className={`bg-background2 flex justify-start items-center h-12.5 p-3.75 w-1/3 ${borderColor} text-[calc(1vw+0.7vh)] font-semibold rounded-md text-texto`}
+          className={`bg-background2 flex justify-start items-center h-12.5 p-3.75 ${borderColor} text-2xl font-semibold rounded-md text-texto`}
         >
           {t("titulo.estado")}: {equipo?.info.estado ?? "N/A"}
         </p>
       </div>
 
       {/* SECCIONES DE INFORMACIÓN */}
-      <div className="">
-        <div className="">
-          <div className="">
-            <div className="">
-              <EstadoEquipo
-                datos={datosEquipo}
-                displayData={formattedDisplayData}
-                getColorClass={(label, value) =>
-                  getColorClass(labelToKeyMap[label] || "", value, color)
-                }
-              />
-            </div>
-            <div className="">
-              <CicloActivo
-                datosCiclo={datosCiclo}
-                defaultColor={color}
-                displayData={displayData}
-              />
-            </div>
-          </div>
-          <div className="">
-            <SectorIO
-              datosIO={datosIO}
+      <div className="grid grid-cols-3 w-full gap-5">
+        <div className="flex flex-col gap-5 col-span-1">
+          <div className="flex flex-row gap-5">
+            <EstadoEquipo
+              datos={datosEquipo}
+              displayData={formattedDisplayData}
               getColorClass={(label, value) =>
-                getColorClass(label, value, color)
+                getColorClass(labelToKeyMap[label] || "", value, color)
               }
             />
+            <CicloActivo
+              datosCiclo={datosCiclo}
+              defaultColor={color}
+              displayData={displayData}
+            />
           </div>
+          <SectorIO
+            datosIO={datosIO}
+            getColorClass={(label, value) => getColorClass(label, value, color)}
+          />
         </div>
-        <div className="">
-          <Grafico contextType={isCocina ? "cocinas" : "enfriadores"} />
+        <div className="flex col-span-2 bg-background2 rounded-md p-5">
+          <Grafico />
         </div>
       </div>
     </div>

@@ -19,24 +19,24 @@ const CicloActivo: React.FC<CicloActivoProps> = ({
   const { t } = useTranslation();
 
   return (
-    <>
-      <h2 className="text-xl text-texto">{t("cicloActivo.titulo")}</h2>
-      <ul className="flex flex-col justify-between grow gap-[1vh]">
+    <div className="flex flex-col bg-background2 p-5 rounded-md gap-2.5 w-1/2">
+      <h2 className="text-lg text-texto">{t("cicloActivo.titulo")}</h2>
+      <ul className="flex flex-col justify-between grow gap-2.5">
         {datosCiclo.map((dato) => (
           <li
             key={dato.label}
-            className="bg-background3 flex flex-col px-5 py-[1vh] rounded-md"
+            className="bg-background3 flex flex-col px-5 py-2.5 rounded-md"
           >
-            <p className="text-[calc(0.6vw+1vh)] text-texto">{dato.label}</p>
+            <p className="text-lg text-texto">{dato.label}</p>
             <p
-              className={`text-[calc(0.5vw+1vh)] ${getColorClass(dato.label, dato.value, defaultColor)}`}
+              className={`text-lg ${getColorClass(dato.label, dato.value, defaultColor)}`}
             >
               {displayData(dato.value)}
             </p>
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 };
 

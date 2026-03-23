@@ -17,11 +17,11 @@ const SectorIO: React.FC<SectorIOProps> = ({ datosIO, getColorClass }) => {
   const { t } = useTranslation();
 
   return (
-    <>
-      <h2 className="text-xl text-texto flex text-center">
+    <div className="flex flex-col bg-background2 p-5 rounded-md gap-2.5">
+      <h2 className="text-lg text-texto flex text-center">
         {t("sectorIO.titulo")}
       </h2>
-      <ul className="grid gap-[1vh] h-full 1365:grid-cols-2">
+      <ul className="grid gap-2.5 h-full grid-cols-2">
         {datosIO.map((dato, index) => {
           const isLastAndOdd = isOddCount && index === datosIO.length - 1;
 
@@ -29,22 +29,22 @@ const SectorIO: React.FC<SectorIOProps> = ({ datosIO, getColorClass }) => {
             <li
               key={dato.label}
               className={`bg-background3 flex justify-between px-5 py-0 rounded-md items-center ${
-                isLastAndOdd ? "1365:col-span-2" : ""
+                isLastAndOdd ? "col-span-2" : ""
               }`}
             >
-              <p className="text-[calc(0.4vw+1vh)] text-texto">{dato.label}</p>
+              <p className="text-2.5 text-texto">{dato.label}</p>
               <p
-                className={`text-[calc(0.4vw+1vh)] ${getColorClass(dato.label, dato.value)}`}
+                className={`text-2.5 ${getColorClass(dato.label, dato.value)}`}
               >
                 <GoDotFill
-                  className={`${dato.value ? "text-green" : "text-lightGrey"} text-[3rem]`}
+                  className={`${dato.value ? "text-green" : "text-lightGrey"} text-4xl`}
                 />
               </p>
             </li>
           );
         })}
       </ul>
-    </>
+    </div>
   );
 };
 
