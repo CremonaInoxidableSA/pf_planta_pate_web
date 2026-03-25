@@ -38,9 +38,7 @@ const EstadoEquipo: React.FC<EstadoEquipoProps> = ({
             key={`${dato.label}-${index}`}
             className="bg-background3 flex flex-col px-5 py-2.5 rounded-md"
           >
-            <span className="text-xl text-texto">
-              {dato.label}:
-            </span>
+            <span className="text-xl text-texto">{dato.label}:</span>
             <span
               className={`text-xl ${getColorClass(dato.label, dato.value)}`}
             >

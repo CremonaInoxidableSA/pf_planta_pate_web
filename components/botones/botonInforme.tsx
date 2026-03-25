@@ -243,7 +243,7 @@ export default function BotonInforme({
           const x = margin + col * cellWidth;
 
           pdf.setFillColor(220, 220, 220);
-          pdf.setTextColor(0, 0, 0); 
+          pdf.setTextColor(0, 0, 0);
           pdf.rect(x, tableStartY, cellWidth, cellHeight, "FD");
           pdf.text(
             String(jsonData[0][col] || ""),

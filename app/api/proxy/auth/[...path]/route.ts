@@ -47,8 +47,7 @@ async function proxyRequest(
     if (withBody) {
       try {
         body = JSON.stringify(await request.json());
-      } catch {
-      }
+      } catch {}
     }
 
     const response = await fetch(fullUrl, {

@@ -17,7 +17,6 @@ export const WebSocketProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-
   const value = {
     data: { "datos-cocinas": [], "datos-enfriadores": [] },
     isConnected: false,
