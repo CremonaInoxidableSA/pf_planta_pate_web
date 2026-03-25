@@ -8,11 +8,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 interface SelectorProps {
   value: number;
   onChange: (value: number) => void;
   selectClasses?: string;
+  optionClasses?: string;
 }
 
 export const EQUIPOS_HISTORICO = [
@@ -36,6 +38,7 @@ const Selector: React.FC<SelectorProps> = ({
   value = 1,
   onChange,
   selectClasses,
+  optionClasses,
 }) => {
   const [, setInternalValue] = React.useState<number>(value);
 
@@ -59,16 +62,22 @@ const Selector: React.FC<SelectorProps> = ({
   return (
     <Select value={value.toString()} onValueChange={handleChange}>
       <SelectTrigger
-        className={`min-w-[150px] bg-[#27272a] text-texto h-[50px] rounded-lg ${selectClasses}`}
+        className={cn(
+          "border-0 shadow-none focus-visible:ring-0 focus-visible:border-0 h-full! text-texto",
+          selectClasses,
+        )}
       >
         <SelectValue placeholder="Seleccionar" />
       </SelectTrigger>
-      <SelectContent className="bg-black text-texto rounded-lg">
+      <SelectContent
+        position="popper"
+        className="bg-background2 border-border text-texto w-(--radix-select-trigger-width)"
+      >
         {itemsList.map((item) => (
           <SelectItem
             key={item.id.toString()}
             value={item.id.toString()}
-            className="text-texto hover:bg-gray-800 rounded-lg mx-1 px-2"
+            className={cn("cursor-pointer w-full text-texto", optionClasses)}
           >
             {item.name}
           </SelectItem>

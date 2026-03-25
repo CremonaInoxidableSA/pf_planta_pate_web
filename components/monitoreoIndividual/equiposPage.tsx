@@ -5,11 +5,11 @@ import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 
-import Selector from "./selectores/selectorEquipos";
-import Grafico from "./cocinas&enfriadores/grafico";
-import CicloActivo from "./monitoreoIndividual/cicloActivo";
-import EstadoEquipo from "./monitoreoIndividual/estadoEquipo";
-import SectorIO from "./monitoreoIndividual/sectorIO";
+import Selector from "./selectorEquipos";
+import Grafico from "../cocinas&enfriadores/grafico";
+import CicloActivo from "./cicloActivo";
+import EstadoEquipo from "./estadoEquipo";
+import SectorIO from "./sectorIO";
 
 import { getColorClass } from "@/utils/logicaColores";
 import { displayData } from "@/utils/displayData";

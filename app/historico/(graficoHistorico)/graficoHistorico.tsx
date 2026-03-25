@@ -1,6 +1,7 @@
 "use client";
 
 import "chartjs-adapter-date-fns";
+import { format } from "date-fns";
 import {
   Chart,
   LineController,
@@ -133,9 +134,13 @@ const GraficoHistorico = ({ filter, selectedCiclo }: GraficoHistoricoProps) => {
 
   return (
     <div className="bg-background2 rounded-md p-6 w-full">
-      <h3 className="text-lg font-semibold mb-4 text-texto">
+      <h3 className="text-lg font-semibold text-texto">
         Ciclo {selectedCiclo.id_ciclo} — Lote {selectedCiclo.lote}
       </h3>
+      <p className="text-sm text-orange mb-4">
+        {format(new Date(selectedCiclo.fecha_inicio), "dd/MM/yyyy HH:mm")} —{" "}
+        {format(new Date(selectedCiclo.fecha_fin), "HH:mm")}
+      </p>
       <div className="relative h-80">
         <canvas ref={canvasRef} />
       </div>

@@ -82,51 +82,49 @@ const TablaCiclos: React.FC<TablaCiclosProps> = ({
   }, [fechaInicio, fechaFin, equipoId, memoizedOnTableClose]);
 
   return (
-    <div className="max-h-150 overflow-y-auto overflow-x-hidden">
-      <Table
-        aria-label="Tabla de ciclos"
-        className="min-w-150 bg-black/50 backdrop-blur-sm text-texto"
-      >
-        <TableHeader>
-          <TableRow>
-            <TableHead>ID</TableHead>
-            <TableHead>Lote</TableHead>
-            <TableHead>Inicio</TableHead>
-            <TableHead>Fin</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {ciclos.map((ciclo) => {
-            const isSelected = selectedKeys.has(ciclo.id_ciclo.toString());
+    <Table
+      aria-label="Tabla de ciclos"
+      className="min-w-150 backdrop-blur-sm text-texto"
+    >
+      <TableHeader>
+        <TableRow>
+          <TableHead>ID</TableHead>
+          <TableHead>Lote</TableHead>
+          <TableHead>Inicio</TableHead>
+          <TableHead>Fin</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {ciclos.map((ciclo) => {
+          const isSelected = selectedKeys.has(ciclo.id_ciclo.toString());
 
-            return (
-              <TableRow
-                key={ciclo.id_ciclo}
-                className={`text-sm cursor-pointer ${isSelected ? "bg-gray-600/70" : "hover:bg-gray-700/50"}`}
-                onClick={() => {
-                  const id = ciclo.id_ciclo.toString();
-                  const newKeys = new Set([id]);
+          return (
+            <TableRow
+              key={ciclo.id_ciclo}
+              className={`text-sm cursor-pointer ${isSelected ? "bg-gray-600/70" : "hover:bg-gray-700/50"}`}
+              onClick={() => {
+                const id = ciclo.id_ciclo.toString();
+                const newKeys = new Set([id]);
 
-                  setSelectedKeys(newKeys);
-                  if (onCicloSelect) {
-                    onCicloSelect(ciclo);
-                  }
-                }}
-              >
-                <TableCell>{ciclo.id_ciclo}</TableCell>
-                <TableCell>{ciclo.lote}</TableCell>
-                <TableCell>
-                  {new Date(ciclo.fecha_inicio).toLocaleDateString("es-ES")}
-                </TableCell>
-                <TableCell>
-                  {new Date(ciclo.fecha_fin).toLocaleDateString("es-ES")}
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </div>
+                setSelectedKeys(newKeys);
+                if (onCicloSelect) {
+                  onCicloSelect(ciclo);
+                }
+              }}
+            >
+              <TableCell>{ciclo.id_ciclo}</TableCell>
+              <TableCell>{ciclo.lote}</TableCell>
+              <TableCell>
+                {new Date(ciclo.fecha_inicio).toLocaleDateString("es-ES")}
+              </TableCell>
+              <TableCell>
+                {new Date(ciclo.fecha_fin).toLocaleDateString("es-ES")}
+              </TableCell>
+            </TableRow>
+          );
+        })}
+      </TableBody>
+    </Table>
   );
 };
 

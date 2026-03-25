@@ -67,18 +67,29 @@ export default function Historico() {
         </div>
 
         <h2 className="w-[30%] flex justify-center items-center text-texto text-xl">
-          {t("filtroPeriodo.titulo")}
+          {t("mayus.filtroPeriodo")}
         </h2>
 
-        <div className="flex flex-row gap-5 w-[35%] justify-end">
-          <SelectorHistorico value={equipoId} onChange={setEquipoId} />
+        <div className="flex flex-row items-stretch gap-5 w-[35%] justify-end h-full">
+          <SelectorHistorico
+            optionClasses="p-0.5 bg-background3 font-bold"
+            selectClasses="w-full bg-background3 px-5 border-b-[2px] focus:outline-none text-lg text-texto transition-colors cursor-pointer"
+            value={equipoId}
+            onChange={setEquipoId}
+          />
           <DateRangePicker value={dateRange} onChange={setDateRange} />
-          <BotonAplicar onClick={handleApply} />
+          <BotonAplicar
+            selectClasses="bg-background3 cursor-pointer"
+            onClick={handleApply}
+          />
         </div>
       </div>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="max-w-2xl" aria-describedby={undefined}>
+        <DialogContent
+          aria-describedby={undefined}
+          className="w-fit sm:max-w-fit max-w-[calc(100%-2rem)] max-h-[90vh] overflow-y-auto"
+        >
           <DialogHeader>
             <DialogTitle className="text-texto">Seleccionar Ciclo</DialogTitle>
           </DialogHeader>

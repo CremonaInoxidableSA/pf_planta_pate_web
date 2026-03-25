@@ -12,7 +12,7 @@ export default function BotonAplicar({
 }: BotonAplicarProps) {
   return (
     <Button
-      className={`${selectClasses} min-w-[50px] min-h-[50px]`}
+      className={`${selectClasses} min-w-12.5 min-h-12.5`}
       variant="ghost"
       onClick={onClick}
     >

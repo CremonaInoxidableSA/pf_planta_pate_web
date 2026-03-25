@@ -64,7 +64,7 @@ const Selector: React.FC<SelectorProps> = ({
       {equipoList.map((equipo) => (
         <option
           key={equipo.id}
-          className="p-[2px] text-texto hover:text-texto bg-black font-bold"
+          className="p-0.5 text-texto hover:text-texto bg-black font-bold"
           value={equipo.id}
         >
           {equipo.name}

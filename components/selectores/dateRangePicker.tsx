@@ -36,7 +36,7 @@ export default function DateRangePicker({
         <Button
           variant="ghost"
           className={cn(
-            "min-w-57.5 min-h-12.5 bg-[#27272a] text-texto justify-start gap-2 rounded-lg hover:bg-[#3f3f46] hover:text-texto",
+            "min-w-57.5 min-h-12.5 bg-background3 text-texto justify-start gap-2 rounded-lg hover:bg-background4 hover:text-texto",
             !value && "text-muted-foreground",
             className,
           )}
@@ -57,7 +57,7 @@ export default function DateRangePicker({
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className="w-auto p-0 bg-[#27272a] border-[#3f3f46]"
+        className="w-auto p-0 bg-background3 border-border"
         align="end"
       >
         <Calendar
