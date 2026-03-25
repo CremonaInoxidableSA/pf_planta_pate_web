@@ -89,7 +89,7 @@ const CambioPass = () => {
           position: "top-center",
         });
       }
-    } catch (error) {
+    } catch {
       toast.error(t("min.errorConexion"), {
         position: "top-center",
       });

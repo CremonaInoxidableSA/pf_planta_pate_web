@@ -2,7 +2,6 @@ import { ThemeSwitcher } from "@/components/theme/themeSwitcher";
 
 import { useTranslation } from "react-i18next";
 import { VscBell } from "react-icons/vsc";
-import { GoGear } from "react-icons/go";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -54,11 +53,10 @@ export const HeaderPrincipal: React.FC<Header> = ({ currentPath }) => {
     { id: 4, icon: <ThemeSwitcher /> },
   ];
 
-  const opcionesMenu: OpcionMenu[] = 
-  [
+  const opcionesMenu: OpcionMenu[] = [
     { id: 1, url: "/", text: t("min.home") },
-    { id: 2, url:"/historico", text: t("min.historico") },
-    { id: 3, url:"/monitoreo", text: t("min.monitoreo") }
+    { id: 2, url: "/historico", text: t("min.historico") },
+    { id: 3, url: "/monitoreo", text: t("min.monitoreo") },
   ];
 
   return (

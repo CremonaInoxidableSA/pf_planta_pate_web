@@ -25,7 +25,7 @@ interface CocinaDetalles {
   cant_torres: number;
   tipo_fin: string;
   sector_io: SectorIO[];
-  historial: any[];
+  historial: unknown[];
 }
 
 interface SectorIO {
@@ -57,7 +57,9 @@ export const CocinaProvider = ({ children }: { children: React.ReactNode }) => {
   const { data, isConnected, error } = useWebSocketContext();
 
   const cocinas =
-    data?.["datos-cocinas"]?.map((item: any[]) => ({
+    (
+      data?.["datos-cocinas"] as [CocinaInfo, CocinaDetalles][] | undefined
+    )?.map((item) => ({
       info: item[0],
       detalles: item[1],
     })) || [];

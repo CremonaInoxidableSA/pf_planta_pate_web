@@ -34,7 +34,7 @@ const UserIcon = () => {
       setLoggingOut(true);
       await logout();
       setOpen(false);
-    } catch (error) {
+    } catch {
     } finally {
       setLoggingOut(false);
     }

@@ -1,6 +1,5 @@
 "use client";
 
-// Componentes
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
@@ -12,10 +11,9 @@ import CicloActivo from "./monitoreoIndividual/cicloActivo";
 import EstadoEquipo from "./monitoreoIndividual/estadoEquipo";
 import SectorIO from "./monitoreoIndividual/sectorIO";
 
-// Funciones
 import { getColorClass } from "@/utils/logicaColores";
 import { displayData } from "@/utils/displayData";
-// Contextos y navegación
+
 import { useCocinaContext } from "@/context/CocinaContext";
 import { useEnfriadorContext } from "@/context/EnfriadorContext";
 import { SectorIOType } from "@/types/sectorIO";
@@ -31,31 +29,26 @@ export default function EquipoPage({ type }: EquipoPageProps) {
   const { enfriadores } = useEnfriadorContext();
   const router = useRouter();
 
-  // Obtener ID del equipo seleccionado
   const currentId =
-    Number(searchParams.get("id")) || (type === "cocina" ? 1 : 7); // Valores por defecto
+    Number(searchParams.get("id")) || (type === "cocina" ? 1 : 7);
 
-  // Obtener datos del equipo según el tipo
   const equipo =
     type === "cocina"
       ? cocinas.find((c) => c.info.id === currentId)
       : enfriadores.find((e) => e.info.id === currentId);
 
-  // Variables derivadas
   const isCocina = type === "cocina";
   const color = isCocina ? "orange" : "blue";
   const borderColor = isCocina ? "border-orange" : "border-blue";
   const bgColor = isCocina ? "bg-oranget" : "bg-bluet";
 
   const labelToKeyMap: Record<string, string> = {
-    //    [t('estadoEquipo.tempIngreso')]: 'tempIngreso',
     [t("estadoEquipo.tempAgua")]: "tempAgua",
     [t("estadoEquipo.tempProd")]: "tempProd",
     [t("estadoEquipo.nivelAgua")]: "nivelAgua",
   };
 
   const datosEquipo = [
-    //    { label: t('estadoEquipo.tempIngreso'), value: equipo?.info.temp_ingreso ?? "N/A", unit: "°C" },
     {
       label: t("estadoEquipo.tempAgua"),
       value: equipo?.info.temp_agua ?? "N/A",
@@ -97,14 +90,12 @@ export default function EquipoPage({ type }: EquipoPageProps) {
   ];
 
   const datosIO = useMemo(() => {
-    // Definimos los sensores base que siempre deben mostrarse
     const defaultBaseIO = [
       { label: t("sectorIO.bomba"), value: false },
       { label: t("sectorIO.entradaAgua"), value: false },
       { label: t("sectorIO.filtroSuccion"), value: false },
     ];
 
-    // Si no hay datos, retornamos los sensores por defecto según el tipo
     if (!equipo?.detalles.sector_io[0]) {
       if (isCocina) {
         return [
@@ -121,7 +112,6 @@ export default function EquipoPage({ type }: EquipoPageProps) {
       }
     }
 
-    // Si hay datos, seguimos con la lógica normal
     const sectorIO = equipo.detalles.sector_io[0] as SectorIOType;
     const baseIO = [
       { label: t("sectorIO.bomba"), value: sectorIO.bomba_recirculacion },

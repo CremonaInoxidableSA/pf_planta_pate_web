@@ -38,7 +38,7 @@ const Recuperacion = () => {
       } else {
         toast.error(data.error || data.message || t("min.errorEnvioCorreo"));
       }
-    } catch (err) {
+    } catch {
       toast.error("Error de conexión con el servidor");
     } finally {
       setLoading(false);

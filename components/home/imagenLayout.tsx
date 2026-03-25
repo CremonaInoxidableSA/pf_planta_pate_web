@@ -86,7 +86,7 @@ export function ImagenLayout() {
 
   const sections: Section[] = useMemo(() => {
     const generateSections = (
-      config: any[],
+      config: { id: number; key: string; position: string; line: number }[],
       path: string,
       type: "cocinas" | "enfriadores",
     ) => {
@@ -166,7 +166,9 @@ export function ImagenLayout() {
   return (
     <div className="w-full h-full relative flex flex-col">
       <div className="flex flex-col justify-center items-center">
-        <h1 className="text-4xl text-texto font-semibold">{t("cocinasEnfriadores")}</h1>
+        <h1 className="text-4xl text-texto font-semibold">
+          {t("cocinasEnfriadores")}
+        </h1>
         <p className="text-xl text-texto">{t("paneoGeneral")}</p>
       </div>
 

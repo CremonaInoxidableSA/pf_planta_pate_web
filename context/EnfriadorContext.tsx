@@ -25,7 +25,7 @@ interface EnfriadorDetalles {
   cant_torres: number;
   tipo_fin: string;
   sector_io: SectorIO[];
-  historial: any[];
+  historial: unknown[];
 }
 
 interface SectorIO {
@@ -63,7 +63,11 @@ export const EnfriadorProvider = ({
   const { data, isConnected, error } = useWebSocketContext();
 
   const enfriadores =
-    data?.["datos-enfriadores"]?.map((item: any[]) => ({
+    (
+      data?.["datos-enfriadores"] as
+        | [EnfriadorInfo, EnfriadorDetalles][]
+        | undefined
+    )?.map((item) => ({
       info: item[0],
       detalles: item[1],
     })) || [];

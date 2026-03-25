@@ -47,7 +47,6 @@ async function proxyRequest(
       try {
         body = JSON.stringify(await request.json());
       } catch {
-        // body vacío o no-JSON — se envía sin body
       }
     }
 

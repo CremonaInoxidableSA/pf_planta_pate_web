@@ -16,7 +16,7 @@ interface HistorialItem {
   id_historial: number;
   tiempo: string;
   temp_agua: number;
-  temp_prod?: number; // Asegurarnos que existe esta propiedad
+  temp_prod?: number;
   temp_ingreso?: number;
   niv_agua: number;
   estado: string;
@@ -47,7 +47,7 @@ export const transformData = (
     };
   }
 
-  const [_info, detalles] = equipo;
+  const [, detalles] = equipo;
   const historial = detalles.historial || [];
 
   const getTimestamp = (dateStr: string) => {
@@ -65,12 +65,10 @@ export const transformData = (
     (a, b) => getTimestamp(a.tiempo) - getTimestamp(b.tiempo),
   );
 
-  // Crear arrays para los datos con formato x,y
   const tempAguaData: { x: number; y: number }[] = [];
   const tempProdData: { x: number; y: number }[] = [];
   const nivAguaData: { x: number; y: number }[] = [];
 
-  // Procesar datos del historial
   historialOrdenado.forEach((item) => {
     const tiempoRelativo = getTimestamp(item.tiempo) - tiempoInicial;
 
@@ -78,7 +76,6 @@ export const transformData = (
       tempAguaData.push({ x: tiempoRelativo, y: item.temp_agua });
     }
 
-    // Procesar temp_prod de manera independiente
     if (typeof item.temp_prod === "number" && !isNaN(item.temp_prod)) {
       tempProdData.push({ x: tiempoRelativo, y: item.temp_prod });
     }

@@ -13,9 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import DateRangePicker from "@/components/selectores/dateRangePicker";
 import BotonAplicar from "@/components/botones/botonAplicar";
-import SelectorHistorico, {
-  EQUIPOS_HISTORICO,
-} from "@/app/historico/(comps)/selectorHistorico";
+import SelectorHistorico from "@/app/historico/(comps)/selectorHistorico";
 import TablaCiclos from "./(tablaCiclos)/tablaCiclos";
 import GraficoHistorico from "./(graficoHistorico)/graficoHistorico";
 
@@ -36,7 +34,7 @@ export default function Historico() {
   const { t } = useTranslation();
 
   const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
-  const [equipoId, setEquipoId] = useState<number>(1);
+  const [equipoId, setEquipoId] = useState<number>(101);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [appliedFilter, setAppliedFilter] = useState<HistoricoFilter | null>(
     null,
@@ -53,10 +51,6 @@ export default function Historico() {
     setSelectedCiclo(ciclo);
     setDialogOpen(false);
   };
-
-  const equipoShortName =
-    EQUIPOS_HISTORICO.find((e) => e.id === (appliedFilter?.equipoId ?? 1))
-      ?.shortName ?? "C1";
 
   const fechaInicio = appliedFilter?.dateRange?.from
     ? format(appliedFilter.dateRange.from, "yyyy-MM-dd")
@@ -92,7 +86,7 @@ export default function Historico() {
             <TablaCiclos
               fechaInicio={fechaInicio}
               fechaFin={fechaFin}
-              equipo={equipoShortName}
+              equipoId={appliedFilter.equipoId}
               selectedCicloId={selectedCiclo?.id_ciclo ?? null}
               onCicloSelect={handleCicloSelect}
               onTableClose={() => setDialogOpen(false)}

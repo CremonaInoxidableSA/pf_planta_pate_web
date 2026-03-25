@@ -1,16 +1,15 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 interface ProductoRealizado {
   NombreProducto: string;
-  pesoTotal: number; // en kg
+  pesoTotal: number;
   cantidadCiclos: number;
   tiempoTotal: number;
 }
 
 interface FixedData {
   ProductosRealizados: ProductoRealizado[];
-  produccionTotal: number; // en toneladas
 }
 
 interface ProductBarProps {
@@ -18,34 +17,36 @@ interface ProductBarProps {
 }
 
 const BarraProductos: React.FC<ProductBarProps> = ({ data }) => {
-  // Convertir produccionTotal de toneladas a kilogramos
   const produccionTotalEnKg = data.produccionTotal * 1000;
 
   const { t } = useTranslation();
 
-  const generarColorAleatorio = (): string => {
-    const letras = "23456789ABCDE";
-    let color = "#";
+  const productos = useMemo(() => {
+    const generarColorPorIndice = (index: number): string => {
+      const letras = "23456789ABCDE";
+      let color = "#";
+      let seed = index;
 
-    for (let i = 0; i < 6; i++) {
-      color += letras[Math.floor(Math.random() * 13)];
-    }
+      for (let i = 0; i < 6; i++) {
+        seed = (seed * 9301 + 49297) % 233280;
+        color += letras[Math.floor((seed / 233280) * 13)];
+      }
 
-    return color;
-  };
-
-  const productos = data.ProductosRealizados.map((producto) => {
-    // Calcular el porcentaje usando la producción total en kg
-    const porcentaje = (producto.pesoTotal * 100) / produccionTotalEnKg;
-
-    return {
-      nombre: producto.NombreProducto,
-      peso: producto.pesoTotal + "kg",
-      cantidadCiclos: producto.cantidadCiclos,
-      porcentaje: porcentaje.toFixed(1),
-      color: generarColorAleatorio(),
+      return color;
     };
-  });
+
+    return data.ProductosRealizados.map((producto, index) => {
+      const porcentaje = (producto.pesoTotal * 100) / produccionTotalEnKg;
+
+      return {
+        nombre: producto.NombreProducto,
+        peso: producto.pesoTotal + "kg",
+        cantidadCiclos: producto.cantidadCiclos,
+        porcentaje: porcentaje.toFixed(1),
+        color: generarColorPorIndice(index),
+      };
+    });
+  }, [data.ProductosRealizados, produccionTotalEnKg]);
 
   return (
     <div>

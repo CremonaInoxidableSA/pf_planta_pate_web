@@ -7,13 +7,13 @@ interface BotonAplicarProps {
   endDate: string | null;
   lineaId: number;
   equipoId: number;
-  dato_enviado?: number; // Add this missing prop
+  dato_enviado?: number;
   onApplyFilters: (data: {
     startDate: string | null;
     endDate: string | null;
     lineaId: number;
     equipoId: number;
-    dato_enviado?: number; // Add this to match the implementation
+    dato_enviado?: number;
   }) => void;
 }
 

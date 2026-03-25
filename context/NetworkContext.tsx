@@ -64,7 +64,6 @@ export const NetworkProvider = ({ children }: NetworkProviderProps) => {
             setTargetAddress(frontIP);
           }
         } else {
-          // Para desarrollo local (localhost)
           base = "http://localhost:3000";
           login = "http://localhost:3000";
           redirect = "http://localhost:3000";
@@ -76,7 +75,6 @@ export const NetworkProvider = ({ children }: NetworkProviderProps) => {
         setLoginURL(login);
         setRedirectURL(redirect);
 
-        // Guardar en sessionStorage
         if (base && login && redirect) {
           sessionStorage.setItem("baseURL", base);
           sessionStorage.setItem("loginURL", login);
@@ -88,7 +86,6 @@ export const NetworkProvider = ({ children }: NetworkProviderProps) => {
       }
     };
 
-    // Intentar cargar desde sessionStorage primero
     if (typeof window !== "undefined") {
       const storedBase = sessionStorage.getItem("baseURL");
       const storedLogin = sessionStorage.getItem("loginURL");
@@ -97,12 +94,15 @@ export const NetworkProvider = ({ children }: NetworkProviderProps) => {
       const storedTargetAddress = sessionStorage.getItem("targetAddress");
 
       if (storedBase && storedLogin && storedRedirect) {
-        setBaseURL(storedBase); // eslint-disable-line react-hooks/set-state-in-effect
-        setLoginURL(storedLogin);
-        setRedirectURL(storedRedirect);
-        setClientIP(storedClientIP);
-        setTargetAddress(storedTargetAddress);
-        setIsLoading(false);
+        const timer = setTimeout(() => {
+          setBaseURL(storedBase);
+          setLoginURL(storedLogin);
+          setRedirectURL(storedRedirect);
+          setClientIP(storedClientIP);
+          setTargetAddress(storedTargetAddress);
+          setIsLoading(false);
+        }, 0);
+        return () => clearTimeout(timer);
       } else {
         determineNetworkConfig();
       }

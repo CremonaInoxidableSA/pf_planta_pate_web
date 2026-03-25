@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import Selector from "../../../components/selectores/selectorLineasProductividad";
 import SelectorEquipos from "../../../components/selectores/selectorEquipo";
 import ButtonAplicar from "../../../components/botones/botonAplicarProductividad";
-import BotonInformeProductividad from "../../../components/botones/botonInformeProductividad"; // Importar el nuevo botón
+import BotonInformeProductividad from "../../../components/botones/botonInformeProductividad";
 
 import DatePicker from "@/ui/datePickerProductividad";
 
@@ -22,7 +22,6 @@ interface FiltroPeriodoProps {
 }
 
 const FiltroPeriodo: React.FC<FiltroPeriodoProps> = ({ onApplyFilters }) => {
-  // Inicializar con fechas por defecto
   const today = new Date().toISOString().split("T")[0];
   const lastWeek = new Date();
 
@@ -33,32 +32,24 @@ const FiltroPeriodo: React.FC<FiltroPeriodoProps> = ({ onApplyFilters }) => {
   const [endDate, setEndDate] = useState<string | null>(today);
   const [selectedLinea, setSelectedLinea] = useState<number>(0);
   const [selectedEquipo, setSelectedEquipo] = useState<number>(30);
-  const [datoEnviado, setDatoEnviado] = useState<number>(0);
-  const { t } = useTranslation();
-
-  useEffect(() => {
-    // Calcula el datoEnviado basado en las condiciones
-    let dato = 0;
-
+  const datoEnviado = useMemo(() => {
     if (selectedLinea === 0) {
-      // Completo (todas las líneas)
-      dato = 0;
+      return 0;
     } else if (
       (selectedLinea === 15 || selectedLinea === 16) &&
       selectedEquipo === 30
     ) {
-      // Línea específica, todos los equipos
-      dato = selectedLinea;
+      return selectedLinea;
     } else if (
       (selectedLinea === 15 || selectedLinea === 16) &&
       selectedEquipo >= 1 &&
       selectedEquipo <= 14
     ) {
-      // Línea específica, equipo específico
-      dato = selectedEquipo;
+      return selectedEquipo;
     }
-    setDatoEnviado(dato);
+    return 0;
   }, [selectedLinea, selectedEquipo]);
+  const { t } = useTranslation();
 
   const handleDateChange = (start: string | null, end: string | null) => {
     setStartDate(start);
@@ -68,8 +59,7 @@ const FiltroPeriodo: React.FC<FiltroPeriodoProps> = ({ onApplyFilters }) => {
   const handleLineaChange = (value: number) => {
     setSelectedLinea(value);
     if (value === 0) {
-      // Si se selecciona "Completo" para línea
-      setSelectedEquipo(30); // Resetear equipo a "Todos los equipos"
+      setSelectedEquipo(30);
     }
   };
 

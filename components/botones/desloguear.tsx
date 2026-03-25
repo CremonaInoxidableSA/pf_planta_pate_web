@@ -6,16 +6,15 @@ import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 
 interface DesloguearProps {
-  _username?: string;
+  username?: string;
 }
 
-const Desloguear: React.FC<DesloguearProps> = ({ _username = "Usuario" }) => {
+const Desloguear: React.FC<DesloguearProps> = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
   const router = useRouter();
 
-  // Cerrar dropdown cuando se hace click fuera
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (

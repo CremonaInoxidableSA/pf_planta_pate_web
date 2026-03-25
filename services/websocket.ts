@@ -5,12 +5,13 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { WS_CONFIG } from "@/config/websocket";
 
 export default function useWebSocket(pollId: string) {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<Record<string, unknown> | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const socketRef = useRef<WebSocket | null>(null);
   const retryCountRef = useRef(0);
   const reconnectTimeoutRef = useRef<NodeJS.Timeout>();
+  const connectRef = useRef<(() => void) | null>(null);
 
   const connect = useCallback(() => {
     try {
@@ -45,7 +46,7 @@ export default function useWebSocket(pollId: string) {
         if (retryCountRef.current < WS_CONFIG.MAX_RETRIES) {
           reconnectTimeoutRef.current = setTimeout(() => {
             retryCountRef.current += 1;
-            connect();
+            connectRef.current?.();
           }, WS_CONFIG.RETRY_DELAY);
         } else {
           setError(
@@ -65,9 +66,11 @@ export default function useWebSocket(pollId: string) {
   }, [pollId]);
 
   useEffect(() => {
-    connect();
+    connectRef.current = connect;
+    const connectTimer = setTimeout(connect, 0);
 
     return () => {
+      clearTimeout(connectTimer);
       if (reconnectTimeoutRef.current) {
         clearTimeout(reconnectTimeoutRef.current);
       }

@@ -4,20 +4,15 @@ import { verifyToken } from "./lib/auth";
 
 const publicRoutes = ["/login", "/register", "/bootstrap"];
 const adminRoutes = ["/config_user", "/api/config"];
-// Rutas que usan tokens propios (no JWT de autenticación)
 const routesWithOwnToken = ["/login/recuperacion/reset_pass"];
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Las rutas /api/ nunca deben ser redirigidas por el middleware de autenticación.
-  // Los Route Handlers manejan su propia lógica; redirigirlos devuelve HTML en lugar
-  // de JSON y rompe todas las llamadas al proxy desde el cliente.
   if (pathname.startsWith("/api/")) {
     return NextResponse.next();
   }
 
-  // No interceptar tokens en rutas que manejan sus propios tokens (ej: reset password)
   const usesOwnToken = routesWithOwnToken.some((route) =>
     pathname.startsWith(route),
   );

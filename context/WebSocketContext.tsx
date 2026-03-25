@@ -2,10 +2,8 @@
 
 import React, { createContext, useContext } from "react";
 
-// import useWebSocket from "@/services/websocket";
-
 interface WebSocketContextType {
-  data: any;
+  data: Record<string, unknown[][]> | null;
   isConnected: boolean;
   error: string | null;
 }
@@ -19,8 +17,6 @@ export const WebSocketProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  // WebSocket temporalmente desactivado
-  // const { data, isConnected, error } = useWebSocket("datos-generales");
 
   const value = {
     data: { "datos-cocinas": [], "datos-enfriadores": [] },

@@ -13,14 +13,8 @@ const lineas = {
 
 const Monitoreo = () => {
   const { t } = useTranslation();
-  const { lineaSeleccionada, lineasData } = useLinea();
+  const { lineaSeleccionada } = useLinea();
   const linea = lineas[lineaSeleccionada as keyof typeof lineas];
-
-  // Verificar que realmente tenemos datos
-  const _hasRealData =
-    lineasData &&
-    lineasData[lineaSeleccionada]?.cocinas?.length > 0 &&
-    lineasData[lineaSeleccionada]?.enfriadores?.length > 0;
 
   return (
     <section className="flex flex-col h-screen max-h-screen w-full min-w-[720px] overflow-hidden">

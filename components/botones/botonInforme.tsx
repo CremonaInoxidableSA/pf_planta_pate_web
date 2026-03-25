@@ -130,7 +130,7 @@ export default function BotonInforme({
         day: "numeric",
       });
 
-      pdf.text(equipo, 30, 11); // Ajustado de 20 a 35
+      pdf.text(equipo, 30, 11);
       pdf.text(cicloId.toString(), 30, 16);
       pdf.text(currentDate, 30, 6);
 
@@ -160,37 +160,32 @@ export default function BotonInforme({
 
       jsonData.push(tableHeaders);
 
-      const temperaturaAguaData = apiData["Temperatura agua"] || [];
-      const temperaturaProductoData = apiData["Temperatura producto"] || [];
-      const nivelAguaData = apiData["Nivel agua"] || [];
+      type DataPoint = { fechaRegistro: string; valor: number };
+      const temperaturaAguaData: DataPoint[] =
+        apiData["Temperatura agua"] || [];
+      const temperaturaProductoData: DataPoint[] =
+        apiData["Temperatura producto"] || [];
+      const nivelAguaData: DataPoint[] = apiData["Nivel agua"] || [];
 
       const temperaturaAguaMap = new Map(
-        temperaturaAguaData.map((item: any) => [
-          item.fechaRegistro,
-          item.valor,
-        ]),
+        temperaturaAguaData.map((item) => [item.fechaRegistro, item.valor]),
       );
       const temperaturaProductoMap = new Map(
-        temperaturaProductoData.map((item: any) => [
-          item.fechaRegistro,
-          item.valor,
-        ]),
+        temperaturaProductoData.map((item) => [item.fechaRegistro, item.valor]),
       );
       const nivelAguaMap = new Map(
-        nivelAguaData.map((item: any) => [item.fechaRegistro, item.valor]),
+        nivelAguaData.map((item) => [item.fechaRegistro, item.valor]),
       );
 
       const allTimestamps = new Set<string>();
 
-      temperaturaAguaData.forEach((item: any) =>
+      temperaturaAguaData.forEach((item) =>
         allTimestamps.add(item.fechaRegistro),
       );
-      temperaturaProductoData.forEach((item: any) =>
+      temperaturaProductoData.forEach((item) =>
         allTimestamps.add(item.fechaRegistro),
       );
-      nivelAguaData.forEach((item: any) =>
-        allTimestamps.add(item.fechaRegistro),
-      );
+      nivelAguaData.forEach((item) => allTimestamps.add(item.fechaRegistro));
 
       const sortedTimestamps = Array.from(allTimestamps).sort(
         (a, b) => new Date(a).getTime() - new Date(b).getTime(),
@@ -215,15 +210,15 @@ export default function BotonInforme({
       if (jsonData.length > 1 && jsonData[0] && jsonData[0].length > 0) {
         pdf.addPage();
 
-        pdf.rect(0, 0, 297, metadataHeight, "F"); // Encabezado de página
+        pdf.rect(0, 0, 297, metadataHeight, "F");
         pdf.setFont("helvetica", "bold");
         pdf.setFontSize(10);
-        pdf.setTextColor(255, 255, 255); // Texto blanco para encabezado de página
+        pdf.setTextColor(255, 255, 255);
         pdf.text(t("pdfDatosDelCiclo"), 5, 11);
         pdf.text(t("pdfEquipo"), 100, 11);
         pdf.text(t("pdfCiclo"), 100, 16);
         pdf.setFont("helvetica", "normal");
-        pdf.text(equipo || "", 130, 11); // Ajustado de 115 a 130
+        pdf.text(equipo || "", 130, 11);
         pdf.text(cicloId?.toString() || "", 111, 16);
         pdf.addImage(logoDataURL, "PNG", 252, 5, logoWidth, logoHeight);
 
@@ -247,9 +242,9 @@ export default function BotonInforme({
         for (let col = 0; col < numCols; col++) {
           const x = margin + col * cellWidth;
 
-          pdf.setFillColor(220, 220, 220); // Fondo gris claro para CADA celda de cabecera
-          pdf.setTextColor(0, 0, 0); // Texto NEGRO para CADA celda de cabecera
-          pdf.rect(x, tableStartY, cellWidth, cellHeight, "FD"); // 'FD' para rellenar y dibujar borde
+          pdf.setFillColor(220, 220, 220);
+          pdf.setTextColor(0, 0, 0); 
+          pdf.rect(x, tableStartY, cellWidth, cellHeight, "FD");
           pdf.text(
             String(jsonData[0][col] || ""),
             x + textPadding,
@@ -260,7 +255,7 @@ export default function BotonInforme({
 
         pdf.setFont("helvetica", "normal");
         pdf.setFontSize(tableFontSize);
-        pdf.setTextColor(0, 0, 0); // Texto de datos NEGRO
+        pdf.setTextColor(0, 0, 0);
 
         let currentY = tableStartY + cellHeight;
         const pageBottomMargin = 10;
@@ -270,15 +265,15 @@ export default function BotonInforme({
           if (currentY + cellHeight > maxContentHeightOnPage) {
             pdf.addPage();
 
-            pdf.rect(0, 0, 297, metadataHeight, "F"); // Encabezado de página nueva
+            pdf.rect(0, 0, 297, metadataHeight, "F");
             pdf.setFont("helvetica", "bold");
             pdf.setFontSize(10);
-            pdf.setTextColor(255, 255, 255); // Texto blanco para encabezado de página nueva
+            pdf.setTextColor(255, 255, 255);
             pdf.text(t("pdfDatosDelCicloCont"), 5, 11);
             pdf.text(t("pdfEquipo"), 100, 11);
             pdf.text(t("pdfCiclo"), 100, 16);
             pdf.setFont("helvetica", "normal");
-            pdf.text(equipo || "", 130, 11); // Ajustado de 115 a 130
+            pdf.text(equipo || "", 130, 11);
             pdf.text(cicloId?.toString() || "", 111, 16);
             pdf.addImage(logoDataURL, "PNG", 252, 5, logoWidth, logoHeight);
 
@@ -290,9 +285,9 @@ export default function BotonInforme({
             for (let col = 0; col < numCols; col++) {
               const x = margin + col * cellWidth;
 
-              pdf.setFillColor(220, 220, 220); // Fondo gris claro para CADA celda de cabecera
-              pdf.setTextColor(0, 0, 0); // Texto NEGRO para CADA celda de cabecera
-              pdf.rect(x, currentY, cellWidth, cellHeight, "FD"); // 'FD' para rellenar y dibujar borde
+              pdf.setFillColor(220, 220, 220);
+              pdf.setTextColor(0, 0, 0);
+              pdf.rect(x, currentY, cellWidth, cellHeight, "FD");
               pdf.text(
                 String(jsonData[0][col] || ""),
                 x + textPadding,
@@ -302,7 +297,7 @@ export default function BotonInforme({
             }
             currentY += cellHeight;
             pdf.setFont("helvetica", "normal");
-            pdf.setTextColor(0, 0, 0); // Texto de datos NEGRO
+            pdf.setTextColor(0, 0, 0);
             pdf.setFontSize(tableFontSize);
           }
 
@@ -345,7 +340,7 @@ export default function BotonInforme({
 
   return (
     <Button
-      className={`text-primary ${selectClasses || "h-1/5"} min-w-[160px]`}
+      className={`text-primary ${selectClasses || "h-1/5"} min-w-40`}
       variant="ghost"
       onClick={handleInformeDownload}
     >

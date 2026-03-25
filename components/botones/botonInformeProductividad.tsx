@@ -5,7 +5,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { toast } from "sonner";
 
-import logoDataURL from "../../public/cremonabase64"; // Asegúrate que esta ruta es correcta
+import logoDataURL from "@/public/logo/cremonabase64";
 
 interface ProductoRealizadoAPI {
   nombre_receta: string;
@@ -74,7 +74,7 @@ export default function BotonInformeProductividad({
       }
 
       const canvas = await html2canvas(productivityContainer, {
-        scale: 3, // Aumentado de 2 a 3 para mejor calidad
+        scale: 3,
         logging: false,
         useCORS: true,
         allowTaint: true,
@@ -137,7 +137,7 @@ export default function BotonInformeProductividad({
         format: "a4",
       });
 
-      const metadataHeight = 25; // Altura para la información adicional
+      const metadataHeight = 25;
       const margin = 5;
       const pageWidth = pdf.internal.pageSize.getWidth();
       const pageHeight = pdf.internal.pageSize.getHeight();
@@ -192,7 +192,7 @@ export default function BotonInformeProductividad({
         { url: "https://creminox.com", target: "_blank" },
       );
 
-      const imgPdfWidth = 359; // Ancho fijo para la imagen
+      const imgPdfWidth = 359;
       const imgPdfHeight = (canvas.height * imgPdfWidth) / canvas.width;
       const imgY = metadataHeight + margin;
 

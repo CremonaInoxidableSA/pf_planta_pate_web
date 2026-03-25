@@ -39,14 +39,11 @@ const Selector: React.FC<SelectorProps> = ({
     { id: "enfriador4", name: "Enfriador 8", value: 14 },
   ];
 
-  // Determinar qué lista de equipos usar
   const equipoList = lineaSeleccionada === 16 ? equiposLinea2 : equiposLinea1;
 
   useEffect(() => {
-    // Reset selection when line changes
-    setSelectedEquipo("todos");
     onEquipoChange(30);
-  }, [lineaSeleccionada]);
+  }, [lineaSeleccionada, onEquipoChange]);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = e.target.value;
@@ -59,7 +56,7 @@ const Selector: React.FC<SelectorProps> = ({
 
   return (
     <select
-      className={`${selectClasses || "bg-[#0001] h-full w-full px-[20px] border-b-2 border-white focus:border-white focus:outline-none text-lg text-texto hover:text-texto transition-colors cursor-pointer"} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+      className={`${selectClasses || "bg-[#0001] h-full w-full px-5 border-b-2 border-white focus:border-white focus:outline-none text-lg text-texto hover:text-texto transition-colors cursor-pointer"} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
       disabled={disabled}
       value={selectedEquipo}
       onChange={handleChange}

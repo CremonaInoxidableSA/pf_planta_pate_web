@@ -95,8 +95,7 @@ const highlightText = (text: string, filter: string): React.ReactNode => {
   }
 };
 
-const COLUMN_KEYS = ["description", "type", "state", "time"] as const;
-type ColumnKey = (typeof COLUMN_KEYS)[number];
+type ColumnKey = "description" | "type" | "state" | "time";
 
 const Tabla: React.FC = () => {
   const { t } = useTranslation();
@@ -181,13 +180,21 @@ const Tabla: React.FC = () => {
         if (!res.ok) throw new Error();
         const apiData = await res.json();
         setData(
-          apiData.map((a: any) => ({
-            key: a.id_alarma.toString(),
-            description: a.descripcion,
-            type: a.tipo,
-            state: a.estadoAlarma ? "Activo" : "Inactivo",
-            time: a.fecha_registro,
-          })),
+          apiData.map(
+            (a: {
+              id_alarma: number;
+              descripcion: string;
+              tipo: string;
+              estadoAlarma: boolean;
+              fecha_registro: string;
+            }) => ({
+              key: a.id_alarma.toString(),
+              description: a.descripcion,
+              type: a.tipo,
+              state: a.estadoAlarma ? "Activo" : "Inactivo",
+              time: a.fecha_registro,
+            }),
+          ),
         );
         setError(null);
       } catch {
@@ -199,7 +206,6 @@ const Tabla: React.FC = () => {
     load();
   }, [error, t, host, port]);
 
-  // Date-range pre-filter applied before passing data to TanStack
   const dateFilteredData = useMemo(() => {
     if (!dateRange.from && !dateRange.to) return data;
     const from = dateRange.from ? new Date(dateRange.from) : new Date(0);
@@ -216,13 +222,13 @@ const Tabla: React.FC = () => {
     });
   }, [data, dateRange.from, dateRange.to]);
 
-  const getColFilter = (id: string) => {
-    const f = columnFilters.find((f) => f.id === id);
-    return f?.value ? String(f.value) : "";
-  };
+  const columnDefs = useMemo<ColumnDef<Alerta>[]>(() => {
+    const getColFilter = (id: string) => {
+      const f = columnFilters.find((f) => f.id === id);
+      return f?.value ? String(f.value) : "";
+    };
 
-  const columnDefs = useMemo<ColumnDef<Alerta>[]>(
-    () => [
+    return [
       {
         accessorKey: "description",
         header: t("descripcion"),
@@ -245,13 +251,11 @@ const Tabla: React.FC = () => {
         accessorKey: "time",
         header: t("fechaRegistro"),
         accessorFn: (row) => formatDate(row.time),
-        cell: ({ getValue, row }) =>
+        cell: ({ row }) =>
           highlightText(formatDate(row.original.time), getColFilter("time")),
       },
-    ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [t, columnFilters],
-  );
+    ];
+  }, [t, columnFilters]);
 
   const table = useReactTable({
     data: dateFilteredData,
@@ -271,8 +275,6 @@ const Tabla: React.FC = () => {
     setDateRange({ from: "", to: "" });
     toast.success(t("filtrosLimpiados"), { position: "bottom-right" });
   };
-
-  // ─── Export helpers ─────────────────────────────────────────────────────────
 
   const colHeaders = [
     t("descripcion"),

@@ -43,7 +43,6 @@ export const transformData = (
   const todosEquipos = [...cocinas, ...enfriadores];
   const equipo = todosEquipos.find(([info]) => info.id === id);
 
-  // Si no hay datos, intentar recuperar del localStorage
   if (!equipo) {
     const cachedData = localStorage.getItem(`equipo-${id}`);
 
@@ -54,35 +53,30 @@ export const transformData = (
     return { labels: [], datasets: [] };
   }
 
-  const [_, detalles] = equipo;
+  const [, detalles] = equipo;
   const historial = detalles.historial || [];
 
-  // Función para convertir fecha string a timestamp en segundos
   const getTimestamp = (dateStr: string) => {
     const date = new Date(dateStr);
 
     return Math.floor(date.getTime() / 1000);
   };
 
-  // Obtener el timestamp inicial
   const tiempoInicial =
     historial.length > 0
       ? getTimestamp(historial[0].tiempo)
       : getTimestamp(new Date().toISOString());
 
-  // Ordenar el historial por tiempo
   const historialOrdenado = [...historial].sort(
     (a, b) => getTimestamp(a.tiempo) - getTimestamp(b.tiempo),
   );
 
-  // Crear arrays para los datos
   const tiempos: number[] = [];
   const tempIngrData: { x: number; y: number }[] = [];
   const tempAguaData: { x: number; y: number }[] = [];
   const tempProdData: { x: number; y: number }[] = [];
   const nivAguaData: { x: number; y: number }[] = [];
 
-  // Procesar datos del historial
   historialOrdenado.forEach((paso) => {
     const tiempoRelativo = getTimestamp(paso.tiempo) - tiempoInicial;
 
@@ -97,7 +91,6 @@ export const transformData = (
       tempAguaData.push({ x: tiempoRelativo, y: paso.temp_agua });
     }
 
-    // Usar temp_prod directamente del historial
     if (
       paso.temp_prod !== null &&
       paso.temp_prod !== undefined &&
@@ -142,12 +135,11 @@ export const transformData = (
         borderColor: "rgb(255, 165, 0)",
         fill: false,
         data: nivAguaData,
-        yAxisID: "y1", // Asignamos al eje y secundario
+        yAxisID: "y1",
       },
     ],
   };
 
-  // Guardar en localStorage
   try {
     localStorage.setItem(`equipo-${id}`, JSON.stringify(chartData));
   } catch {}
@@ -155,7 +147,6 @@ export const transformData = (
   return chartData;
 };
 
-// Función auxiliar para limpiar datos antiguos
 export const clearStoredData = (id: number) => {
   localStorage.removeItem(`equipo-${id}`);
 };

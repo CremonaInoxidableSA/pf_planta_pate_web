@@ -37,17 +37,14 @@ interface DetallesEquipo {
   }>;
 }
 
-// Exportar el tipo LineaId
 export type LineaId = 1 | 2;
 
-// Interfaces existentes con tipos corregidos
 interface LineaData {
   cocinas: Array<[InfoEquipo, DetallesEquipo]>;
   enfriadores: Array<[InfoEquipo, DetallesEquipo]>;
 }
 
-// Modificar LineasState para usar Record
-interface LineasState extends Record<LineaId, LineaData> {}
+type LineasState = Record<LineaId, LineaData>;
 
 interface LineaContextType {
   lineaSeleccionada: LineaId;
@@ -64,32 +61,35 @@ export const LineaProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (data) {
-      const datosCocinas = data["datos-cocinas"] || [];
-      const datosEnfriadores = data["datos-enfriadores"] || [];
+      const datosCocinas =
+        (data["datos-cocinas"] as [InfoEquipo, DetallesEquipo][] | undefined) ||
+        [];
+      const datosEnfriadores =
+        (data["datos-enfriadores"] as
+          | [InfoEquipo, DetallesEquipo][]
+          | undefined) || [];
 
-      // Organizar datos por líneas
       const linea1 = {
-        cocinas: datosCocinas.filter(([info]: [InfoEquipo, any]) =>
-          [1, 2, 3].includes(info.id),
-        ),
-        enfriadores: datosEnfriadores.filter(([info]: [InfoEquipo, any]) =>
+        cocinas: datosCocinas.filter(([info]) => [1, 2, 3].includes(info.id)),
+        enfriadores: datosEnfriadores.filter(([info]) =>
           [7, 8, 9, 10].includes(info.id),
         ),
       };
 
       const linea2 = {
-        cocinas: datosCocinas.filter(([info]: [InfoEquipo, any]) =>
-          [4, 5, 6].includes(info.id),
-        ),
-        enfriadores: datosEnfriadores.filter(([info]: [InfoEquipo, any]) =>
+        cocinas: datosCocinas.filter(([info]) => [4, 5, 6].includes(info.id)),
+        enfriadores: datosEnfriadores.filter(([info]) =>
           [11, 12, 13, 14].includes(info.id),
         ),
       };
 
-      setLineasData({
-        1: linea1,
-        2: linea2,
-      });
+      const timer = setTimeout(() => {
+        setLineasData({
+          1: linea1,
+          2: linea2,
+        });
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [data]);
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { toast } from "sonner";
 
 import Metrics from "./metrica";
@@ -50,12 +50,13 @@ interface FilterData {
 }
 
 const Productividad = () => {
-  const today = new Date().toISOString().split("T")[0];
-  const lastWeek = new Date();
-
-  lastWeek.setDate(lastWeek.getDate() - 7);
-  const lastWeekFormatted = lastWeek.toISOString().split("T")[0];
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const today = useMemo(() => new Date().toISOString().split("T")[0], []);
+  const lastWeekFormatted = useMemo(() => {
+    const lastWeek = new Date();
+    lastWeek.setDate(lastWeek.getDate() - 7);
+    return lastWeek.toISOString().split("T")[0];
+  }, []);
+  const isInitialLoadRef = useRef(true);
 
   const [data, setData] = useState<FixedData>({
     ciclosRealizados: 0,
@@ -69,27 +70,13 @@ const Productividad = () => {
     end: today,
   });
 
-  useEffect(() => {
-    if (isInitialLoad) {
-      handleApplyFilters({
-        startDate: lastWeekFormatted,
-        endDate: today,
-        lineaId: 0,
-        equipoId: 30,
-        dato_enviado: 0,
-        isUserInitiated: false,
-      });
-      setIsInitialLoad(false);
-    }
-  }, [isInitialLoad]);
-
-  const handleApplyFilters = async (filterData: FilterData) => {
+  const handleApplyFilters = useCallback(async (filterData: FilterData) => {
     if (!filterData.startDate || !filterData.endDate) return;
 
     try {
       const formattedStartDate = filterData.startDate.split("T")[0];
       const formattedEndDate = filterData.endDate.split("T")[0];
-      const dato = filterData.dato_enviado ?? 0; // Usar el operador nullish coalescing para proporcionar un valor por defecto
+      const dato = filterData.dato_enviado ?? 0;
 
       const host = process.env.NEXT_PUBLIC_WS_HOST || "localhost";
       const port = process.env.NEXT_PUBLIC_WS_PORT || "8000";
@@ -100,7 +87,6 @@ const Productividad = () => {
 
       const apiData: ApiResponse = await response.json();
 
-      // Check if data is empty or null
       if (
         !apiData ||
         (apiData.ciclos_realizados === 0 &&
@@ -110,7 +96,6 @@ const Productividad = () => {
           (!apiData.productos_realizados ||
             apiData.productos_realizados.length === 0))
       ) {
-        // Only show toast error if this is a user-initiated action
         if (filterData.isUserInitiated) {
           toast.error(
             "No existen reportes de productividad en el lapso de las fechas indicadas.",
@@ -139,31 +124,47 @@ const Productividad = () => {
       });
     } catch (error) {
       if (error instanceof Error) {
-        // Only show toast error if this is a user-initiated action
         if (filterData.isUserInitiated) {
           toast.error("Error al obtener los datos de productividad");
         }
       }
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (isInitialLoadRef.current) {
+      isInitialLoadRef.current = false;
+      const timer = setTimeout(() => {
+        handleApplyFilters({
+          startDate: lastWeekFormatted,
+          endDate: today,
+          lineaId: 0,
+          equipoId: 30,
+          dato_enviado: 0,
+          isUserInitiated: false,
+        });
+      }, 0);
+      return () => clearTimeout(timer);
+    }
+  }, [handleApplyFilters, lastWeekFormatted, today]);
 
   return (
-    <div className="productividad-container flex flex-row h-full gap-[20px]">
-      <div className="bg-black p-[20px] w-4/5 rounded-md">
+    <div className="productividad-container flex flex-row h-full gap-5">
+      <div className="bg-black p-5 w-4/5 rounded-md">
         <Metrics
           ciclosRealizados={data.ciclosRealizados}
           dateRange={dateRange}
           produccionTotal={data.produccionTotal}
         />
-        <hr className="my-[20px] border-[2px]" />
+        <hr className="my-5 border-2" />
         <BarraProductos data={data} />
-        <hr className="my-[20px] border-[2px]" />
+        <hr className="my-5 border-2" />
         <BarraCiclos
           ciclosCorrectos={data.ciclosCorrectos}
           ciclosIncorrectos={data.ciclosIncorrectos}
         />
       </div>
-      <div className="bg-black p-[20px] w-1/5 rounded-md pdf-ignore">
+      <div className="bg-black p-5 w-1/5 rounded-md pdf-ignore">
         <FiltroPeriodo onApplyFilters={handleApplyFilters} />
       </div>
     </div>

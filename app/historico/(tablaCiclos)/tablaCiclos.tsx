@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import { parse, isWithinInterval, startOfDay, endOfDay } from "date-fns";
 import {
   Table,
   TableHeader,
@@ -7,8 +8,8 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
-import { Spinner } from "@/components/ui/spinner";
 import { toast } from "sonner";
+import ciclosData from "@/mocks/ciclosHistorico.json";
 
 interface Ciclo {
   id_ciclo: number;
@@ -21,89 +22,70 @@ interface Ciclo {
 interface TablaCiclosProps {
   fechaInicio: string;
   fechaFin: string;
-  equipo: string;
+  equipoId: number;
   selectedCicloId?: number | null;
   onCicloSelect?: (ciclo: Ciclo) => void;
-  onTableClose?: () => void; // Añadir esta prop
+  onTableClose?: () => void;
 }
 
 const TablaCiclos: React.FC<TablaCiclosProps> = ({
   fechaInicio,
   fechaFin,
-  equipo,
+  equipoId,
   selectedCicloId,
   onCicloSelect,
   onTableClose,
 }) => {
   const [ciclos, setCiclos] = useState<Ciclo[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [_showTable, _setShowTable] = useState(true);
-  // Inicializar selectedKeys con el ciclo actual si existe
   const [selectedKeys, setSelectedKeys] = useState(
     new Set(selectedCicloId ? [selectedCicloId.toString()] : []),
   );
 
-  useEffect(() => {
-    const fetchCiclos = async () => {
-      setLoading(true);
-      try {
-        const host = process.env.NEXT_PUBLIC_WS_HOST;
-        const port = process.env.NEXT_PUBLIC_WS_PORT;
-        const url = `http://${host}:${port}/historico-graficos/${equipo}?fecha_inicio=${fechaInicio}&fecha_fin=${fechaFin}`;
-
-        const response = await fetch(url);
-        const data = await response.json();
-
-        if (!response.ok || error || !data || data.length === 0) {
-          if (onTableClose) {
-            onTableClose(); // Llamar a onTableClose cuando no hay datos
-          }
-          toast.error("Error al obtener sus ciclos", {
-            description: "No existen datos en el equipo/fecha ingresada",
-            position: "bottom-right",
-            id: `no-data-${fechaInicio}-${fechaFin}-${equipo}`, // Unique ID based on parameters
-          });
-
-          return null;
-        }
-
-        setCiclos(data);
-        setError(null);
-      } catch (error) {
-        setError(error instanceof Error ? error.message : "Error desconocido");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCiclos();
-  }, [fechaInicio, fechaFin, equipo]);
+  const memoizedOnTableClose = useCallback(() => {
+    onTableClose?.();
+  }, [onTableClose]);
 
   useEffect(() => {
-    if (selectedCicloId) {
-      setSelectedKeys(new Set([selectedCicloId.toString()]));
+    const from = startOfDay(parse(fechaInicio, "yyyy-MM-dd", new Date()));
+    const to = endOfDay(parse(fechaFin, "yyyy-MM-dd", new Date()));
+
+    const filtered: Ciclo[] = ciclosData
+      .filter((c) => {
+        const start = new Date(c.fechaInicio);
+        return (
+          c.idEquipo === equipoId &&
+          isWithinInterval(start, { start: from, end: to })
+        );
+      })
+      .map((c) => ({
+        id_ciclo: c.idCiclo,
+        lote: c.lote,
+        fecha_inicio: c.fechaInicio,
+        fecha_fin: c.fechaFin,
+        tiempo_transcurrido: `${c.tiempoTranscurridoHs} hs`,
+      }));
+
+    if (filtered.length === 0) {
+      memoizedOnTableClose();
+      toast.error("Error al obtener sus ciclos", {
+        description: "No existen datos en el equipo/fecha ingresada",
+        position: "bottom-right",
+        id: `no-data-${fechaInicio}-${fechaFin}-${equipoId}`,
+      });
+    } else {
+      const timer = setTimeout(() => {
+        setCiclos(filtered);
+        setSelectedKeys(new Set());
+      }, 0);
+      return () => clearTimeout(timer);
     }
-  }, [selectedCicloId]);
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-[150px] max-w-[600px]">
-        <Spinner className="size-6" />
-        <span className="ml-2 text-sm">Cargando ciclos...</span>
-      </div>
-    );
-  }
-
-  if (error) {
-    return null;
-  }
+  }, [fechaInicio, fechaFin, equipoId, memoizedOnTableClose]);
 
   return (
-    <div className="max-h-[600px] overflow-y-auto overflow-x-hidden">
+    <div className="max-h-150 overflow-y-auto overflow-x-hidden">
       <Table
         aria-label="Tabla de ciclos"
-        className="min-w-[600px] bg-black/50 backdrop-blur-sm text-texto"
+        className="min-w-150 bg-black/50 backdrop-blur-sm text-texto"
       >
         <TableHeader>
           <TableRow>
