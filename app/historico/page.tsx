@@ -11,10 +11,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { toast } from "sonner";
 import DateRangePicker from "@/components/selectores/dateRangePicker";
 import BotonAplicar from "@/components/botones/botonAplicar";
 import SelectorHistorico from "@/app/historico/(comps)/selectorHistorico";
-import TablaCiclos from "./(tablaCiclos)/tablaCiclos";
+import TablaCiclos, { getCiclosFiltrados } from "./(tablaCiclos)/tablaCiclos";
 import GraficoHistorico from "./(graficoHistorico)/graficoHistorico";
 
 export interface Ciclo {
@@ -43,6 +44,17 @@ export default function Historico() {
 
   const handleApply = () => {
     if (!dateRange?.from || !dateRange?.to) return;
+    const fechaInicio = format(dateRange.from, "yyyy-MM-dd");
+    const fechaFin = format(dateRange.to, "yyyy-MM-dd");
+    const ciclos = getCiclosFiltrados(fechaInicio, fechaFin, equipoId);
+    if (ciclos.length === 0) {
+      toast.error("Error al obtener sus ciclos", {
+        description: "No existen datos en el equipo/fecha ingresada",
+        position: "bottom-right",
+        id: `no-data-${fechaInicio}-${fechaFin}-${equipoId}`,
+      });
+      return;
+    }
     setAppliedFilter({ dateRange: dateRange as DateRange, equipoId });
     setDialogOpen(true);
   };
@@ -88,7 +100,7 @@ export default function Historico() {
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent
           aria-describedby={undefined}
-          className="w-fit sm:max-w-fit max-w-[calc(100%-2rem)] max-h-[90vh] overflow-y-auto"
+          className="w-fit sm:max-w-fit max-w-[calc(100%-2rem)] shadow-none p-5"
         >
           <DialogHeader>
             <DialogTitle className="text-texto">Seleccionar Ciclo</DialogTitle>
@@ -100,7 +112,6 @@ export default function Historico() {
               equipoId={appliedFilter.equipoId}
               selectedCicloId={selectedCiclo?.id_ciclo ?? null}
               onCicloSelect={handleCicloSelect}
-              onTableClose={() => setDialogOpen(false)}
             />
           )}
         </DialogContent>

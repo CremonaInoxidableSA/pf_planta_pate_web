@@ -81,11 +81,11 @@ const FiltroPeriodo: React.FC<FiltroPeriodoProps> = ({ onApplyFilters }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-full gap-[15px]">
+    <div className="flex flex-col items-center justify-center h-full gap-3.75">
       <h2 className="flex items-center justify-center text-xl text-texto font-bold">
         {t("filtro.titulo")}
       </h2>
-      <h2 className="flex items-center justify-center text-l text-texto mt-[-18px]">
+      <h2 className="flex items-center justify-center text-l text-texto">
         {t("filtro.subtitulo")}
       </h2>
 
@@ -101,7 +101,7 @@ const FiltroPeriodo: React.FC<FiltroPeriodoProps> = ({ onApplyFilters }) => {
         />
       </div>
 
-      <div className="flex flex-col w-full h-4/5 gap-[10px]">
+      <div className="flex flex-col w-full h-4/5 gap-2.5">
         <DatePicker
           defaultEndDate={today}
           defaultStartDate={lastWeekFormatted}
