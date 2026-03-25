@@ -29,14 +29,14 @@ const Monitoreo = () => {
       {/* Contenedor con los gráficos - altura adaptable */}
       <div className="flex-1 flex flex-col gap-4 overflow-hidden">
         {/* Contenedor de cocinas - mitad superior */}
-        <div className="flex-1 flex flex-row gap-[20px] min-h-0">
+        <div className="flex-1 flex flex-row gap-5 min-h-0">
           {linea.cocinas.map((id) => (
             <GraficoMonitoreo key={`equipo-${id}`} id={id} />
           ))}
         </div>
 
         {/* Contenedor de enfriadores - mitad inferior */}
-        <div className="flex-1 flex flex-row gap-[20px] min-h-0">
+        <div className="flex-1 flex flex-row gap-5 min-h-0">
           {linea.enfriadores.map((id) => (
             <GraficoMonitoreo key={`equipo-${id}`} id={id} />
           ))}

@@ -383,7 +383,7 @@ const Tabla: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-background1 rounded-[15px] p-5 text-[#d9d9d9]">
+    <div className="w-full bg-background1 rounded-3.75 p-5 text-[#d9d9d9]">
       {/* ── Toolbar ── */}
       <div className="flex flex-wrap items-center gap-2 mb-4">
         {/* Export dropdown */}

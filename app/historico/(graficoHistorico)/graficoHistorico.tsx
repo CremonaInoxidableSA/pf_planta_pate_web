@@ -124,7 +124,7 @@ const GraficoHistorico = ({ filter, selectedCiclo }: GraficoHistoricoProps) => {
 
   if (!selectedCiclo) {
     return (
-      <div className="bg-background2 rounded-md p-4 w-full min-h-75 flex items-center justify-center text-texto opacity-50">
+      <div className="bg-background2 rounded-md p-4 w-full min-h-75 flex items-center justify-center text-texto">
         {filter
           ? "Seleccioná un ciclo del listado para visualizarlo."
           : "Aplicá un filtro para comenzar."}
@@ -133,7 +133,7 @@ const GraficoHistorico = ({ filter, selectedCiclo }: GraficoHistoricoProps) => {
   }
 
   return (
-    <div className="bg-background2 rounded-md p-6 w-full">
+    <div className="bg-background2 rounded-md p-4 w-full">
       <h3 className="text-lg font-semibold text-texto">
         Ciclo {selectedCiclo.id_ciclo} — Lote {selectedCiclo.lote}
       </h3>

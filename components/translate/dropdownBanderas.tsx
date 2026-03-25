@@ -54,7 +54,7 @@ const DropdownBanderas = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-0.5 w-10 rounded-xs bg-[#DDD] ring-[1px] ring-black ring-opacity-[5px] transition-colors ease-in-out hover:bg-lightGrey z-1000 cursor-pointer">
+        <div className="absolute right-0 mt-0.5 w-10 rounded-xs bg-[#DDD] ring-[1px] ring-black ring-opacity-1.25 transition-colors ease-in-out hover:bg-lightGrey z-1000 cursor-pointer">
           <div
             aria-labelledby="options-menu"
             aria-orientation="vertical"

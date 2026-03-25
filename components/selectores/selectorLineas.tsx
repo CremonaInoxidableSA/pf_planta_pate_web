@@ -19,7 +19,7 @@ const Selector: React.FC<SelectorProps> = ({ selectClasses }) => {
   ];
 
   const defaultClasses =
-    "bg-[#0001] h-full w-full px-[20px] border-b-2 border-white focus:border-white focus:outline-none text-lg text-texto hover:text-texto transition-colors cursor-pointer";
+    "bg-[#0001] h-full w-full px-5 border-b-2 border-white focus:border-white focus:outline-none text-lg text-texto hover:text-texto transition-colors cursor-pointer";
 
   return (
     <select

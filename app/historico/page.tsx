@@ -13,10 +13,11 @@ import {
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import DateRangePicker from "@/components/selectores/dateRangePicker";
-import BotonAplicar from "@/components/botones/botonAplicar";
+import BotonAplicar from "@/app/historico/(productividad)/(filtradoFechas)/botonAplicar";
 import SelectorHistorico from "@/app/historico/(comps)/selectorHistorico";
 import TablaCiclos, { getCiclosFiltrados } from "./(tablaCiclos)/tablaCiclos";
 import GraficoHistorico from "./(graficoHistorico)/graficoHistorico";
+import Productividad from "./(productividad)/productividad";
 
 export interface Ciclo {
   id_ciclo: number;
@@ -96,7 +97,6 @@ export default function Historico() {
           />
         </div>
       </div>
-
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent
           aria-describedby={undefined}
@@ -116,10 +116,8 @@ export default function Historico() {
           )}
         </DialogContent>
       </Dialog>
-
       <GraficoHistorico filter={appliedFilter} selectedCiclo={selectedCiclo} />
-
-      <div className="bg-red">Productividad</div>
+      <Productividad />
     </div>
   );
 }
