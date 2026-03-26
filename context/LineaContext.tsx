@@ -37,7 +37,7 @@ interface DetallesEquipo {
   }>;
 }
 
-export type LineaId = 1 | 2;
+export type LineaId = 1 | 2 | 3;
 
 interface LineaData {
   cocinas: Array<[InfoEquipo, DetallesEquipo]>;
@@ -46,10 +46,14 @@ interface LineaData {
 
 type LineasState = Record<LineaId, LineaData>;
 
+export type EquipoSeleccionado = number | "todos";
+
 interface LineaContextType {
   lineaSeleccionada: LineaId;
   setLineaSeleccionada: (id: LineaId) => void;
   lineasData: LineasState | null;
+  equipoSeleccionado: EquipoSeleccionado;
+  setEquipoSeleccionado: (equipo: EquipoSeleccionado) => void;
 }
 
 const LineaContext = createContext<LineaContextType | undefined>(undefined);
@@ -57,7 +61,14 @@ const LineaContext = createContext<LineaContextType | undefined>(undefined);
 export const LineaProvider = ({ children }: { children: React.ReactNode }) => {
   const [lineaSeleccionada, setLineaSeleccionada] = useState<LineaId>(1);
   const [lineasData, setLineasData] = useState<LineasState | null>(null);
+  const [equipoSeleccionado, setEquipoSeleccionado] =
+    useState<EquipoSeleccionado>("todos");
   const { data } = useWebSocketContext();
+
+  const handleSetLineaSeleccionada = (id: LineaId) => {
+    setLineaSeleccionada(id);
+    setEquipoSeleccionado("todos");
+  };
 
   useEffect(() => {
     if (data) {
@@ -87,6 +98,7 @@ export const LineaProvider = ({ children }: { children: React.ReactNode }) => {
         setLineasData({
           1: linea1,
           2: linea2,
+          3: { cocinas: [], enfriadores: [] }, // Línea 3 vacía por ahora
         });
       }, 0);
       return () => clearTimeout(timer);
@@ -97,8 +109,10 @@ export const LineaProvider = ({ children }: { children: React.ReactNode }) => {
     <LineaContext.Provider
       value={{
         lineaSeleccionada,
-        setLineaSeleccionada,
+        setLineaSeleccionada: handleSetLineaSeleccionada,
         lineasData,
+        equipoSeleccionado,
+        setEquipoSeleccionado,
       }}
     >
       {children}

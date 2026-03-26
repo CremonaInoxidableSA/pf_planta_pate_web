@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import type { DateRange } from "react-day-picker";
 import DateRangePicker from "@/components/selectores/dateRangePicker";
 import BotonAplicar from "@/app/historico/(productividad)/(filtradoFechas)/botonAplicar";
+import Selector from "./selectorLineas";
 
 const FiltroProductividad = () => {
   const { t } = useTranslation();
@@ -17,9 +18,14 @@ const FiltroProductividad = () => {
   return (
     <div className="w-[20%] h-full flex flex-col gap-3">
       <h1 className="w-full text-center text-3xl">{t("mayus.filtroFechas")}</h1>
-      <div className="w-full flex flex-row items-center justify-center gap-2">
-        <DateRangePicker value={dateRange} onChange={setDateRange} />
-        <BotonAplicar onClick={handleApply} />
+      <Selector />
+      <div className="w-full flex flex-row items-center justify-between gap-3">
+        <DateRangePicker
+          className="w-[80%] cursor-pointer"
+          value={dateRange}
+          onChange={setDateRange}
+        />
+        <BotonAplicar selectClasses="cursor-pointer" onClick={handleApply} />
       </div>
     </div>
   );
