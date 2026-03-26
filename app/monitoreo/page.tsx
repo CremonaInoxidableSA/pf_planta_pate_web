@@ -20,8 +20,10 @@ const Monitoreo = () => {
     <section className="flex flex-col h-screen max-h-screen w-full min-w-180 overflow-hidden">
       {/* Header con título y selector - altura fija */}
       <div className="flex w-full justify-between mb-2.5">
-        <h1 className="text-2xl font-semibold text-texto">{t("mayus.monitoreo")}</h1>
-          <Selector />
+        <h1 className="text-2xl font-semibold text-texto">
+          {t("mayus.monitoreo")}
+        </h1>
+        <Selector />
       </div>
 
       {/* Contenedor con los gráficos - altura adaptable */}
