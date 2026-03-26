@@ -156,7 +156,7 @@ export default function ConfiguracionUsuario() {
 
         <div className="flex flex-col gap-5 text-left">
           <div>
-            <p className="font-semibold text-xl">{t("min.nom")}</p>
+            <p className="font-semibold text-xl">{t("min.nombre")}</p>
             <p>{fullname || "—"}</p>
           </div>
 
@@ -207,7 +207,7 @@ export default function ConfiguracionUsuario() {
       <div className="flex flex-col h-full w-4/5 gap-4">
         <div className="flex items-center justify-between">
           <p className="text-2xl w-full flex justify-center">
-            {t("min.listaUsuarios")}
+            {t("mayu.listaUsuarios")}
           </p>
           {isLoading && (
             <div className="flex items-center gap-2">

@@ -7,7 +7,7 @@ const Productividad = () => {
   return (
     <div className="bg-background2 rounded-md p-4 w-full gap-5 flex items-center justify-between text-texto">
       <div className="w-[80%] flex flex-col justify-center">
-        <h1>{t("mayus.productividad")}</h1>
+        <h1 className="text-2xl">{t("mayus.productividad")}</h1>
         <p className="text-sm text-orange">fechas</p>
         <div className="w-full flex justify-evenly">
           <span className="flex flex-col items-center gap-1">

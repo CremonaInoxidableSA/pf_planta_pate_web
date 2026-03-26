@@ -49,8 +49,8 @@ export default function Historico() {
     const fechaFin = format(dateRange.to, "yyyy-MM-dd");
     const ciclos = getCiclosFiltrados(fechaInicio, fechaFin, equipoId);
     if (ciclos.length === 0) {
-      toast.error("Error al obtener sus ciclos", {
-        description: "No existen datos en el equipo/fecha ingresada",
+      toast.error(t("min.errorObtenerCiclos"), {
+        description: t("min.noExistenDatos"),
         position: "bottom-right",
         id: `no-data-${fechaInicio}-${fechaFin}-${equipoId}`,
       });
@@ -103,7 +103,7 @@ export default function Historico() {
           className="w-fit sm:max-w-fit max-w-[calc(100%-2rem)] shadow-none p-5"
         >
           <DialogHeader>
-            <DialogTitle className="text-texto">Seleccionar Ciclo</DialogTitle>
+            <DialogTitle className="text-texto">{t("min.seleccionarCiclo")}</DialogTitle>
           </DialogHeader>
           {appliedFilter && (
             <TablaCiclos

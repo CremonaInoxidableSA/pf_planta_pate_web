@@ -311,7 +311,7 @@ export function ImagenLayout() {
                   </span>
                 </TooltipTrigger>
                 <TooltipContent side="top">
-                  {t(`tooltip.${tipoEquipo}`, {
+                  {t(`min.${tipoEquipo}`, {
                     number:
                       tipoEquipo === "cocina" ? section.id : section.id - 6,
                     line: lineaEquipo,

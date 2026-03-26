@@ -9,6 +9,7 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import ciclosData from "@/mocks/ciclosHistorico.json";
+import { useTranslation } from "react-i18next";
 
 interface Ciclo {
   id_ciclo: number;
@@ -25,7 +26,8 @@ export function getCiclosFiltrados(
 ): Ciclo[] {
   const from = startOfDay(parse(fechaInicio, "yyyy-MM-dd", new Date()));
   const to = endOfDay(parse(fechaFin, "yyyy-MM-dd", new Date()));
-
+  const { t } = useTranslation();
+  
   return ciclosData
     .filter((c) => {
       const start = new Date(c.fechaInicio);
@@ -81,9 +83,9 @@ const TablaCiclos: React.FC<TablaCiclosProps> = ({
         <TableHeader>
           <TableRow>
             <TableHead>ID</TableHead>
-            <TableHead>Lote</TableHead>
-            <TableHead>Inicio</TableHead>
-            <TableHead>Fin</TableHead>
+            <TableHead>{t("min.lote")}</TableHead>
+            <TableHead>{t("min.inicio")}</TableHead>
+            <TableHead>{t("min.fin")}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

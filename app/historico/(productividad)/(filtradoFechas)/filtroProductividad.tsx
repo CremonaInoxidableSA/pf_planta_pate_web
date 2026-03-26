@@ -17,7 +17,7 @@ const FiltroProductividad = () => {
 
   return (
     <div className="w-[20%] h-full flex flex-col gap-3">
-      <h1 className="w-full text-center text-3xl">{t("mayus.filtroFechas")}</h1>
+      <h1 className="w-full text-center text-xl">{t("min.filtroFechas")}</h1>
       <Selector />
       <div className="w-full flex flex-row items-center justify-between gap-3">
         <DateRangePicker
