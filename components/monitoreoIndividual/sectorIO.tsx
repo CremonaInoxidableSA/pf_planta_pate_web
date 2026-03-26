@@ -19,7 +19,7 @@ const SectorIO: React.FC<SectorIOProps> = ({ datosIO, getColorClass }) => {
   return (
     <div className="flex flex-col bg-background2 p-5 rounded-md gap-2.5">
       <h2 className="text-lg text-texto flex text-center">
-        {t("sectorIO.titulo")}
+        {t("mayus.sectorIO")}
       </h2>
       <ul className="grid gap-2.5 h-full grid-cols-2">
         {datosIO.map((dato, index) => {

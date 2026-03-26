@@ -167,9 +167,9 @@ export function ImagenLayout() {
     <div className="w-full h-full relative flex flex-col">
       <div className="flex flex-col justify-center items-center">
         <h1 className="text-4xl text-texto font-semibold">
-          {t("cocinasEnfriadores")}
+          {t("mayus.cocinasEnfriadores")}
         </h1>
-        <p className="text-xl text-texto">{t("paneoGeneral")}</p>
+        <p className="text-xl text-texto">{t("mayus.paneoGeneral")}</p>
       </div>
 
       <div className="relative w-full grow">
@@ -213,7 +213,7 @@ export function ImagenLayout() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <span
-                    className={`absolute shadow border z-999 rounded-md p-[2px] flex flex-col justify-between ${
+                    className={`absolute shadow border z-999 rounded-md p-0.5 flex flex-col justify-between ${
                       equipo?.estado === "FALLA"
                         ? "bg-red"
                         : equipo?.estado === "PAUSA"
@@ -233,7 +233,7 @@ export function ImagenLayout() {
                   >
                     {equipo && (
                       <div className="w-full">
-                        <div className="flex justify-between items-center mb-[1px] ml-[2px]">
+                        <div className="flex justify-between items-center mb-px ml-0.5">
                           <p
                             className="font-extrabold uppercase"
                             style={{
@@ -254,7 +254,7 @@ export function ImagenLayout() {
                           </p>
                         </div>
                         <div
-                          className="mt-[8px]"
+                          className="mt-2"
                           style={{
                             marginTop:
                               equipo.receta && equipo.receta.length > 7
@@ -269,7 +269,7 @@ export function ImagenLayout() {
                               textShadow: "1px 1px 2px black",
                             }}
                           >
-                            {t("datos.tempActual")}:{" "}
+                            {t("min.tempActual")}:{" "}
                             {equipo.tempProductoActual !== undefined
                               ? `${equipo.tempProductoActual.toFixed(0)}°C`
                               : "-"}
@@ -281,29 +281,29 @@ export function ImagenLayout() {
                               textShadow: "1px 1px 2px black",
                             }}
                           >
-                            {t("datos.tempAgua")}:{" "}
+                            {t("min.tempAgua")}:{" "}
                             {equipo.tempAguaActual !== undefined
                               ? `${equipo.tempAguaActual.toFixed(0)}°C`
                               : "-"}
                           </p>
                           <p
-                            className="font-bold mt-[1px]"
+                            className="font-bold mt-px"
                             style={{
                               fontSize: "calc(0.7vw + 0.4vh)",
                               textShadow: "1px 1px 2px black",
                               lineHeight: "1",
                             }}
                           >
-                            {t("datos.receta")}: {equipo.receta ?? "-"}
+                            {t("min.receta")}: {equipo.receta ?? "-"}
                           </p>
                           <p
-                            className="font-bold mt-[1px]"
+                            className="font-bold mt-px"
                             style={{
                               fontSize: "calc(0.7vw + 0.4vh)",
                               textShadow: "1px 1px 2px black",
                             }}
                           >
-                            {t("datos.tiempo")}: {equipo.tiempoTranscurrido}
+                            {t("min.tiempo")}: {equipo.tiempoTranscurrido}
                           </p>
                         </div>
                       </div>

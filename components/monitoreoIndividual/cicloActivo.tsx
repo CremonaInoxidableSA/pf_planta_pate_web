@@ -20,7 +20,7 @@ const CicloActivo: React.FC<CicloActivoProps> = ({
 
   return (
     <div className="flex flex-col bg-background2 p-5 rounded-md gap-2.5 w-1/2">
-      <h2 className="text-lg text-texto">{t("cicloActivo.titulo")}</h2>
+      <h2 className="text-lg text-texto">{t("mayus.cicloActivo")}</h2>
       <ul className="flex flex-col justify-between grow gap-2.5">
         {datosCiclo.map((dato) => (
           <li

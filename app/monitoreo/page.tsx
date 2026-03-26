@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { useLinea } from "@/context/LineaContext";
 import GraficoMonitoreo from "@/components/cocinas&enfriadores/graficoMonitoreo";
-import Selector from "@/app/historico/(productividad)/(filtradoFechas)/selectorLineas";
+import Selector from "./(filtradoEquipos)/selectorLineas";
 
 const lineas = {
   1: { cocinas: [1, 2, 3], enfriadores: [7, 8, 9, 10] },
@@ -17,13 +17,11 @@ const Monitoreo = () => {
   const linea = lineas[lineaSeleccionada as keyof typeof lineas];
 
   return (
-    <section className="flex flex-col h-screen max-h-screen w-full min-w-[720px] overflow-hidden">
+    <section className="flex flex-col h-screen max-h-screen w-full min-w-180 overflow-hidden">
       {/* Header con título y selector - altura fija */}
-      <div className="flex w-full justify-between mb-[10px]">
-        <h1 className="text-2xl font-semibold text-texto">{t("monitoreo")}</h1>
-        <div className="w-1/5">
+      <div className="flex w-full justify-between mb-2.5">
+        <h1 className="text-2xl font-semibold text-texto">{t("mayus.monitoreo")}</h1>
           <Selector />
-        </div>
       </div>
 
       {/* Contenedor con los gráficos - altura adaptable */}

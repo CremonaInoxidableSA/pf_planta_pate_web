@@ -153,7 +153,7 @@ export default function BotonInformeProductividad({
       pdf.setTextColor(255, 255, 255);
 
       pdf.text(
-        t("pdf.tituloProductividad", "Informe de Productividad"),
+        t("informeProductividad", "Informe de Productividad"),
         margin,
         8,
       );

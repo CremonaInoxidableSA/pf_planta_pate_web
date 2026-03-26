@@ -43,81 +43,81 @@ export default function EquipoPage({ type }: EquipoPageProps) {
   const bgColor = isCocina ? "bg-oranget" : "bg-bluet";
 
   const labelToKeyMap: Record<string, string> = {
-    [t("estadoEquipo.tempAgua")]: "tempAgua",
-    [t("estadoEquipo.tempProd")]: "tempProd",
-    [t("estadoEquipo.nivelAgua")]: "nivelAgua",
+    [t("min.tempAgua")]: "tempAgua",
+    [t("min.tempProd")]: "tempProd",
+    [t("min.nivelAgua")]: "nivelAgua",
   };
 
   const datosEquipo = [
     {
-      label: t("estadoEquipo.tempAgua"),
+      label: t("min.tempAgua"),
       value: equipo?.info.temp_agua ?? "N/A",
       unit: "°C",
     },
     {
-      label: t("estadoEquipo.tempProd"),
+      label: t("min.tempProd"),
       value: equipo?.info.temp_prod ?? "N/A",
       unit: "°C",
     },
     {
-      label: t("estadoEquipo.nivelAgua"),
+      label: t("min.nivelAgua"),
       value: equipo?.info.niv_agua ?? "N/A",
       unit: "mm",
     },
     {
-      label: t("cicloActivo.tiempo"),
+      label: t("min.tiempo"),
       value: equipo?.info.tiempoTranscurrido ?? "N/A",
     },
   ];
 
   const datosCiclo = [
     {
-      label: t("cicloActivo.paso"),
+      label: t("min.paso"),
       value: equipo?.info.receta_paso_actual || "N/A",
     },
     {
-      label: t("cicloActivo.lote"),
+      label: t("min.lote"),
       value: equipo?.detalles.num_receta || "N/A",
     },
     {
-      label: t("cicloActivo.cantTorres"),
+      label: t("min.cantTorres"),
       value: equipo?.detalles.cant_torres || "N/A",
     },
     {
-      label: t("cicloActivo.tipoFin"),
+      label: t("min.tipoFin"),
       value: equipo?.detalles.tipo_fin ?? "N/A",
     },
   ];
 
   const datosIO = useMemo(() => {
     const defaultBaseIO = [
-      { label: t("sectorIO.bomba"), value: false },
-      { label: t("sectorIO.entradaAgua"), value: false },
-      { label: t("sectorIO.filtroSuccion"), value: false },
+      { label: t("min.bomba"), value: false },
+      { label: t("min.entradaAgua"), value: false },
+      { label: t("min.filtroSuccion"), value: false },
     ];
 
     if (!equipo?.detalles.sector_io[0]) {
       if (isCocina) {
         return [
           ...defaultBaseIO,
-          { label: t("sectorIO.vaporSerp"), value: false },
-          { label: t("sectorIO.vaporVivo"), value: false },
+          { label: t("min.vaporSerp"), value: false },
+          { label: t("min.vaporVivo"), value: false },
         ];
       } else {
         return [
           ...defaultBaseIO,
-          { label: t("sectorIO.valvulaAmoniaco"), value: false },
-          { label: t("sectorIO.vaporLim"), value: false },
+          { label: t("min.valvulaAmoniaco"), value: false },
+          { label: t("min.vaporLim"), value: false },
         ];
       }
     }
 
     const sectorIO = equipo.detalles.sector_io[0] as SectorIOType;
     const baseIO = [
-      { label: t("sectorIO.bomba"), value: sectorIO.bomba_recirculacion },
-      { label: t("sectorIO.entradaAgua"), value: sectorIO.entrada_agua },
+      { label: t("min.bomba"), value: sectorIO.bomba_recirculacion },
+      { label: t("min.entradaAgua"), value: sectorIO.entrada_agua },
       {
-        label: t("sectorIO.filtroSuccion"),
+        label: t("min.filtroSuccion"),
         value: sectorIO.filtro_succion_agua,
       },
     ];
@@ -125,17 +125,17 @@ export default function EquipoPage({ type }: EquipoPageProps) {
     if (isCocina && "vapor_serpentina" in sectorIO) {
       return [
         ...baseIO,
-        { label: t("sectorIO.vaporSerp"), value: sectorIO.vapor_serpentina },
-        { label: t("sectorIO.vaporVivo"), value: sectorIO.vapor_vivo },
+        { label: t("min.vaporSerp"), value: sectorIO.vapor_serpentina },
+        { label: t("min.vaporVivo"), value: sectorIO.vapor_vivo },
       ];
     } else if (!isCocina && "valvula_amoniaco" in sectorIO) {
       return [
         ...baseIO,
         {
-          label: t("sectorIO.valvulaAmoniaco"),
+          label: t("min.valvulaAmoniaco"),
           value: sectorIO.valvula_amoniaco,
         },
-        { label: t("sectorIO.vaporLim"), value: sectorIO.vapor_vivo_lim },
+        { label: t("min.vaporLim"), value: sectorIO.vapor_vivo_lim },
       ];
     }
 
@@ -166,12 +166,12 @@ export default function EquipoPage({ type }: EquipoPageProps) {
         <p
           className={`${bgColor} flex justify-start items-center h-12.5 p-3.75 ${borderColor} text-2xl font-semibold rounded-md text-texto`}
         >
-          {t("receta")}: {equipo?.detalles.nom_receta ?? "N/A"}
+          {t("mayus.receta")}: {equipo?.detalles.nom_receta ?? "N/A"}
         </p>
         <p
           className={`bg-background2 flex justify-start items-center h-12.5 p-3.75 ${borderColor} text-2xl font-semibold rounded-md text-texto`}
         >
-          {t("estado")}: {equipo?.info.estado ?? "N/A"}
+          {t("mayus.estado")}: {equipo?.info.estado ?? "N/A"}
         </p>
       </div>
 
