@@ -129,7 +129,7 @@ export default function FormUsuario({
 
   if (loading) {
     return (
-      <DialogContent className="sm:max-w-150 bg-background3 z-800">
+      <DialogContent className="w-full bg-background3 z-800">
         <DialogHeader>
           <DialogTitle>{t("min.cargando") || "Cargando..."}</DialogTitle>
         </DialogHeader>
@@ -141,7 +141,7 @@ export default function FormUsuario({
   }
 
   return (
-    <DialogContent className="sm:max-w-150 bg-background3 z-800">
+    <DialogContent className="w-full bg-background3 z-800 p-5">
       <DialogHeader>
         <DialogTitle>
           {isEditing ? t("min.editarUsuario") : t("min.crearUsuario")}
@@ -153,7 +153,7 @@ export default function FormUsuario({
         </DialogDescription>
       </DialogHeader>
 
-      <div className="grid gap-4 py-4">
+      <div className="grid gap-5 py-4">
         <div className="grid gap-2">
           <Label htmlFor="email">{t("min.email")}</Label>
           <Input

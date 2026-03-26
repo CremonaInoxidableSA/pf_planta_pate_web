@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { VscAccount } from "react-icons/vsc";
 import { authFetch } from "@/app/api/api";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { UserAvatar } from "@/components/userIcon/userAvatar";
 
 import FormUsuario from "./(formulario)/formUsuario";
 import EditarUsuario from "./(table)/editarUsuario";
@@ -148,10 +148,17 @@ export default function ConfiguracionUsuario() {
   }`.trim();
 
   return (
-    <div className="w-full p-4 flex flex-row gap-4">
-      <div className="h-full w-1/5 flex flex-col bg-background2 rounded-lg p-4 justify-between self-stretch">
+    <div className="w-full flex flex-row gap-5">
+      <div className="h-full w-1/5 flex flex-col bg-background2 rounded-lg p-5 justify-between self-stretch">
         <div className="flex w-full items-center justify-center">
-          <VscAccount className="w-20 h-20" />
+          <UserAvatar
+            nombre={nombre}
+            apellido={apellido}
+            rol={rol}
+            sizeClass="w-20 h-20"
+            textClass="text-2xl"
+            imgPx={80}
+          />
         </div>
 
         <div className="flex flex-col gap-5 text-left">
@@ -176,7 +183,7 @@ export default function ConfiguracionUsuario() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-5">
           <Dialog>
             <DialogTrigger asChild>
               <Button className="w-full h-10 border border-botonredborder bg-botonred hover:bg-botonredhover text-botonredborder text-md cursor-pointer">
@@ -204,7 +211,7 @@ export default function ConfiguracionUsuario() {
           </Dialog>
         </div>
       </div>
-      <div className="flex flex-col h-full w-4/5 gap-4">
+      <div className="flex flex-col h-full w-4/5 gap-5">
         <div className="flex items-center justify-between">
           <p className="text-2xl w-full flex justify-center">
             {t("mayu.listaUsuarios")}

@@ -70,7 +70,7 @@ export default function FormUsuario({ onUserCreated }: Props) {
   };
 
   return (
-    <DialogContent className="sm:max-w-150 bg-background3 z-800">
+    <DialogContent className="w-full bg-background3 z-800 p-5">
       <DialogHeader>
         <DialogTitle>{t("min.crearUsuario")}</DialogTitle>
         <DialogDescription>
@@ -78,7 +78,7 @@ export default function FormUsuario({ onUserCreated }: Props) {
         </DialogDescription>
       </DialogHeader>
 
-      <div className="grid gap-4 py-4">
+      <div className="grid gap-5 py-4">
         <div className="grid gap-2">
           <Label htmlFor="email">{t("min.email")}</Label>
           <Input

@@ -114,7 +114,7 @@ const CambioPass = () => {
           <DialogDescription>{t("min.completaDatosCambiar")}</DialogDescription>
         </DialogHeader>
 
-        <div className="grid gap-4 py-4">
+        <div className="grid gap-5 py-4">
           <div className="grid gap-2">
             <Label htmlFor="current_password">{t("min.contraActual")}</Label>
             <Input

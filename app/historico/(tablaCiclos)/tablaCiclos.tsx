@@ -26,8 +26,7 @@ export function getCiclosFiltrados(
 ): Ciclo[] {
   const from = startOfDay(parse(fechaInicio, "yyyy-MM-dd", new Date()));
   const to = endOfDay(parse(fechaFin, "yyyy-MM-dd", new Date()));
-  const { t } = useTranslation();
-  
+
   return ciclosData
     .filter((c) => {
       const start = new Date(c.fechaInicio);
@@ -60,6 +59,7 @@ const TablaCiclos: React.FC<TablaCiclosProps> = ({
   selectedCicloId,
   onCicloSelect,
 }) => {
+  const { t } = useTranslation();
   const [ciclos, setCiclos] = useState<Ciclo[]>([]);
   const [selectedKeys, setSelectedKeys] = useState(
     new Set(selectedCicloId ? [selectedCicloId.toString()] : []),

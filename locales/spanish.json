@@ -48,7 +48,7 @@
     "home": "Inicio",
     "historico": "Histórico",
     "monitoreo": "Monitoreo",
-    "configUsuarios ": "Configuración de usuarios",
+    "configUsuarios": "Configuración de usuarios",
     "cerrarSesion": "Cerrar sesión",
     "seleccionarRango": "Seleccionar rango de fechas",
     "linea1": "Línea 1",
@@ -60,10 +60,24 @@
     "produccionTotal": "Producción total",
     "errorObtenerCiclos": "Error al obtener los ciclos",
     "noExistenDatos": "No existen datos en el equipo/fecha ingresada",
-    "seleccionarCiclo": "Seleccionar ciclo"
+    "seleccionarCiclo": "Seleccionar ciclo",
+    "inicio": "Inicio",
+    "fin": "Fin",
+    "completaDatosCrearUsuario": "Complete los datos para crear un usuario",
+    "ingreseCorreoUsuario": "Ingrese el correo del usuario",
+    "asigneUsuarioUnico": "Asigne un nombre de usuario único",
+    "ingreseNombreUsuario": "Ingrese el nombre del usuario",
+    "ingreseApellidoUsuario": "Ingrese el apellido del usuario",
+    "seleccioneRol": "Seleccione un rol",
+    "ingreseContraseñaUsuario": "Ingrese la contraseña del usuario",
+    "habilitar": "Habilitado",
+    "seleccioneArea": "Seleccione un área",
+    "detalleReclamo": "Detalle del reclamo",
+    "generarReclamo": "Generar reclamo",
+    "dondeProblema": "¿Dónde se encuentra el problema?",
+    "admin": "Admin"
   },
-  "mayus":
-  {
+  "mayus": {
     "titulo": "PF PLANTA PATE - SISTEMA DE ADQUISICIÓN DE DATOS",
     "alarmas": "ALARMAS",
     "activas": "ACTIVAS",

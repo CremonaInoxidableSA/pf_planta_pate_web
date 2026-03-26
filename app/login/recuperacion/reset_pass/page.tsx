@@ -116,7 +116,7 @@ const ResetPassword = () => {
       <section className="flex h-full w-full items-center justify-center">
         <div className="w-auto h-[40vh] gap-3.75 flex flex-col items-center justify-center p-[3rem_4rem_2rem_4rem] max-w-480 bg-backgroundoscuro rounded-md">
           <LogoBase64 className="flex w-[65%] p-0 h-auto" />
-          <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-col items-center gap-5">
             <Spinner />
             <p className="text-center">{t("min.verificandoToken")}</p>
           </div>
@@ -130,7 +130,7 @@ const ResetPassword = () => {
       <section className="flex h-full w-full items-center justify-center">
         <div className="w-auto h-[40vh] gap-3.75 flex flex-col items-center justify-center p-[3rem_4rem_2rem_4rem] max-w-480 bg-backgroundoscuro rounded-md">
           <LogoBase64 className="flex w-[65%] p-0 h-auto" />
-          <div className="flex flex-col items-center gap-4 w-full">
+          <div className="flex flex-col items-center gap-5 w-full">
             <p className="text-center text-red-500 font-semibold">
               {t("min.tokenInvalidoExpirado")}
             </p>
@@ -167,7 +167,7 @@ const ResetPassword = () => {
         </div>
 
         <form
-          className="flex flex-col w-full justify-between gap-4"
+          className="flex flex-col w-full justify-between gap-5"
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col gap-1.25">

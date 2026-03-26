@@ -27,7 +27,7 @@ const Monitoreo = () => {
       </div>
 
       {/* Contenedor con los gráficos - altura adaptable */}
-      <div className="flex-1 flex flex-col gap-4 overflow-hidden">
+      <div className="flex-1 flex flex-col gap-5 overflow-hidden">
         {/* Contenedor de cocinas - mitad superior */}
         <div className="flex-1 flex flex-row gap-5 min-h-0">
           {linea.cocinas.map((id) => (

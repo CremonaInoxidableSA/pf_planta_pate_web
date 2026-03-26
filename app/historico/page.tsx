@@ -103,7 +103,9 @@ export default function Historico() {
           className="w-fit sm:max-w-fit max-w-[calc(100%-2rem)] shadow-none p-5"
         >
           <DialogHeader>
-            <DialogTitle className="text-texto">{t("min.seleccionarCiclo")}</DialogTitle>
+            <DialogTitle className="text-texto">
+              {t("min.seleccionarCiclo")}
+            </DialogTitle>
           </DialogHeader>
           {appliedFilter && (
             <TablaCiclos

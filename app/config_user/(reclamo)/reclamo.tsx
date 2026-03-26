@@ -102,7 +102,7 @@ export default function GenerarReclamo() {
         </DialogDescription>
       </DialogHeader>
 
-      <div className="grid gap-4 py-4">
+      <div className="grid gap-5 py-4">
         <div className="grid gap-2">
           <Label htmlFor="name">{t("min.nombre")}</Label>
           <Input
