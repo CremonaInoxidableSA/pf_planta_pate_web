@@ -36,7 +36,8 @@ const EstadoEquipo: React.FC<EstadoEquipoProps> = ({
         {datos.map((dato, index) => {
           const colorClass = getColorClass(dato.label, dato.value);
           const cssVarMap: Record<string, string> = {
-            "text-water": "var(--color-water)",
+            "text-waterTemp": "var(--color-waterTemp)",
+            "text-waterLevel": "var(--color-waterLevel)",
             "text-greengraph": "var(--color-greengraph)",
           };
           const textKey = colorClass.split(/\s/)[0];

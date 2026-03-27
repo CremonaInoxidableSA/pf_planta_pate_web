@@ -22,7 +22,7 @@ export const getColorClass = (
   }
 
   if (key === "tempAgua") {
-    return "text-water !important";
+    return "text-waterTemp !important";
   }
 
   if (key === "tempIng") {
@@ -34,7 +34,7 @@ export const getColorClass = (
   }
 
   if (key === "nivelAgua") {
-    return "text-water !important";
+    return "text-waterLevel !important";
   }
 
   return defaultColor === "orange"

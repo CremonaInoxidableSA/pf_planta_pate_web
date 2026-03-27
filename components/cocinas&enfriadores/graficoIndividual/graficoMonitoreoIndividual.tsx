@@ -49,9 +49,7 @@ const Grafico = ({ historial, estado, isCocina }: GraficoProps) => {
     const ctx = canvasRef.current.getContext("2d");
     if (!ctx) return;
 
-    const aguaColor = isCocina
-      ? getCssColor("--color-orange", "#ef8225")
-      : getCssColor("--color-blue", "#30a0f0");
+    const aguaColor = getCssColor("--color-blue", "#30a0f0");
     const prodColor = getCssColor("--color-greengraph", "#4bc04b");
 
     chartRef.current = new Chart(ctx, {

@@ -31,7 +31,7 @@ export default function LayoutClient({
   ].includes(pathname);
 
   const hideHeader2 =
-    pathname === "/" || pathname === "/monitoreo" || pathname === "/historico";
+    pathname === "/cocinas" || pathname === "/enfriadores";
 
   useEffect(() => {
     const saved =
@@ -50,7 +50,7 @@ export default function LayoutClient({
       <div className="flex flex-col min-h-screen">
         <div className="sticky top-0 left-0 w-full z-551">
           {!hideHeaderFooter && <HeaderPrincipal currentPath={pathname} />}
-          {!hideHeaderFooter && !hideHeader2 && <HeaderSecundario />}
+          {!hideHeaderFooter && hideHeader2 && <HeaderSecundario />}
         </div>
         <WebSocketProvider>
           <CocinaProvider>
