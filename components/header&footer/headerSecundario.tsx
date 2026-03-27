@@ -58,7 +58,7 @@ const HeaderSecundario = () => {
                 ) : (
                   <GoDotFill className="text-gray-500" />
                 )}
-                <p>{text}</p>
+                <p className="font-semibold">{text}</p>
               </Link>
               {isActive && (
                 <div className="absolute bottom-0 left-0 w-full h-0.5 bg-green-500" />

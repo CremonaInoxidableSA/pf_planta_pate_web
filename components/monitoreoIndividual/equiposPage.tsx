@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "next/navigation";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import Selector from "./selectorEquipos";
@@ -29,8 +29,17 @@ export default function EquipoPage({ type }: EquipoPageProps) {
   const { enfriadores } = useEnfriadorContext();
   const router = useRouter();
 
-  const currentId =
-    Number(searchParams.get("id")) || (type === "cocina" ? 1 : 7);
+  const storageKey = `lastEquipoId_${type}`;
+  const defaultId = type === "cocina" ? 1 : 7;
+  const currentId = useMemo(() => {
+    const fromUrl = Number(searchParams.get("id"));
+    if (fromUrl) return fromUrl;
+    if (typeof window !== "undefined") {
+      const stored = Number(localStorage.getItem(storageKey));
+      if (stored) return stored;
+    }
+    return defaultId;
+  }, [searchParams, storageKey, defaultId]);
 
   const equipo =
     type === "cocina"
@@ -141,6 +150,12 @@ export default function EquipoPage({ type }: EquipoPageProps) {
 
     return baseIO;
   }, [equipo, isCocina, t]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem(storageKey, String(currentId));
+    }
+  }, [currentId, storageKey]);
 
   const handleSelectionChange = (newId: number) => {
     router.push(`?id=${newId}`);
