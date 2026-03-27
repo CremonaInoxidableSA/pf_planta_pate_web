@@ -62,7 +62,7 @@
   --color-textodesac: var(--textodesac);
   --color-datosblueback: var(--datosblueback);
   --color-datosbluebackhover: var(--datosbluebackhover);
-  
+
   --color-orange: #ef8225;
   --color-oranget: #f826;
   --color-blue: #30a0f0;
@@ -87,6 +87,21 @@
   --color-botonblueborder: #0bb7ff;
   --color-botonbluehover: #0070ba22;
   --color-botonblue: #0070ba3f;
+
+  --color-lightred: #ff5045;
+  --color-redchill: #3b1616;
+  --color-white: #eeeeee;
+  --color-midgrey: #3f3f3f;
+
+  --color-yellowgraph: #ffa500;
+  --color-bluegraph: #36a2eb;
+  --color-greengraph: #4bc04b;
+
+  --color-redstate: #f00;
+  --color-yellowstate: #bfbf8b;
+  --color-greenstate: #9cbb97;
+  --color-bluestate: #9db5bf;
+  --color-graystate: #6e6e6e;
 }
 
 :root {
@@ -196,6 +211,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }

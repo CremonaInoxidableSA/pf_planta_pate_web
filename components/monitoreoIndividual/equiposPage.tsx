@@ -6,7 +6,7 @@ import { useMemo, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import Selector from "./selectorEquipos";
-import Grafico from "../cocinas&enfriadores/grafico";
+import Grafico from "../cocinas&enfriadores/graficoIndividual/graficoMonitoreoIndividual";
 import CicloActivo from "./cicloActivo";
 import EstadoEquipo from "./estadoEquipo";
 import SectorIO from "./sectorIO";
@@ -213,7 +213,14 @@ export default function EquipoPage({ type }: EquipoPageProps) {
           />
         </div>
         <div className="flex col-span-2 bg-background2 rounded-md p-5">
-          <Grafico />
+          <Grafico
+            historial={
+              (equipo?.detalles.historial ??
+                []) as import("../cocinas&enfriadores/graficoIndividual/graficoTypes").HistorialItem[]
+            }
+            estado={equipo?.info.estado ?? "INACTIVO"}
+            isCocina={isCocina}
+          />
         </div>
       </div>
     </div>
