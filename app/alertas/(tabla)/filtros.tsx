@@ -6,16 +6,10 @@ import type { DateRange } from "react-day-picker";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Download, FilterX } from "lucide-react";
+import { FilterX } from "lucide-react";
 import DateRangePicker from "@/components/selectores/dateRangePicker";
 import type { Alerta, ColumnKey } from "./types";
-import { getColHeaders, exportPDF, exportExcel } from "./exportar";
+import BotonExportar from "./(exportar)/botonExportar";
 
 interface FiltrosProps {
   table: Table<Alerta>;
@@ -35,70 +29,22 @@ const Filtros: React.FC<FiltrosProps> = ({
   onClearFilters,
 }) => {
   const { t } = useTranslation();
-  const colHeaders = getColHeaders(t);
 
   return (
     <>
       {/* Toolbar */}
-      <div className="flex flex-wrap items-center gap-2 mb-4">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              className="bg-[#761122] hover:bg-[#8f1529] text-texto"
-              size="sm"
-            >
-              <Download className="size-4" />
-              {t("min.exportar")}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-[#1e1e1e] border-[#515151] text-[#d9d9d9]">
-            <DropdownMenuItem
-              className="hover:bg-[#2a2a2a] cursor-pointer"
-              onClick={() =>
-                exportPDF(table.getPrePaginationRowModel().rows, colHeaders)
-              }
-            >
-              {t("min.exptodaspdf")}
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="hover:bg-[#2a2a2a] cursor-pointer"
-              onClick={() => exportPDF(table.getRowModel().rows, colHeaders)}
-            >
-              {t("min.expvisiblespdf")}
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="hover:bg-[#2a2a2a] cursor-pointer"
-              onClick={() =>
-                exportExcel(
-                  table.getPrePaginationRowModel().rows,
-                  colHeaders,
-                  "Todas_Alertas",
-                )
-              }
-            >
-              {t("min.exptodasexcel")}
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="hover:bg-[#2a2a2a] cursor-pointer"
-              onClick={() =>
-                exportExcel(
-                  table.getRowModel().rows,
-                  colHeaders,
-                  "Alertas_Visibles",
-                )
-              }
-            >
-              {t("min.expvisiblesexcel")}
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+      <div className="flex flex-wrap items-center gap-2">
+        <BotonExportar
+          allRows={table.getPrePaginationRowModel().rows}
+          visibleRows={table.getRowModel().rows}
+        />
 
         <DateRangePicker value={dateRange} onChange={setDateRange} />
 
         <Button
           variant="outline"
           size="sm"
-          className="border-[#515151] text-[#d9d9d9] bg-transparent hover:bg-white/5 hover:text-texto"
+          className="h-full bg-background2 hover:bg-white/5"
           onClick={onClearFilters}
         >
           <FilterX className="size-4" />
@@ -108,7 +54,7 @@ const Filtros: React.FC<FiltrosProps> = ({
         {error && (
           <Button
             size="sm"
-            className="bg-[#761122] hover:bg-[#8f1529] text-texto"
+            className="bg-[#761122] hover:bg-[#8f1529] text-white"
             onClick={onRetry}
           >
             {t("min.reintentar")}
@@ -117,7 +63,7 @@ const Filtros: React.FC<FiltrosProps> = ({
       </div>
 
       {/* Filtros por columna */}
-      <div className="grid grid-cols-4 gap-2 mb-3">
+      <div className="flex gap-5">
         {(["description", "type", "state", "time"] as ColumnKey[]).map(
           (col) => (
             <Input

@@ -21,7 +21,7 @@ export const highlightText = (
       part.toLowerCase() === filter.toLowerCase() ? (
         <mark
           key={i}
-          className="bg-yellow-400/40 text-texto font-bold rounded-sm"
+          className="bg-yellow-400/40 text-texto font-bold rounded-md"
         >
           {part}
         </mark>

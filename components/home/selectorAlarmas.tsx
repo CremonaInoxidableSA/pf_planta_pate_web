@@ -28,7 +28,7 @@ const Selector = ({ value = 1 }) => {
 
   return (
     <Select value={value.toString()}>
-      <SelectTrigger className="text-texto h-12.5 rounded-lg w-full">
+      <SelectTrigger className="text-texto h-12.5 rounded-md w-full">
         <SelectValue placeholder="Seleccionar" />
       </SelectTrigger>
       <SelectContent className="bg-background4 text-texto rounded-md w-(--radix-select-trigger-width)">

@@ -41,7 +41,7 @@ export default function DateRangePicker({
         <Button
           variant="ghost"
           className={cn(
-            "min-w-57.5 min-h-12.5 bg-background3 text-texto justify-start gap-2 rounded-lg hover:bg-background4 hover:text-texto",
+            "min-w-57.5 bg-background2 text-texto justify-start gap-2 rounded-md hover:bg-background4 hover:text-texto",
             !value && "text-muted-foreground",
             className,
           )}

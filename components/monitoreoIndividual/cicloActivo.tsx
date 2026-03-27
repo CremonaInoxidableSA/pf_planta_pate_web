@@ -12,7 +12,6 @@ interface CicloActivoProps {
 const CicloActivo: React.FC<CicloActivoProps> = ({
   datosCiclo,
   displayData,
-  defaultColor,
 }) => {
   const { t } = useTranslation();
 

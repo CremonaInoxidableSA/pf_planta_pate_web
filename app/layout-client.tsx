@@ -30,8 +30,7 @@ export default function LayoutClient({
     "/bootstrap",
   ].includes(pathname);
 
-  const hideHeader2 =
-    pathname === "/cocinas" || pathname === "/enfriadores";
+  const hideHeader2 = pathname === "/cocinas" || pathname === "/enfriadores";
 
   useEffect(() => {
     const saved =

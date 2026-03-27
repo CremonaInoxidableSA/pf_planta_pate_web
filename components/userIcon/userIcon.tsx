@@ -92,7 +92,9 @@ const UserIcon = () => {
                   <span>{t("min.cargando")}</span>
                 </div>
               ) : (
-                <p className="text-white font-medium">{t("min.cerrarSesion")}</p>
+                <p className="text-white font-medium">
+                  {t("min.cerrarSesion")}
+                </p>
               )}
             </Button>
           </>

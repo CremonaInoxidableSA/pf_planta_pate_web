@@ -14,7 +14,8 @@
 import { NextRequest } from "next/server";
 
 const WS_URL =
-  process.env.WS_DATOS_GENERALES_URL ?? "ws://192.168.20.150:8000/ws/datos-generales";
+  process.env.WS_DATOS_GENERALES_URL ??
+  "ws://192.168.20.150:8000/ws/datos-generales";
 
 const MAX_RETRIES = 5;
 const RETRY_DELAY_MS = 3000;
