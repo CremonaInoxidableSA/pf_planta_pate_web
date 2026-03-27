@@ -30,11 +30,11 @@ export const getColorClass = (
   }
 
   if (key === "tempProd") {
-    return "text-greenGraph !important";
+    return "text-greengraph !important";
   }
 
   if (key === "nivelAgua") {
-    return "text-yellowGraph !important";
+    return "text-water !important";
   }
 
   return defaultColor === "orange"

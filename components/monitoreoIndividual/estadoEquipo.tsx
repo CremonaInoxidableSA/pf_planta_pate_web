@@ -33,19 +33,31 @@ const EstadoEquipo: React.FC<EstadoEquipoProps> = ({
     <div className="flex flex-col bg-background2 p-5 rounded-md gap-2.5 w-1/2">
       <h2 className="text-xl text-texto w-full ">{t("mayus.estadoEquipo")}</h2>
       <ul className="flex flex-col justify-between grow gap-2.5">
-        {datos.map((dato, index) => (
-          <li
-            key={`${dato.label}-${index}`}
-            className="bg-background3 flex flex-col px-5 py-2.5 rounded-md"
-          >
-            <span className="text-xl text-texto">{dato.label}:</span>
-            <span
-              className={`text-xl ${getColorClass(dato.label, dato.value)}`}
+        {datos.map((dato, index) => {
+          const colorClass = getColorClass(dato.label, dato.value);
+          const cssVarMap: Record<string, string> = {
+            "text-water": "var(--color-water)",
+            "text-greengraph": "var(--color-greengraph)",
+          };
+          const textKey = colorClass.split(/\s/)[0];
+          const borderCssVar = cssVarMap[textKey];
+          return (
+            <li
+              key={`${dato.label}-${index}`}
+              className="bg-background3 flex flex-col px-5 py-2.5 rounded-md"
+              style={
+                borderCssVar
+                  ? { border: `1px solid ${borderCssVar}` }
+                  : undefined
+              }
             >
-              {formatValue(dato.value, dato.unit)}
-            </span>
-          </li>
-        ))}
+              <span className="text-xl text-texto">{dato.label}:</span>
+              <span className={`text-xl ${colorClass}`}>
+                {formatValue(dato.value, dato.unit)}
+              </span>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

@@ -1,14 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { getColorClass } from "@/utils/logicaColores";
-
 interface CicloActivoProps {
   datosCiclo: { label: string; value: string | number | null }[];
   displayData: (
     data: string | number | null | boolean,
   ) => string | number | boolean;
-  defaultColor: "orange" | "blue" | "lightRed";
+  defaultColor?: "orange" | "blue" | "lightRed";
 }
 
 const CicloActivo: React.FC<CicloActivoProps> = ({
@@ -20,7 +18,7 @@ const CicloActivo: React.FC<CicloActivoProps> = ({
 
   return (
     <div className="flex flex-col bg-background2 p-5 rounded-md gap-2.5 w-1/2">
-      <h2 className="text-lg text-texto">{t("mayus.cicloActivo")}</h2>
+      <h2 className="text-xl text-texto w-full">{t("mayus.cicloActivo")}</h2>
       <ul className="flex flex-col justify-between grow gap-2.5">
         {datosCiclo.map((dato) => (
           <li
@@ -28,11 +26,7 @@ const CicloActivo: React.FC<CicloActivoProps> = ({
             className="bg-background3 flex flex-col px-5 py-2.5 rounded-md"
           >
             <p className="text-lg text-texto">{dato.label}</p>
-            <p
-              className={`text-lg ${getColorClass(dato.label, dato.value, defaultColor)}`}
-            >
-              {displayData(dato.value)}
-            </p>
+            <p className="text-lg text-texto">{displayData(dato.value)}</p>
           </li>
         ))}
       </ul>

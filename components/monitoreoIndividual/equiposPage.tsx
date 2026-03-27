@@ -197,9 +197,11 @@ export default function EquipoPage({ type }: EquipoPageProps) {
             <EstadoEquipo
               datos={datosEquipo}
               displayData={formattedDisplayData}
-              getColorClass={(label, value) =>
-                getColorClass(labelToKeyMap[label] || "", value, color)
-              }
+              getColorClass={(label, value) => {
+                const key = labelToKeyMap[label] || "";
+                if (!key) return "text-texto";
+                return getColorClass(key, value, color);
+              }}
             />
             <CicloActivo
               datosCiclo={datosCiclo}
