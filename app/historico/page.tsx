@@ -47,7 +47,7 @@ export default function Historico() {
     if (!dateRange?.from || !dateRange?.to) return;
     const fechaInicio = format(dateRange.from, "yyyy-MM-dd");
     const fechaFin = format(dateRange.to, "yyyy-MM-dd");
-    const ciclos = getCiclosFiltrados(fechaInicio, fechaFin, equipoId);
+    const ciclos = getCiclosFiltrados(fechaInicio, fechaFin);
     if (ciclos.length === 0) {
       toast.error(t("min.errorObtenerCiclos"), {
         description: t("min.noExistenDatos"),

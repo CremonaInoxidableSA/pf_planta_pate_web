@@ -8,7 +8,7 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
-import ciclosData from "@/mocks/ciclosHistorico.json";
+import ciclosData from "@/mocks/listaCiclos.json";
 import { useTranslation } from "react-i18next";
 
 interface Ciclo {
@@ -22,32 +22,20 @@ interface Ciclo {
 export function getCiclosFiltrados(
   fechaInicio: string,
   fechaFin: string,
-  equipoId: number,
 ): Ciclo[] {
   const from = startOfDay(parse(fechaInicio, "yyyy-MM-dd", new Date()));
   const to = endOfDay(parse(fechaFin, "yyyy-MM-dd", new Date()));
 
-  return ciclosData
-    .filter((c) => {
-      const start = new Date(c.fechaInicio);
-      return (
-        c.idEquipo === equipoId &&
-        isWithinInterval(start, { start: from, end: to })
-      );
-    })
-    .map((c) => ({
-      id_ciclo: c.idCiclo,
-      lote: c.lote,
-      fecha_inicio: c.fechaInicio,
-      fecha_fin: c.fechaFin,
-      tiempo_transcurrido: `${c.tiempoTranscurridoHs} hs`,
-    }));
+  return ciclosData.filter((c) => {
+    const start = new Date(c.fecha_inicio);
+    return isWithinInterval(start, { start: from, end: to });
+  });
 }
 
 interface TablaCiclosProps {
   fechaInicio: string;
   fechaFin: string;
-  equipoId: number;
+  equipoId?: number;
   selectedCicloId?: number | null;
   onCicloSelect?: (ciclo: Ciclo) => void;
 }
@@ -55,7 +43,6 @@ interface TablaCiclosProps {
 const TablaCiclos: React.FC<TablaCiclosProps> = ({
   fechaInicio,
   fechaFin,
-  equipoId,
   selectedCicloId,
   onCicloSelect,
 }) => {
@@ -66,13 +53,13 @@ const TablaCiclos: React.FC<TablaCiclosProps> = ({
   );
 
   useEffect(() => {
-    const filtered = getCiclosFiltrados(fechaInicio, fechaFin, equipoId);
+    const filtered = getCiclosFiltrados(fechaInicio, fechaFin);
     const timer = setTimeout(() => {
       setCiclos(filtered);
       setSelectedKeys(new Set());
     }, 0);
     return () => clearTimeout(timer);
-  }, [fechaInicio, fechaFin, equipoId]);
+  }, [fechaInicio, fechaFin]);
 
   return (
     <div className="max-h-[70vh] overflow-y-auto">

@@ -14,7 +14,19 @@ import {
 } from "chart.js";
 import { useEffect, useRef, useState } from "react";
 import type { HistoricoFilter, Ciclo } from "../page";
-import graficoData from "@/mocks/graficoHistorico.json";
+import sensoresData from "@/mocks/obtenerDatosSensores.json";
+
+// Tipo para los datos del sensor
+interface SensorData {
+  idSensor: number;
+  valor: number;
+  fechaRegistro: string;
+  idCiclo: number;
+  id: number;
+}
+
+// Tipo para el objeto de sensores
+type SensoresObject = Record<string, SensorData[]>;
 
 Chart.register(
   LineController,
@@ -31,10 +43,19 @@ interface GraficoHistoricoProps {
   selectedCiclo: Ciclo | null;
 }
 
+// Colores para diferentes sensores
+const coloresSensores: Record<string, string> = {
+  "Temperatura agua": "rgb(59, 130, 246)",
+  "Temperatura producto": "rgb(239, 68, 68)",
+  "Temperatura ingreso": "rgb(34, 197, 94)",
+  "Nivel agua": "rgb(168, 85, 247)",
+};
+
 const GraficoHistorico = ({ filter, selectedCiclo }: GraficoHistoricoProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const chartRef = useRef<Chart | null>(null);
   const [zoomPluginLoaded, setZoomPluginLoaded] = useState(false);
+  const [hasData, setHasData] = useState(false);
 
   useEffect(() => {
     const loadZoomPlugin = async () => {
@@ -54,10 +75,50 @@ const GraficoHistorico = ({ filter, selectedCiclo }: GraficoHistoricoProps) => {
   useEffect(() => {
     if (!selectedCiclo || !canvasRef.current || !zoomPluginLoaded) return;
 
-    const cicloData = graficoData.find(
-      (c) => c.idCiclo === selectedCiclo.id_ciclo,
-    );
-    if (!cicloData) return;
+    // Filtrar datos por idCiclo para cada sensor
+    const data = sensoresData as SensoresObject;
+    const datasets = Object.entries(data)
+      .map(([sensorName, readings]) => {
+        // Verificar que readings sea un array
+        if (!Array.isArray(readings)) return null;
+
+        const filteredReadings = readings.filter(
+          (r) => r.idCiclo === selectedCiclo.id_ciclo,
+        );
+
+        if (filteredReadings.length === 0) return null;
+
+        return {
+          label: sensorName,
+          data: filteredReadings
+            .sort(
+              (a, b) =>
+                new Date(a.fechaRegistro).getTime() -
+                new Date(b.fechaRegistro).getTime(),
+            )
+            .map((r) => ({
+              x: new Date(r.fechaRegistro).getTime(),
+              y: r.valor,
+            })),
+          borderColor: coloresSensores[sensorName] || "rgb(156, 163, 175)",
+          backgroundColor:
+            (coloresSensores[sensorName] || "rgb(156, 163, 175)") + "1A",
+          tension: 0.3,
+          pointRadius: 2,
+        };
+      })
+      .filter((d) => d !== null);
+
+    if (datasets.length === 0) {
+      setHasData(false);
+      if (chartRef.current) {
+        chartRef.current.destroy();
+        chartRef.current = null;
+      }
+      return;
+    }
+
+    setHasData(true);
 
     if (chartRef.current) {
       chartRef.current.destroy();
@@ -69,21 +130,7 @@ const GraficoHistorico = ({ filter, selectedCiclo }: GraficoHistoricoProps) => {
 
     chartRef.current = new Chart(ctx, {
       type: "line",
-      data: {
-        datasets: [
-          {
-            label: "Temperatura (°C)",
-            data: cicloData.historial.map((h) => ({
-              x: new Date(h.timestamp).getTime(),
-              y: h.temperatura,
-            })),
-            borderColor: "rgb(59, 130, 246)",
-            backgroundColor: "rgba(59, 130, 246, 0.1)",
-            tension: 0.3,
-            pointRadius: 4,
-          },
-        ],
-      },
+      data: { datasets },
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -106,7 +153,11 @@ const GraficoHistorico = ({ filter, selectedCiclo }: GraficoHistoricoProps) => {
             grid: { color: "rgba(156, 163, 175, 0.1)" },
           },
           y: {
-            title: { display: true, text: "°C", color: "rgb(156, 163, 175)" },
+            title: {
+              display: true,
+              text: "Valor",
+              color: "rgb(156, 163, 175)",
+            },
             ticks: { color: "rgb(156, 163, 175)" },
             grid: { color: "rgba(156, 163, 175, 0.1)" },
           },
@@ -142,6 +193,11 @@ const GraficoHistorico = ({ filter, selectedCiclo }: GraficoHistoricoProps) => {
         {format(new Date(selectedCiclo.fecha_fin), "HH:mm")}
       </p>
       <div className="relative h-80">
+        {!hasData && (
+          <div className="absolute inset-0 flex items-center justify-center text-texto">
+            No hay datos de sensores para este ciclo.
+          </div>
+        )}
         <canvas ref={canvasRef} />
       </div>
     </div>
