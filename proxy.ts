@@ -2,12 +2,24 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { verifyToken } from "./lib/auth";
 
+// =====================================================
+// BYPASS DE AUTENTICACIÓN TEMPORAL - DESARROLLO SIN BD
+// Para reactivar la autenticación, cambiar a false
+// =====================================================
+const BYPASS_AUTH = true;
+// =====================================================
+
 const publicRoutes = ["/login", "/register", "/bootstrap"];
 const adminRoutes = ["/config_user", "/api/config"];
 const routesWithOwnToken = ["/login/recuperacion/reset_pass"];
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // BYPASS_AUTH: Si está activo, permitir todas las rutas sin verificación
+  if (BYPASS_AUTH) {
+    return NextResponse.next();
+  }
 
   if (pathname.startsWith("/api/")) {
     return NextResponse.next();

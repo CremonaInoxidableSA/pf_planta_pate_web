@@ -11,6 +11,25 @@ import { useRouter, usePathname } from "next/navigation";
 import { UserSession } from "@/lib/types";
 import Cookies from "js-cookie";
 
+// =====================================================
+// BYPASS DE AUTENTICACIÓN TEMPORAL - DESARROLLO SIN BD
+// Para reactivar la autenticación, cambiar a false
+// =====================================================
+const BYPASS_AUTH = true;
+
+// Usuario mock para desarrollo sin base de datos
+const MOCK_USER: UserSession = {
+  id: 0,
+  email: "dev@localhost.com",
+  username: "developer",
+  nombre: "Developer",
+  apellido: "Mode",
+  rol: "admin",
+  habilitado: true,
+  reporte: true,
+};
+// =====================================================
+
 interface AuthContextType {
   user: UserSession | null;
   email: string | null;
@@ -49,31 +68,64 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 );
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<UserSession | null>(null);
-  const [email, setEmail] = useState<string | null>(null);
-  const [username, setUsername] = useState<string | null>(null);
-  const [nombre, setNombre] = useState<string | null>(null);
-  const [apellido, setApellido] = useState<string | null>(null);
-  const [rol, setRol] = useState<string | null>(null);
-  const [habilitado, setHabilitado] = useState<boolean | null>(null);
-  const [reporte, setReporte] = useState<boolean | null>(null);
-  const [loading, setLoading] = useState(true);
+  // Si BYPASS_AUTH está activo, inicializar con usuario mock
+  const [user, setUser] = useState<UserSession | null>(
+    BYPASS_AUTH ? MOCK_USER : null,
+  );
+  const [email, setEmail] = useState<string | null>(
+    BYPASS_AUTH ? (MOCK_USER.email ?? null) : null,
+  );
+  const [username, setUsername] = useState<string | null>(
+    BYPASS_AUTH ? (MOCK_USER.username ?? null) : null,
+  );
+  const [nombre, setNombre] = useState<string | null>(
+    BYPASS_AUTH ? (MOCK_USER.nombre ?? null) : null,
+  );
+  const [apellido, setApellido] = useState<string | null>(
+    BYPASS_AUTH ? (MOCK_USER.apellido ?? null) : null,
+  );
+  const [rol, setRol] = useState<string | null>(
+    BYPASS_AUTH ? (MOCK_USER.rol ?? null) : null,
+  );
+  const [habilitado, setHabilitado] = useState<boolean | null>(
+    BYPASS_AUTH ? !!MOCK_USER.habilitado : null,
+  );
+  const [reporte, setReporte] = useState<boolean | null>(
+    BYPASS_AUTH ? !!MOCK_USER.reporte : null,
+  );
+  // Si BYPASS_AUTH está activo, no mostrar loading
+  const [loading, setLoading] = useState(BYPASS_AUTH ? false : true);
   const router = useRouter();
   const pathname = usePathname();
 
   const [needBootstrap, setNeedBootstrap] = useState(false);
 
   useEffect(() => {
-    checkSession();
+    // BYPASS_AUTH: Si está activo, no verificar sesión con el servidor
+    if (!BYPASS_AUTH) {
+      checkSession();
+    }
   }, []);
 
   useEffect(() => {
-    if (pathname === "/login" && needBootstrap) {
+    // BYPASS_AUTH: Si está activo, no verificar sesión en cambios de ruta
+    if (!BYPASS_AUTH && pathname === "/login" && needBootstrap) {
       checkSession();
     }
   }, [pathname, needBootstrap]);
 
   useEffect(() => {
+    // BYPASS_AUTH: Si está activo, solo redirigir fuera del login
+    if (BYPASS_AUTH) {
+      if (
+        pathname === "/login" ||
+        pathname === "/register" ||
+        pathname === "/bootstrap"
+      ) {
+        router.push("/");
+      }
+      return;
+    }
     if (!loading) {
       if (!pathname) {
         return;

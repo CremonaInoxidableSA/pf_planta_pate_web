@@ -1,0 +1,38 @@
+{
+  "ciclos_realizados": 36,
+  "produccion_total": 36.58,
+  "ciclos_correctos": 36,
+  "ciclos_incorrectos": 0,
+  "productos_realizados": [
+    {
+      "nombre_receta": "Jamon tipo 1",
+      "capacidad_receta": 9211,
+      "cantidad_ciclos": 9
+    },
+    {
+      "nombre_receta": "Jamon tipo 6",
+      "capacidad_receta": 5002,
+      "cantidad_ciclos": 5
+    },
+    {
+      "nombre_receta": "Jamon tipo 4",
+      "capacidad_receta": 6150,
+      "cantidad_ciclos": 6
+    },
+    {
+      "nombre_receta": "Jamon tipo 3",
+      "capacidad_receta": 4954,
+      "cantidad_ciclos": 5
+    },
+    {
+      "nombre_receta": "Jamon tipo 2",
+      "capacidad_receta": 4107,
+      "cantidad_ciclos": 4
+    },
+    {
+      "nombre_receta": "Jamon tipo 5",
+      "capacidad_receta": 7135,
+      "cantidad_ciclos": 7
+    }
+  ]
+}
