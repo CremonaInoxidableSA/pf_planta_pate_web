@@ -1,0 +1,16 @@
+[
+  {
+    "id_ciclo": 1,
+    "lote": "COC-01-C0036",
+    "fecha_inicio": "2026-03-30T14:15:24",
+    "fecha_fin": "2026-03-30T14:17:20",
+    "tiempo_transcurrido": "00:01:56"
+  },
+  {
+    "id_ciclo": 5,
+    "lote": "COC-01-C0037",
+    "fecha_inicio": "2026-03-30T14:17:30",
+    "fecha_fin": "2026-03-30T14:20:27",
+    "tiempo_transcurrido": "00:02:57"
+  }
+]

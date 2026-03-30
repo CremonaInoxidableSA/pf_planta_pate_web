@@ -1,33 +1,22 @@
 /**
- * API Route proxy para endpoint de histórico de productividad
- * Ruta: /api/historico-productividad/[id_equipo]/[fecha_inicio]/[fecha_fin]
- * Redirige a: http://localhost/historico-productividad/[id_equipo]/[fecha_inicio]/[fecha_fin]
- *
- * id_equipo:
- *   - 0: Todos los equipos (ambas líneas)
- *   - 15: Línea 1
- *   - 16: Línea 2
- *   - 1-6: Cocinas individuales
- *   - 7-14: Enfriadores individuales
+ * API Route proxy para endpoint de histórico de gráficos (ciclos)
+ * Ruta: /api/historico-graficos/[id_equipo]?fecha_inicio=YYYY-MM-DD&fecha_fin=YYYY-MM-DD
+ * Redirige a: {API_DATOS_URL}/historico-graficos/[id_equipo]?fecha_inicio=...&fecha_fin=...
  *
  * Corre únicamente en el servidor — la URL real de la API nunca se envía al navegador.
  */
 
-import mockData from "@/mocks/obtenerListaProductividad.json";
+import mockData from "@/mocks/historico-graficos.json";
 
 // =====================================================
 // MODO MOCK - Usar datos de prueba en lugar de la API
 // Para usar la API real, cambiar a false
 // =====================================================
-const USE_MOCK = true;
+const USE_MOCK = false;
 // =====================================================
 
 type Props = {
-  params: Promise<{
-    id_equipo: string;
-    fecha_inicio: string;
-    fecha_fin: string;
-  }>;
+  params: Promise<{ id_equipo: string }>;
 };
 
 function getBaseUrl(): string {
@@ -48,50 +37,57 @@ function buildHeaders(request: Request): Record<string, string> {
 
 export async function GET(request: Request, props: Props): Promise<Response> {
   try {
-    const { id_equipo, fecha_inicio, fecha_fin } = await props.params;
+    const { id_equipo } = await props.params;
+    const { searchParams } = new URL(request.url);
+    const fecha_inicio = searchParams.get("fecha_inicio");
+    const fecha_fin = searchParams.get("fecha_fin");
 
-    // Validar que los parámetros son correctos
     const equipoId = parseInt(id_equipo, 10);
-    if (isNaN(equipoId) || equipoId < 0 || equipoId > 16) {
+    if (isNaN(equipoId) || equipoId < 0) {
       return Response.json(
-        { error: "id_equipo inválido. Debe ser un número entre 0 y 16." },
+        { error: "id_equipo inválido. Debe ser un número positivo." },
         { status: 400 },
       );
     }
 
-    // Validar formato de fechas (YYYY-MM-DD)
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-    if (!dateRegex.test(fecha_inicio) || !dateRegex.test(fecha_fin)) {
+    if (
+      !fecha_inicio ||
+      !fecha_fin ||
+      !dateRegex.test(fecha_inicio) ||
+      !dateRegex.test(fecha_fin)
+    ) {
       return Response.json(
         { error: "Formato de fecha inválido. Use YYYY-MM-DD." },
         { status: 400 },
       );
     }
 
-    // Usar datos mock si está habilitado
     if (USE_MOCK) {
       return Response.json(mockData, { status: 200 });
     }
 
-    const fullUrl = `${getBaseUrl()}/historico-productividad/${id_equipo}/${fecha_inicio}/${fecha_fin}`;
+    const fullUrl = `${getBaseUrl()}/historico-graficos/${id_equipo}?fecha_inicio=${fecha_inicio}&fecha_fin=${fecha_fin}`;
 
     const response = await fetch(fullUrl, {
       method: "GET",
       headers: buildHeaders(request),
     });
 
-    const text = await response.text();
-    let data: unknown;
-    try {
-      data = JSON.parse(text);
-    } catch {
-      data = text;
+    if (!response.ok) {
+      const errorText = await response.text();
+      return Response.json(
+        { error: `Error del servidor: ${response.status}`, details: errorText },
+        { status: response.status },
+      );
     }
 
-    return Response.json(data, { status: response.status });
+    const data = await response.json();
+    return Response.json(data, { status: 200 });
   } catch (error) {
+    console.error("Error en /api/historico-graficos:", error);
     return Response.json(
-      { error: error instanceof Error ? error.message : String(error) },
+      { error: "Error interno del servidor" },
       { status: 500 },
     );
   }

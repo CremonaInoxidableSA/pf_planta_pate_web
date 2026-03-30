@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { parse, isWithinInterval, startOfDay, endOfDay } from "date-fns";
+import React, { useState } from "react";
 import {
   Table,
   TableHeader,
@@ -8,7 +7,6 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
-import ciclosData from "@/mocks/listaCiclos.json";
 import { useTranslation } from "react-i18next";
 
 interface Ciclo {
@@ -19,47 +17,21 @@ interface Ciclo {
   tiempo_transcurrido: string;
 }
 
-export function getCiclosFiltrados(
-  fechaInicio: string,
-  fechaFin: string,
-): Ciclo[] {
-  const from = startOfDay(parse(fechaInicio, "yyyy-MM-dd", new Date()));
-  const to = endOfDay(parse(fechaFin, "yyyy-MM-dd", new Date()));
-
-  return ciclosData.filter((c) => {
-    const start = new Date(c.fecha_inicio);
-    return isWithinInterval(start, { start: from, end: to });
-  });
-}
-
 interface TablaCiclosProps {
-  fechaInicio: string;
-  fechaFin: string;
-  equipoId?: number;
+  ciclos: Ciclo[];
   selectedCicloId?: number | null;
   onCicloSelect?: (ciclo: Ciclo) => void;
 }
 
 const TablaCiclos: React.FC<TablaCiclosProps> = ({
-  fechaInicio,
-  fechaFin,
+  ciclos,
   selectedCicloId,
   onCicloSelect,
 }) => {
   const { t } = useTranslation();
-  const [ciclos, setCiclos] = useState<Ciclo[]>([]);
   const [selectedKeys, setSelectedKeys] = useState(
     new Set(selectedCicloId ? [selectedCicloId.toString()] : []),
   );
-
-  useEffect(() => {
-    const filtered = getCiclosFiltrados(fechaInicio, fechaFin);
-    const timer = setTimeout(() => {
-      setCiclos(filtered);
-      setSelectedKeys(new Set());
-    }, 0);
-    return () => clearTimeout(timer);
-  }, [fechaInicio, fechaFin]);
 
   return (
     <div className="max-h-[70vh] overflow-y-auto">

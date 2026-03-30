@@ -15,7 +15,8 @@ import { toast } from "sonner";
 import DateRangePicker from "@/components/selectores/dateRangePicker";
 import BotonAplicar from "@/app/historico/(productividad)/(filtradoFechas)/botonAplicar";
 import SelectorHistorico from "@/app/historico/(comps)/selectorHistorico";
-import TablaCiclos, { getCiclosFiltrados } from "./(tablaCiclos)/tablaCiclos";
+import { authFetch } from "@/app/api/api";
+import TablaCiclos from "./(tablaCiclos)/tablaCiclos";
 import GraficoHistorico from "./(graficoHistorico)/graficoHistorico";
 import Productividad from "./(productividad)/productividad";
 
@@ -36,41 +37,56 @@ export default function Historico() {
   const { t } = useTranslation();
 
   const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
-  const [equipoId, setEquipoId] = useState<number>(101);
+  const [equipoId, setEquipoId] = useState<number>(1);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [appliedFilter, setAppliedFilter] = useState<HistoricoFilter | null>(
     null,
   );
   const [selectedCiclo, setSelectedCiclo] = useState<Ciclo | null>(null);
+  const [ciclos, setCiclos] = useState<Ciclo[]>([]);
+  const [isLoadingCiclos, setIsLoadingCiclos] = useState(false);
 
-  const handleApply = () => {
+  const handleApply = async () => {
     if (!dateRange?.from || !dateRange?.to) return;
     const fechaInicio = format(dateRange.from, "yyyy-MM-dd");
     const fechaFin = format(dateRange.to, "yyyy-MM-dd");
-    const ciclos = getCiclosFiltrados(fechaInicio, fechaFin);
-    if (ciclos.length === 0) {
+    setIsLoadingCiclos(true);
+    try {
+      const response = await authFetch(
+        `/api/historico-graficos/${equipoId}?fecha_inicio=${fechaInicio}&fecha_fin=${fechaFin}`,
+      );
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Error al obtener ciclos");
+      }
+      const data: Ciclo[] = await response.json();
+      if (data.length === 0) {
+        toast.error(t("min.errorObtenerCiclos"), {
+          description: t("min.noExistenDatos"),
+          position: "bottom-right",
+          id: `no-data-${fechaInicio}-${fechaFin}-${equipoId}`,
+        });
+        return;
+      }
+      setCiclos(data);
+      setAppliedFilter({ dateRange: dateRange as DateRange, equipoId });
+      setDialogOpen(true);
+    } catch (error) {
       toast.error(t("min.errorObtenerCiclos"), {
-        description: t("min.noExistenDatos"),
+        description:
+          error instanceof Error ? error.message : "Error desconocido",
         position: "bottom-right",
-        id: `no-data-${fechaInicio}-${fechaFin}-${equipoId}`,
+        id: `error-ciclos-${equipoId}`,
       });
-      return;
+    } finally {
+      setIsLoadingCiclos(false);
     }
-    setAppliedFilter({ dateRange: dateRange as DateRange, equipoId });
-    setDialogOpen(true);
   };
 
   const handleCicloSelect = (ciclo: Ciclo) => {
     setSelectedCiclo(ciclo);
     setDialogOpen(false);
   };
-
-  const fechaInicio = appliedFilter?.dateRange?.from
-    ? format(appliedFilter.dateRange.from, "yyyy-MM-dd")
-    : "";
-  const fechaFin = appliedFilter?.dateRange?.to
-    ? format(appliedFilter.dateRange.to, "yyyy-MM-dd")
-    : "";
 
   return (
     <div className="flex flex-col w-full gap-5">
@@ -90,10 +106,15 @@ export default function Historico() {
             value={equipoId}
             onChange={setEquipoId}
           />
-          <DateRangePicker value={dateRange} onChange={setDateRange} />
+          <DateRangePicker
+            className="bg-background3 h-full"
+            value={dateRange}
+            onChange={setDateRange}
+          />
           <BotonAplicar
-            selectClasses="bg-background3 cursor-pointer"
+            selectClasses={`bg-background3 cursor-pointer ${isLoadingCiclos ? "opacity-50" : ""}`}
             onClick={handleApply}
+            disabled={isLoadingCiclos}
           />
         </div>
       </div>
@@ -109,9 +130,7 @@ export default function Historico() {
           </DialogHeader>
           {appliedFilter && (
             <TablaCiclos
-              fechaInicio={fechaInicio}
-              fechaFin={fechaFin}
-              equipoId={appliedFilter.equipoId}
+              ciclos={ciclos}
               selectedCicloId={selectedCiclo?.id_ciclo ?? null}
               onCicloSelect={handleCicloSelect}
             />
