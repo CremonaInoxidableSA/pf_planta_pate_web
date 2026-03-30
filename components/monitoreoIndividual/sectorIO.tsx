@@ -17,7 +17,7 @@ const SectorIO: React.FC<SectorIOProps> = ({ datosIO, getColorClass }) => {
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col bg-background2 p-5 rounded-md gap-2.5">
+    <div className="flex flex-col bg-background2 p-5 rounded-md gap-2.5 h-2/6">
       <h2 className="text-lg text-texto flex text-center">
         {t("mayus.sectorIO")}
       </h2>
@@ -37,7 +37,13 @@ const SectorIO: React.FC<SectorIOProps> = ({ datosIO, getColorClass }) => {
                 className={`text-2.5 ${getColorClass(dato.label, dato.value)}`}
               >
                 <GoDotFill
-                  className={`${dato.value ? "text-green" : "text-lightGrey"} text-4xl`}
+                  className={`$ {
+                    dato.value === null || dato.value === undefined
+                      ? "text-lightGrey"
+                      : dato.value === true
+                        ? "text-green"
+                        : "text-red"
+                  } text-4xl`}
                 />
               </p>
             </li>

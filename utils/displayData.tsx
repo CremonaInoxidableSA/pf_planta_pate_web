@@ -7,5 +7,10 @@ export const displayData = (
   if (data === "N/A" || data === null) return "N/A";
   if (typeof data === "boolean") return data ? "True" : "False";
 
-  return unit ? `${data} ${unit}` : data;
+  let formatted = data;
+  if (typeof data === "number") {
+    formatted = data.toFixed(2).replace(/\.00$/, "");
+  }
+
+  return unit ? `${formatted} ${unit}` : formatted;
 };

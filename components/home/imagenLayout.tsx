@@ -70,7 +70,7 @@ function getEstadoColor(estado: string): string {
   const estadoUpper = estado.toUpperCase();
 
   if (estadoUpper === "FALLA") return "#C13D";
-  if (["OPERATIVO", "PRE OPERATIVO", "PRE OPERATIVO"].includes(estadoUpper))
+  if (["OPERACIONAL", "PRE OPERACIONAL"].includes(estadoUpper))
     return "#9b9D";
   if (estadoUpper === "PAUSA") return "#BB8D";
   if (estadoUpper === "FINALIZADO") return "#9bbD";
@@ -233,7 +233,7 @@ export function ImagenLayout() {
                   >
                     {equipo && (
                       <div className="w-full">
-                        <div className="flex justify-between items-center mb-px ml-0.5">
+                        <div className="flex flex-col mb-px ml-0.5">
                           <p
                             className="font-extrabold uppercase"
                             style={{
@@ -244,7 +244,7 @@ export function ImagenLayout() {
                             {section.name}
                           </p>
                           <p
-                            className="font-extrabold uppercase text-center w-full"
+                            className="font-extrabold uppercase"
                             style={{
                               fontSize: "calc(0.4vw + 0.5vh)",
                               textShadow: "1px 1px 2px black",

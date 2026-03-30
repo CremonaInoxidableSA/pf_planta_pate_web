@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   Select,
   SelectContent,
@@ -18,20 +19,20 @@ interface SelectorProps {
 }
 
 export const EQUIPOS_HISTORICO = [
-  { id: 1, shortName: "C1", name: "Cocina 1" },
-  { id: 2, shortName: "C2", name: "Cocina 2" },
-  { id: 3, shortName: "C3", name: "Cocina 3" },
-  { id: 4, shortName: "C4", name: "Cocina 4" },
-  { id: 5, shortName: "C5", name: "Cocina 5" },
-  { id: 6, shortName: "C6", name: "Cocina 6" },
-  { id: 7, shortName: "E1", name: "Enfriador 1" },
-  { id: 8, shortName: "E2", name: "Enfriador 2" },
-  { id: 9, shortName: "E3", name: "Enfriador 3" },
-  { id: 10, shortName: "E4", name: "Enfriador 4" },
-  { id: 11, shortName: "E5", name: "Enfriador 5" },
-  { id: 12, shortName: "E6", name: "Enfriador 6" },
-  { id: 13, shortName: "E7", name: "Enfriador 7" },
-  { id: 14, shortName: "E8", name: "Enfriador 8" },
+  { id: 1, shortName: "C1", type: "cocina", lineKey: "linea1" },
+  { id: 2, shortName: "C2", type: "cocina", lineKey: "linea1" },
+  { id: 3, shortName: "C3", type: "cocina", lineKey: "linea1" },
+  { id: 4, shortName: "C4", type: "cocina", lineKey: "linea2" },
+  { id: 5, shortName: "C5", type: "cocina", lineKey: "linea2" },
+  { id: 6, shortName: "C6", type: "cocina", lineKey: "linea2" },
+  { id: 7, shortName: "E1", type: "enfriador", lineKey: "linea1" },
+  { id: 8, shortName: "E2", type: "enfriador", lineKey: "linea1" },
+  { id: 9, shortName: "E3", type: "enfriador", lineKey: "linea1" },
+  { id: 10, shortName: "E4", type: "enfriador", lineKey: "linea2" },
+  { id: 11, shortName: "E5", type: "enfriador", lineKey: "linea2" },
+  { id: 12, shortName: "E6", type: "enfriador", lineKey: "linea2" },
+  { id: 13, shortName: "E7", type: "enfriador", lineKey: "linea2" },
+  { id: 14, shortName: "E8", type: "enfriador", lineKey: "linea2" },
 ] as const;
 
 const Selector: React.FC<SelectorProps> = ({
@@ -41,6 +42,7 @@ const Selector: React.FC<SelectorProps> = ({
   optionClasses,
 }) => {
   const [, setInternalValue] = React.useState<number>(value);
+  const { t } = useTranslation();
 
   const itemsList = EQUIPOS_HISTORICO;
 
@@ -59,6 +61,17 @@ const Selector: React.FC<SelectorProps> = ({
     }
   };
 
+  const getDisplayName = (item: (typeof EQUIPOS_HISTORICO)[number]) => {
+    let typeLabel = "";
+    if (item.type === "cocina") {
+      typeLabel = t("min.cocina");
+    } else if (item.type === "enfriador") {
+      typeLabel = t("min.enfriador");
+    }
+    const lineLabel = t(`min.${item.lineKey}`);
+    return `${typeLabel} ${item.id} - ${lineLabel}`;
+  };
+
   return (
     <Select value={value.toString()} onValueChange={handleChange}>
       <SelectTrigger
@@ -67,7 +80,7 @@ const Selector: React.FC<SelectorProps> = ({
           selectClasses,
         )}
       >
-        <SelectValue placeholder="Seleccionar" />
+        <SelectValue placeholder={t("seleccionar", "Seleccionar")} />
       </SelectTrigger>
       <SelectContent
         position="popper"
@@ -79,7 +92,7 @@ const Selector: React.FC<SelectorProps> = ({
             value={item.id.toString()}
             className={cn("cursor-pointer w-full text-texto", optionClasses)}
           >
-            {item.name}
+            {getDisplayName(item)}
           </SelectItem>
         ))}
       </SelectContent>

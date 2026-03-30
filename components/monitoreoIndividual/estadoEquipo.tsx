@@ -30,7 +30,7 @@ const EstadoEquipo: React.FC<EstadoEquipoProps> = ({
   };
 
   return (
-    <div className="flex flex-col bg-background2 p-5 rounded-md gap-2.5 w-1/2">
+    <div className="flex flex-col bg-background2 p-5 rounded-md gap-2.5 w-1/2 h-full">
       <h2 className="text-xl text-texto w-full ">{t("mayus.estadoEquipo")}</h2>
       <ul className="flex flex-col justify-between grow gap-2.5">
         {datos.map((dato, index) => {

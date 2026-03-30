@@ -69,6 +69,11 @@ export default function EquipoPage({ type }: EquipoPageProps) {
       unit: "°C",
     },
     {
+      label: t("min.tempIngreso"),
+      value: equipo?.info.temp_ingreso ?? "N/A",
+      unit: "°C",
+    },
+    {
       label: t("min.nivelAgua"),
       value: equipo?.info.niv_agua ?? "N/A",
       unit: "mm",
@@ -96,9 +101,17 @@ export default function EquipoPage({ type }: EquipoPageProps) {
       label: t("min.tipoFin"),
       value: equipo?.detalles.tipo_fin ?? "N/A",
     },
+    {
+      label: t("min.pesoProducto"),
+      value: isCocina
+        ? ((equipo?.detalles as any)?.peso_producto ?? "N/A")
+        : "N/A",
+      unit: "kg",
+    },
   ];
 
   const datosIO = useMemo(() => {
+    const toBool = (v: any) => v === true;
     const defaultBaseIO = [
       { label: t("min.bomba"), value: false },
       { label: t("min.entradaAgua"), value: false },
@@ -123,28 +136,28 @@ export default function EquipoPage({ type }: EquipoPageProps) {
 
     const sectorIO = equipo.detalles.sector_io[0] as SectorIOType;
     const baseIO = [
-      { label: t("min.bomba"), value: sectorIO.bomba_recirculacion },
-      { label: t("min.entradaAgua"), value: sectorIO.entrada_agua },
+      { label: t("min.bomba"), value: toBool(sectorIO.bomba_recirculacion) },
+      { label: t("min.entradaAgua"), value: toBool(sectorIO.entrada_agua) },
       {
         label: t("min.filtroSuccion"),
-        value: sectorIO.filtro_succion_agua,
+        value: toBool(sectorIO.filtro_succion_agua),
       },
     ];
 
     if (isCocina && "vapor_serpentina" in sectorIO) {
       return [
         ...baseIO,
-        { label: t("min.vaporSerp"), value: sectorIO.vapor_serpentina },
-        { label: t("min.vaporVivo"), value: sectorIO.vapor_vivo },
+        { label: t("min.vaporSerp"), value: toBool(sectorIO.vapor_serpentina) },
+        { label: t("min.vaporVivo"), value: toBool(sectorIO.vapor_vivo) },
       ];
     } else if (!isCocina && "valvula_amoniaco" in sectorIO) {
       return [
         ...baseIO,
         {
           label: t("min.valvulaAmoniaco"),
-          value: sectorIO.valvula_amoniaco,
+          value: toBool(sectorIO.valvula_amoniaco),
         },
-        { label: t("min.vaporLim"), value: sectorIO.vapor_vivo_lim },
+        { label: t("min.vaporLim"), value: toBool(sectorIO.vapor_vivo_lim) },
       ];
     }
 
@@ -163,12 +176,15 @@ export default function EquipoPage({ type }: EquipoPageProps) {
 
   const formattedDisplayData = (value: string | number, unit?: string) => {
     if (value === "N/A") return value;
-
-    return unit ? `${value} ${unit}` : value;
+    let formatted = value;
+    if (typeof value === "number") {
+      formatted = value.toFixed(2).replace(/\.00$/, "");
+    }
+    return unit ? `${formatted} ${unit}` : formatted;
   };
 
   return (
-    <div className="w-full flex flex-col gap-5">
+    <div className="w-full h-200 flex flex-col gap-5">
       {/* SELECCIÓN Y ESTADO */}
       <div className="w-full grid grid-cols-3 gap-5">
         <Selector
@@ -191,9 +207,9 @@ export default function EquipoPage({ type }: EquipoPageProps) {
       </div>
 
       {/* SECCIONES DE INFORMACIÓN */}
-      <div className="grid grid-cols-3 w-full gap-5">
-        <div className="flex flex-col gap-5 col-span-1">
-          <div className="flex flex-row gap-5">
+      <div className="grid grid-cols-3 w-full h-full gap-5">
+        <div className="flex flex-col gap-5 col-span-1 h-full">
+          <div className="flex flex-row h-4/6 gap-5">
             <EstadoEquipo
               datos={datosEquipo}
               displayData={formattedDisplayData}
