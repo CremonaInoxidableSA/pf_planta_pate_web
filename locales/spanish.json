@@ -99,7 +99,9 @@
     "filtrar": "Filtrar",
     "pagina": "Página",
     "de": "de",
-    "registros": "registros"
+    "registros": "registros",
+    "ciclosCorrectos": "Ciclos correctos",
+    "ciclosIncorrectos": "Ciclos incorrectos"
   },
   "mayus": {
     "titulo": "PF PLANTA PATE - SISTEMA DE ADQUISICIÓN DE DATOS",

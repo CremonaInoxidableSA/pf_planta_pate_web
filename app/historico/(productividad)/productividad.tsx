@@ -6,6 +6,7 @@ import BarraProductos from "./barraProductos";
 import FiltroFechas, {
   type ProductividadData,
 } from "./(filtradoFechas)/filtroProductividad";
+import BarraCiclos from "./barraCiclos";
 
 const Productividad = () => {
   const { t } = useTranslation();
@@ -43,6 +44,10 @@ const Productividad = () => {
         <hr className="w-full border-3 rounded-2xl my-4" />
         <BarraProductos productos={data?.productos_realizados ?? []} />
         <hr className="w-full border-3 rounded-2xl my-4" />
+        <BarraCiclos
+          ciclos_correctos={data?.ciclos_correctos ?? 0}
+          ciclos_incorrectos={data?.ciclos_incorrectos ?? 0}
+        />
       </div>
       <hr className="h-full border-3 rounded-2xl" />
       <FiltroFechas

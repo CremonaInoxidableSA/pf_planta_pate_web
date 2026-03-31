@@ -19,7 +19,7 @@ import mockData from "@/mocks/obtenerListaProductividad.json";
 // MODO MOCK - Usar datos de prueba en lugar de la API
 // Para usar la API real, cambiar a false
 // =====================================================
-const USE_MOCK = true;
+const USE_MOCK = false;
 // =====================================================
 
 type Props = {
@@ -73,7 +73,7 @@ export async function GET(request: Request, props: Props): Promise<Response> {
       return Response.json(mockData, { status: 200 });
     }
 
-    const fullUrl = `${getBaseUrl()}/historico-productividad/${id_equipo}/${fecha_inicio}/${fecha_fin}`;
+    const fullUrl = `${getBaseUrl()}/historico-productividad/${id_equipo}?fecha_inicio=${fecha_inicio}&fecha_fin=${fecha_fin}`;
 
     const response = await fetch(fullUrl, {
       method: "GET",
