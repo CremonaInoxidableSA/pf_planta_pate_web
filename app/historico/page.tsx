@@ -4,10 +4,11 @@ import { useState } from "react";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import type { DateRange } from "react-day-picker";
-import { Button } from "@/components/ui/button";
 import ExportButton from "./(comps)/exportButton";
-import * as XLSX from "xlsx";
-import { saveAs } from "file-saver";
+import {
+  handleExportGrafico,
+  handleExportProductividad,
+} from "./(excel)/excelHandlers";
 import {
   Dialog,
   DialogContent,
@@ -34,15 +35,6 @@ export interface Ciclo {
 export interface HistoricoFilter {
   dateRange: DateRange;
   equipoId: number;
-}
-
-// Helpers para exportar a Excel
-function exportToExcel({ data, fileName, sheetName = "Sheet1" }) {
-  const ws = XLSX.utils.json_to_sheet(data);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, sheetName);
-  const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-  saveAs(new Blob([wbout], { type: "application/octet-stream" }), fileName);
 }
 
 export default function Historico() {
@@ -109,82 +101,10 @@ export default function Historico() {
         <div className="w-[35%] justify-start">
           <ExportButton
             onExportGrafico={() => {
-              if (!graficoData) {
-                alert("No hay datos del gráfico para exportar");
-                return;
-              }
-              // Exportar cada registro como una fila, sin agrupar, con columnas: Fecha | Temp. Agua | Temp. Producto | Nivel Agua
-              const sensores = [
-                "Temperatura agua",
-                "Temperatura producto",
-                "Nivel agua",
-              ];
-              // Unir por fecha completa (incluyendo segundos) y poner los tres valores en la misma fila
-              const fechaMap = new Map();
-              sensores.forEach((sensor) => {
-                const readings = graficoData[sensor] as any[];
-                if (Array.isArray(readings)) {
-                  readings.forEach((r) => {
-                    const fecha = r.fechaRegistro;
-                    if (!fechaMap.has(fecha)) {
-                      fechaMap.set(fecha, { Fecha: fecha });
-                    }
-                    if (sensor === "Temperatura agua")
-                      fechaMap.get(fecha)["Temp. Agua"] = r.valor;
-                    if (sensor === "Temperatura producto")
-                      fechaMap.get(fecha)["Temp. Producto"] = r.valor;
-                    if (sensor === "Nivel agua")
-                      fechaMap.get(fecha)["Nivel Agua"] = r.valor;
-                  });
-                }
-              });
-              // Convertir a array ordenado por fecha
-              const rows = Array.from(fechaMap.values()).sort((a, b) =>
-                a.Fecha.localeCompare(b.Fecha),
-              );
-              exportToExcel({
-                data: rows,
-                fileName: "grafico_historico.xlsx",
-                sheetName: "Grafico",
-              });
+              handleExportGrafico(graficoData);
             }}
             onExportProductividad={() => {
-              if (!productividadData) {
-                alert("No hay datos de productividad para exportar");
-                return;
-              }
-              // Exportar resumen y productos realizados
-              const resumen = [
-                {
-                  "Ciclos realizados": productividadData.ciclos_realizados,
-                  "Producción total": productividadData.produccion_total,
-                  "Ciclos correctos": productividadData.ciclos_correctos,
-                  "Ciclos incorrectos": productividadData.ciclos_incorrectos,
-                },
-              ];
-              const productos =
-                productividadData.productos_realizados?.map((p: any) => ({
-                  "Nombre receta": p.nombre_receta,
-                  "Capacidad receta": p.capacidad_receta,
-                  "Cantidad ciclos": p.cantidad_ciclos,
-                })) || [];
-              // Dos hojas: Resumen y Productos
-              const wb = XLSX.utils.book_new();
-              XLSX.utils.book_append_sheet(
-                wb,
-                XLSX.utils.json_to_sheet(resumen),
-                "Resumen",
-              );
-              XLSX.utils.book_append_sheet(
-                wb,
-                XLSX.utils.json_to_sheet(productos),
-                "Productos",
-              );
-              const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-              saveAs(
-                new Blob([wbout], { type: "application/octet-stream" }),
-                "productividad.xlsx",
-              );
+              handleExportProductividad(productividadData);
             }}
             disabled={isLoadingCiclos}
           />
@@ -235,11 +155,9 @@ export default function Historico() {
       <GraficoHistorico
         filter={appliedFilter}
         selectedCiclo={selectedCiclo}
-        // @ts-ignore
         onDataLoaded={setGraficoData}
       />
       <Productividad
-        // @ts-ignore
         onDataLoaded={setProductividadData}
       />
     </div>

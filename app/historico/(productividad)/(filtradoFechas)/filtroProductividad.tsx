@@ -81,18 +81,16 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
         value={equipoSeleccionado}
         onChange={setEquipoSeleccionado}
       />
-      <div className="w-full flex flex-row items-center justify-between gap-3">
-        <DateRangePicker
-          className="w-[80%] h-full bg-background3 cursor-pointer"
-          value={dateRange}
-          onChange={setDateRange}
-        />
-        <BotonAplicar
-          selectClasses={`cursor-pointer ${isLoading ? "opacity-50" : ""}`}
-          onClick={handleApply}
-          disabled={isLoading || !dateRange?.from || !dateRange?.to}
-        />
-      </div>
+      <DateRangePicker
+        className="w-full bg-background3 cursor-pointer"
+        value={dateRange}
+        onChange={setDateRange}
+      />
+      <BotonAplicar
+        selectClasses={`cursor-pointer ${isLoading ? "opacity-50" : ""}`}
+        onClick={handleApply}
+        disabled={isLoading || !dateRange?.from || !dateRange?.to}
+      />
     </div>
   );
 };
