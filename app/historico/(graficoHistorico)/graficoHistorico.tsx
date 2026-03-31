@@ -57,6 +57,7 @@ Chart.register(
 interface GraficoHistoricoProps {
   filter: HistoricoFilter | null;
   selectedCiclo: Ciclo | null;
+  onDataLoaded?: (data: GraficoData | null) => void;
 }
 
 const coloresSensores: Record<string, string> = {
@@ -66,7 +67,11 @@ const coloresSensores: Record<string, string> = {
   "Nivel agua": "rgb(168, 85, 247)",
 };
 
-const GraficoHistorico = ({ filter, selectedCiclo }: GraficoHistoricoProps) => {
+const GraficoHistorico = ({
+  filter,
+  selectedCiclo,
+  onDataLoaded,
+}: GraficoHistoricoProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const chartRef = useRef<Chart | null>(null);
   const [zoomPluginLoaded, setZoomPluginLoaded] = useState(false);
@@ -93,6 +98,7 @@ const GraficoHistorico = ({ filter, selectedCiclo }: GraficoHistoricoProps) => {
   useEffect(() => {
     if (!selectedCiclo || !filter?.equipoId) {
       setGraficoData(null);
+      onDataLoaded?.(null);
       return;
     }
 
@@ -110,14 +116,17 @@ const GraficoHistorico = ({ filter, selectedCiclo }: GraficoHistoricoProps) => {
         }
         const data: GraficoData = await response.json();
         setGraficoData(data);
+        onDataLoaded?.(data);
       } catch (e) {
         setError(e instanceof Error ? e.message : "Error desconocido");
+        onDataLoaded?.(null);
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCiclo, filter?.equipoId]);
 
   // Build chart when sensor data and zoom plugin are ready
@@ -144,8 +153,7 @@ const GraficoHistorico = ({ filter, selectedCiclo }: GraficoHistoricoProps) => {
               y: r.valor,
             })),
           borderColor: coloresSensores[sensorName],
-          backgroundColor:
-            (coloresSensores[sensorName]) + "1A",
+          backgroundColor: coloresSensores[sensorName] + "1A",
           tension: 0.3,
           pointRadius: 2,
           yAxisID: isNivelAgua ? "y2" : "y",
@@ -176,7 +184,7 @@ const GraficoHistorico = ({ filter, selectedCiclo }: GraficoHistoricoProps) => {
         plugins: {
           legend: { display: true },
           tooltip: {
-            mode: 'index',
+            mode: "index",
             intersect: false,
           },
           zoom: {
@@ -262,16 +270,34 @@ const GraficoHistorico = ({ filter, selectedCiclo }: GraficoHistoricoProps) => {
           {/* Valores máximos */}
           {general && (
             <div className="flex flex-wrap gap-4 mt-2">
-              <span className="flex items-center gap-1 text-sm" style={{ color: "rgb(3, 157, 252)" }}>
-                <span className="w-3 h-3 rounded-sm inline-block" style={{ background: "rgb(3, 157, 252)" }} />
+              <span
+                className="flex items-center gap-1 text-sm"
+                style={{ color: "rgb(3, 157, 252)" }}
+              >
+                <span
+                  className="w-3 h-3 rounded-sm inline-block"
+                  style={{ background: "rgb(3, 157, 252)" }}
+                />
                 Temp. agua máx: <b>{general.temp_agua_max}°C</b>
               </span>
-              <span className="flex items-center gap-1 text-sm" style={{ color: "rgb(41, 207, 0)" }}>
-                <span className="w-3 h-3 rounded-sm inline-block" style={{ background: "rgb(41, 207, 0)" }} />
+              <span
+                className="flex items-center gap-1 text-sm"
+                style={{ color: "rgb(41, 207, 0)" }}
+              >
+                <span
+                  className="w-3 h-3 rounded-sm inline-block"
+                  style={{ background: "rgb(41, 207, 0)" }}
+                />
                 Temp. producto máx: <b>{general.temp_producto_max}°C</b>
               </span>
-              <span className="flex items-center gap-1 text-sm" style={{ color: "rgb(168, 85, 247)" }}>
-                <span className="w-3 h-3 rounded-sm inline-block" style={{ background: "rgb(168, 85, 247)" }} />
+              <span
+                className="flex items-center gap-1 text-sm"
+                style={{ color: "rgb(168, 85, 247)" }}
+              >
+                <span
+                  className="w-3 h-3 rounded-sm inline-block"
+                  style={{ background: "rgb(168, 85, 247)" }}
+                />
                 Nivel agua máx: <b>{general.nivel_agua_max} mm</b>
               </span>
             </div>

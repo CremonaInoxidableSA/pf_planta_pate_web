@@ -8,11 +8,21 @@ import FiltroFechas, {
 } from "./(filtradoFechas)/filtroProductividad";
 import BarraCiclos from "./barraCiclos";
 
-const Productividad = () => {
+interface ProductividadProps {
+  onDataLoaded?: (data: ProductividadData | null) => void;
+}
+
+const Productividad = ({ onDataLoaded }: ProductividadProps) => {
   const { t } = useTranslation();
   const [data, setData] = useState<ProductividadData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Notificar datos al padre
+  const handleDataLoaded = (d: ProductividadData) => {
+    setData(d);
+    onDataLoaded?.(d);
+  };
 
   return (
     <div className="bg-background2 rounded-md p-5 w-full gap-5 flex items-center justify-between text-texto">
@@ -51,7 +61,7 @@ const Productividad = () => {
       </div>
       <hr className="h-full border-3 rounded-2xl" />
       <FiltroFechas
-        onDataLoaded={setData}
+        onDataLoaded={handleDataLoaded}
         onLoading={setIsLoading}
         onError={setError}
       />
