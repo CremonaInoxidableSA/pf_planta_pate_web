@@ -99,7 +99,12 @@ export default function EquipoPage({ type }: EquipoPageProps) {
     },
     {
       label: t("min.tipoFin"),
-      value: equipo?.detalles.tipo_fin ?? "N/A",
+      value:
+        typeof equipo?.detalles.tipo_fin === "boolean"
+          ? equipo.detalles.tipo_fin
+            ? t("min.temperatura")
+            : t("min.tiempo")
+          : "N/A",
     },
     {
       label: t("min.pesoProducto"),
@@ -209,7 +214,7 @@ export default function EquipoPage({ type }: EquipoPageProps) {
       {/* SECCIONES DE INFORMACIÓN */}
       <div className="grid grid-cols-3 w-full h-full gap-5">
         <div className="flex flex-col gap-5 col-span-1 h-full">
-          <div className="flex flex-row h-4/6 gap-5">
+          <div className="flex flex-row gap-5">
             <EstadoEquipo
               datos={datosEquipo}
               displayData={formattedDisplayData}

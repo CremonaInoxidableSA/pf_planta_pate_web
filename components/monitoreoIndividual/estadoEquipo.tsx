@@ -38,6 +38,7 @@ const EstadoEquipo: React.FC<EstadoEquipoProps> = ({
           const cssVarMap: Record<string, string> = {
             "text-waterTemp": "var(--color-waterTemp)",
             "text-waterLevel": "var(--color-waterLevel)",
+            "text-ingresoTemp": "var(--color-ingresoTemp)",
             "text-greengraph": "var(--color-greengraph)",
           };
           const textKey = colorClass.split(/\s/)[0];
@@ -52,8 +53,8 @@ const EstadoEquipo: React.FC<EstadoEquipoProps> = ({
                   : undefined
               }
             >
-              <span className="text-xl text-texto">{dato.label}:</span>
-              <span className={`text-xl ${colorClass}`}>
+              <span className="text-lg text-texto">{dato.label}:</span>
+              <span className={`text-lg ${colorClass}`}>
                 {formatValue(dato.value, dato.unit)}
               </span>
             </li>

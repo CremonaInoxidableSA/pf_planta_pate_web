@@ -69,6 +69,7 @@
   --color-bluet: #06e5;
   --color-waterTemp: var(--waterTemp);
   --color-waterLevel: var(--waterLevel);
+  --color-ingresoTemp: var(--ingresoTemp);
   --color-red: #f00;
   --color-red2: #dd1e1eff;
   --color-redlogo: #ed292e;
@@ -155,9 +156,10 @@
   --textodesac: #929292ff;
   --datosblueback: #a4deffff;
   --datosbluebackhover: #93d2f7ff;
-  --waterTemp: #0570b0;
-  --waterLevel: #2596be;
-  --greengraph: #237a23;
+  --waterTemp: #0083ee;
+  --waterLevel: #8f19fd;
+  --ingresoTemp: #ff5045;
+  --greengraph: #009900;
 }
 
 .dark {
@@ -210,7 +212,8 @@
   --datosblueback: #073753ff;
   --datosbluebackhover: #0c4566ff;
   --waterTemp: #0a96fc;
-  --waterLevel: #a8daff;
+  --waterLevel: #a855f7;
+  --ingresoTemp: #ff5045;
   --greengraph: #4bc04b;
 }
 

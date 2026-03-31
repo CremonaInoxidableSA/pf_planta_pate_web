@@ -26,7 +26,7 @@ export const getColorClass = (
   }
 
   if (key === "tempIng") {
-    return "text-greenGraph !important";
+    return "text-ingresoTemp !important";
   }
 
   if (key === "tempProd") {

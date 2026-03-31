@@ -40,6 +40,8 @@
     "lote": "Batch",
     "cantTorres": "Number of towers",
     "tipoFin": "End type",
+    "temperatura": "Temperature",
+    "tiempo": "Time",
     "bomba": "Pump",
     "entradaAgua": "Water inlet",
     "filtroSuccion": "Suction filter",
