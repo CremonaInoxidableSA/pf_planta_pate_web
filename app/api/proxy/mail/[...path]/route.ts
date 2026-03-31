@@ -1,11 +1,3 @@
-/**
- * API Route proxy para endpoints de correo/notificaciones
- * Ruta: /api/proxy/mail/[...path]
- * Redirige a: process.env.API_MAIL_URL/[...path]
- *
- * Corre únicamente en el servidor — la URL real de la API nunca se envía al navegador.
- */
-
 type Props = {
   params: Promise<{ path: string[] }>;
 };

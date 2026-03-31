@@ -1,16 +1,3 @@
-/**
- * API Route: /api/datos-generales
- *
- * Establece una conexión WebSocket desde el servidor hacia el backend
- * y expone los datos al navegador como un stream de Server-Sent Events (SSE).
- *
- * El navegador nunca se conecta directamente al backend WS; solo esta ruta
- * lo hace, desde la máquina que corre el servidor Next.js.
- *
- * URL del WebSocket de origen: WS_DATOS_GENERALES_URL (variable de entorno)
- * Valor predeterminado: ws://192.168.20.27:8000/ws/datos-generales
- */
-
 import { NextRequest } from "next/server";
 
 const WS_URL =
@@ -47,7 +34,6 @@ export async function GET(request: NextRequest) {
         try {
           controller.close();
         } catch {
-          // Ya cerrado
         }
       };
 
@@ -59,7 +45,6 @@ export async function GET(request: NextRequest) {
             encoder.encode(`event: ${event}\ndata: ${data}\n\n`),
           );
         } catch {
-          // El stream ya fue cerrado
         }
       };
 

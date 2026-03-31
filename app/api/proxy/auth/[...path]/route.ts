@@ -1,12 +1,3 @@
-/**
- * API Route proxy para endpoints de autenticación
- * Ruta: /api/proxy/auth/[...path]
- * Redirige a: process.env.API_AUTH_URL/[...path]
- *
- * Corre únicamente en el servidor — la URL real de la API nunca se envía al navegador.
- * Los clientes en otros segmentos de red sólo necesitan acceso al servidor Next.js.
- */
-
 type Props = {
   params: Promise<{ path: string[] }>;
 };

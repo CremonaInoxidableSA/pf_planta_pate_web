@@ -1,27 +1,3 @@
-/**
- * API Route proxy para endpoint de histórico de productividad
- * Ruta: /api/historico-productividad/[id_equipo]/[fecha_inicio]/[fecha_fin]
- * Redirige a: http://localhost/historico-productividad/[id_equipo]/[fecha_inicio]/[fecha_fin]
- *
- * id_equipo:
- *   - 0: Todos los equipos (ambas líneas)
- *   - 15: Línea 1
- *   - 16: Línea 2
- *   - 1-6: Cocinas individuales
- *   - 7-14: Enfriadores individuales
- *
- * Corre únicamente en el servidor — la URL real de la API nunca se envía al navegador.
- */
-
-import mockData from "@/mocks/obtenerListaProductividad.json";
-
-// =====================================================
-// MODO MOCK - Usar datos de prueba en lugar de la API
-// Para usar la API real, cambiar a false
-// =====================================================
-const USE_MOCK = false;
-// =====================================================
-
 type Props = {
   params: Promise<{
     id_equipo: string;
@@ -66,11 +42,6 @@ export async function GET(request: Request, props: Props): Promise<Response> {
         { error: "Formato de fecha inválido. Use YYYY-MM-DD." },
         { status: 400 },
       );
-    }
-
-    // Usar datos mock si está habilitado
-    if (USE_MOCK) {
-      return Response.json(mockData, { status: 200 });
     }
 
     const fullUrl = `${getBaseUrl()}/historico-productividad/${id_equipo}?fecha_inicio=${fecha_inicio}&fecha_fin=${fecha_fin}`;

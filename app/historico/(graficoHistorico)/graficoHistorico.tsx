@@ -259,6 +259,23 @@ const GraficoHistorico = ({ filter, selectedCiclo }: GraficoHistoricoProps) => {
               <span className="ml-2">({general.tiempo_transcurrido})</span>
             )}
           </p>
+          {/* Valores máximos */}
+          {general && (
+            <div className="flex flex-wrap gap-4 mt-2">
+              <span className="flex items-center gap-1 text-sm" style={{ color: "rgb(3, 157, 252)" }}>
+                <span className="w-3 h-3 rounded-sm inline-block" style={{ background: "rgb(3, 157, 252)" }} />
+                Temp. agua máx: <b>{general.temp_agua_max}°C</b>
+              </span>
+              <span className="flex items-center gap-1 text-sm" style={{ color: "rgb(41, 207, 0)" }}>
+                <span className="w-3 h-3 rounded-sm inline-block" style={{ background: "rgb(41, 207, 0)" }} />
+                Temp. producto máx: <b>{general.temp_producto_max}°C</b>
+              </span>
+              <span className="flex items-center gap-1 text-sm" style={{ color: "rgb(168, 85, 247)" }}>
+                <span className="w-3 h-3 rounded-sm inline-block" style={{ background: "rgb(168, 85, 247)" }} />
+                Nivel agua máx: <b>{general.nivel_agua_max} mm</b>
+              </span>
+            </div>
+          )}
         </div>
       </div>
       <div className="relative h-80">

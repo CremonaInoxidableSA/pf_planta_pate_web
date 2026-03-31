@@ -75,8 +75,8 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
   };
 
   return (
-    <div className="w-[20%] h-full flex flex-col gap-3">
-      <h1 className="w-full text-center text-xl">{t("min.filtroFechas")}</h1>
+    <div className="w-[20%] h-full flex flex-col justify-evenly gap-3">
+      <h1 className="w-full text-center text-3xl">{t("min.filtroFechas")}</h1>
       <SelectorEquiposProductividad
         value={equipoSeleccionado}
         onChange={setEquipoSeleccionado}

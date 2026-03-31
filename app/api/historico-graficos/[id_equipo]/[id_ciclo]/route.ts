@@ -1,20 +1,3 @@
-/**
- * API Route proxy para endpoint de datos de sensores de un ciclo
- * Ruta: /api/historico-graficos/[id_equipo]/[id_ciclo]
- * Redirige a: {API_DATOS_URL}/historico-graficos/[id_equipo]/[id_ciclo]
- *
- * Corre únicamente en el servidor — la URL real de la API nunca se envía al navegador.
- */
-
-import mockData from "@/mocks/graficoHistorico.json";
-
-// =====================================================
-// MODO MOCK - Usar datos de prueba en lugar de la API
-// Para usar la API real, cambiar a false
-// =====================================================
-const USE_MOCK = false;
-// =====================================================
-
 type Props = {
   params: Promise<{ id_equipo: string; id_ciclo: string }>;
 };
@@ -53,10 +36,6 @@ export async function GET(request: Request, props: Props): Promise<Response> {
         { error: "id_ciclo inválido. Debe ser un número positivo." },
         { status: 400 },
       );
-    }
-
-    if (USE_MOCK) {
-      return Response.json(mockData, { status: 200 });
     }
 
     const fullUrl = `${getBaseUrl()}/historico-graficos/${id_equipo}/${id_ciclo}`;
