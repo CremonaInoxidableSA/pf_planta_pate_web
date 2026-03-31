@@ -28,21 +28,37 @@ interface FiltroProductividadProps {
   onDataLoaded?: (data: ProductividadData) => void;
   onLoading?: (loading: boolean) => void;
   onError?: (error: string | null) => void;
+  onFilterChange?: (filter: {
+    equipoId: number;
+    dateRange: DateRange | undefined;
+  }) => void;
 }
 
 const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
   onDataLoaded,
   onLoading,
   onError,
+  onFilterChange,
 }) => {
   const { t } = useTranslation();
   const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
   const [equipoSeleccionado, setEquipoSeleccionado] =
     useState<EquipoProductividadId>(0);
+
+  // Notificar cambios de filtro al padre
+  const notifyFilterChange = (
+    newEquipoId: number,
+    newDateRange: DateRange | undefined,
+  ) => {
+    onFilterChange?.({ equipoId: newEquipoId, dateRange: newDateRange });
+  };
   const [isLoading, setIsLoading] = useState(false);
 
   const handleApply = async () => {
     if (!dateRange?.from || !dateRange?.to) return;
+
+    // Notificar filtro al padre también al aplicar
+    notifyFilterChange(equipoSeleccionado, dateRange);
 
     const fechaInicio = format(dateRange.from, "yyyy-MM-dd");
     const fechaFin = format(dateRange.to, "yyyy-MM-dd");
@@ -79,12 +95,18 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
       <h1 className="w-full text-center text-3xl">{t("min.filtroFechas")}</h1>
       <SelectorEquiposProductividad
         value={equipoSeleccionado}
-        onChange={setEquipoSeleccionado}
+        onChange={(val) => {
+          setEquipoSeleccionado(val);
+          notifyFilterChange(val, dateRange);
+        }}
       />
       <DateRangePicker
         className="w-full bg-background3 cursor-pointer"
         value={dateRange}
-        onChange={setDateRange}
+        onChange={(range) => {
+          setDateRange(range);
+          notifyFilterChange(equipoSeleccionado, range);
+        }}
       />
       <BotonAplicar
         selectClasses={`cursor-pointer ${isLoading ? "opacity-50" : ""}`}

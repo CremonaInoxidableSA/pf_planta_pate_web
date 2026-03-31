@@ -235,7 +235,7 @@ const GraficoHistorico = ({
 
   if (!selectedCiclo) {
     return (
-      <div className="bg-background2 rounded-md p-5 w-full min-h-75 flex items-center justify-center text-texto">
+      <div className="bg-background2 rounded-md p-5 w-full h-200 flex items-center justify-center text-texto">
         {filter
           ? "Seleccioná un ciclo del listado para visualizarlo."
           : "Aplicá un filtro para comenzar."}
@@ -304,7 +304,7 @@ const GraficoHistorico = ({
           )}
         </div>
       </div>
-      <div className="relative h-80">
+      <div className="relative h-165">
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center text-texto">
             Cargando datos...

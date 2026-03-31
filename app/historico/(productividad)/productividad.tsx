@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import BarraProductos from "./barraProductos";
 import FiltroFechas, {
@@ -8,11 +9,25 @@ import FiltroFechas, {
 } from "./(filtradoFechas)/filtroProductividad";
 import BarraCiclos from "./barraCiclos";
 
+import type { DateRange } from "react-day-picker";
+
 interface ProductividadProps {
   onDataLoaded?: (data: ProductividadData | null) => void;
+  onProductividadFilterChange?: (filter: {
+    equipoId: number;
+    dateRange: DateRange | undefined;
+  }) => void;
+  productividadFilter?: {
+    equipoId: number;
+    dateRange: DateRange | undefined;
+  };
 }
 
-const Productividad = ({ onDataLoaded }: ProductividadProps) => {
+const Productividad = ({
+  onDataLoaded,
+  onProductividadFilterChange,
+  productividadFilter,
+}: ProductividadProps) => {
   const { t } = useTranslation();
   const [data, setData] = useState<ProductividadData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -25,9 +40,19 @@ const Productividad = ({ onDataLoaded }: ProductividadProps) => {
   };
 
   return (
-    <div className="bg-background2 rounded-md p-5 w-full gap-5 flex items-center justify-between text-texto">
+    <div className="bg-background2 rounded-md p-5 w-full gap-5 flex items-center justify-between">
       <div className="w-[80%] flex flex-col justify-center">
         <h1 className="text-2xl">{t("mayus.productividad")}</h1>
+        {typeof productividadFilter?.dateRange?.from !== "undefined" &&
+          typeof productividadFilter?.dateRange?.to !== "undefined" && (
+            <span className="text-base text-texto/70 mb-1">
+              {t("min.rangoSeleccionado")}:{" "}
+              {productividadFilter.dateRange.from &&
+              productividadFilter.dateRange.to
+                ? `${format(productividadFilter.dateRange.from, "dd/MM/yyyy")} - ${format(productividadFilter.dateRange.to, "dd/MM/yyyy")}`
+                : ""}
+            </span>
+          )}
         <p className="text-sm text-orange">
           {isLoading
             ? t("min.cargando")
@@ -64,6 +89,7 @@ const Productividad = ({ onDataLoaded }: ProductividadProps) => {
         onDataLoaded={handleDataLoaded}
         onLoading={setIsLoading}
         onError={setError}
+        onFilterChange={onProductividadFilterChange}
       />
     </div>
   );

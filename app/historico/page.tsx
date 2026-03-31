@@ -49,6 +49,11 @@ export default function Historico() {
   // Para acceder a los datos de los hijos
   const [graficoData, setGraficoData] = useState<any>(null);
   const [productividadData, setProductividadData] = useState<any>(null);
+  // Estado para filtro de productividad
+  const [productividadFilter, setProductividadFilter] = useState<{
+    equipoId: number;
+    dateRange: DateRange | undefined;
+  }>({ equipoId: 0, dateRange: undefined });
 
   const handleApply = async () => {
     if (!dateRange?.from || !dateRange?.to) return;
@@ -115,6 +120,7 @@ export default function Historico() {
   };
 
   const handleExportProductividad = async () => {
+    const { equipoId, dateRange } = productividadFilter;
     if (!dateRange?.from || !dateRange?.to) {
       toast.error(t("min.seleccionarFechas"));
       return;
@@ -195,7 +201,11 @@ export default function Historico() {
         selectedCiclo={selectedCiclo}
         onDataLoaded={setGraficoData}
       />
-      <Productividad onDataLoaded={setProductividadData} />
+      <Productividad
+        onDataLoaded={setProductividadData}
+        onProductividadFilterChange={setProductividadFilter}
+        productividadFilter={productividadFilter}
+      />
     </div>
   );
 }
