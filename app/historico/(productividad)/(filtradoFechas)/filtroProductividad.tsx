@@ -83,7 +83,7 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
       />
       <div className="w-full flex flex-row items-center justify-between gap-3">
         <DateRangePicker
-          className="w-[80%] cursor-pointer"
+          className="w-[80%] h-full bg-background3 cursor-pointer"
           value={dateRange}
           onChange={setDateRange}
         />
