@@ -104,7 +104,18 @@
     "ciclosIncorrectos": "Ciclos incorrectos",
     "exportarExcel": "Exportar Excel",
     "exportarDatosGrafico": "Exportar datos del gráfico",
-    "exportarDatosProductividad": "Exportar datos de productividad"
+    "exportarDatosProductividad": "Exportar datos de productividad",
+    "seleccionaCicloParaVisualizar": "Seleccioná un ciclo del listado para visualizarlo.",
+    "aplicaFiltroParaComenzar": "Aplicá un filtro para comenzar.",
+    "ciclo": "Ciclo",
+    "tempAguaMax": "Temp. agua máx",
+    "tempProductoMax": "Temp. producto máx",
+    "nivelAguaMax": "Nivel agua máx",
+    "cargandoDatos": "Cargando datos...",
+    "errorCargarDatos": "Error al cargar datos",
+    "noDatosSensores": "No hay datos de sensores para este ciclo.",
+    "rangoSeleccionado": "Rango seleccionado",
+    "seleccionarFechas": "Seleccionar rango de fechas"
   },
   "mayus": {
     "titulo": "PF PLANTA PATE - SISTEMA DE ADQUISICIÓN DE DATOS",

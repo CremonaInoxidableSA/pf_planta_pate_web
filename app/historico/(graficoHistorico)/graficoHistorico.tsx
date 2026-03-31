@@ -13,6 +13,7 @@ import {
   Legend,
 } from "chart.js";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { HistoricoFilter, Ciclo } from "../page";
 import { authFetch } from "@/app/api/api";
 
@@ -72,6 +73,7 @@ const GraficoHistorico = ({
   selectedCiclo,
   onDataLoaded,
 }: GraficoHistoricoProps) => {
+  const { t } = useTranslation();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const chartRef = useRef<Chart | null>(null);
   const [zoomPluginLoaded, setZoomPluginLoaded] = useState(false);
@@ -237,8 +239,8 @@ const GraficoHistorico = ({
     return (
       <div className="bg-background2 rounded-md p-5 w-full h-200 flex items-center justify-center text-texto">
         {filter
-          ? "Seleccioná un ciclo del listado para visualizarlo."
-          : "Aplicá un filtro para comenzar."}
+          ? t("min.seleccionaCicloParaVisualizar")
+          : t("min.aplicaFiltroParaComenzar")}
       </div>
     );
   }
@@ -253,7 +255,7 @@ const GraficoHistorico = ({
       <div className="flex items-start justify-between mb-4">
         <div>
           <h3 className="text-lg font-semibold text-texto">
-            Ciclo {selectedCiclo.id_ciclo} — {lote}
+            {t("min.ciclo")} {selectedCiclo.id_ciclo} — {lote}
             {general?.receta && (
               <span className="ml-2 text-sm font-normal text-orange">
                 {general.receta}
@@ -278,7 +280,7 @@ const GraficoHistorico = ({
                   className="w-3 h-3 rounded-sm inline-block"
                   style={{ background: "rgb(3, 157, 252)" }}
                 />
-                Temp. agua máx: <b>{general.temp_agua_max}°C</b>
+                {t("min.tempAguaMax")}: <b>{general.temp_agua_max}°C</b>
               </span>
               <span
                 className="flex items-center gap-1 text-sm"
@@ -288,7 +290,7 @@ const GraficoHistorico = ({
                   className="w-3 h-3 rounded-sm inline-block"
                   style={{ background: "rgb(41, 207, 0)" }}
                 />
-                Temp. producto máx: <b>{general.temp_producto_max}°C</b>
+                {t("min.tempProductoMax")}: <b>{general.temp_producto_max}°C</b>
               </span>
               <span
                 className="flex items-center gap-1 text-sm"
@@ -298,7 +300,7 @@ const GraficoHistorico = ({
                   className="w-3 h-3 rounded-sm inline-block"
                   style={{ background: "rgb(168, 85, 247)" }}
                 />
-                Nivel agua máx: <b>{general.nivel_agua_max} mm</b>
+                {t("min.nivelAguaMax")}: <b>{general.nivel_agua_max} mm</b>
               </span>
             </div>
           )}
@@ -307,17 +309,17 @@ const GraficoHistorico = ({
       <div className="relative h-165">
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center text-texto">
-            Cargando datos...
+            {t("min.cargandoDatos")}
           </div>
         )}
         {error && !isLoading && (
           <div className="absolute inset-0 flex items-center justify-center text-red-400">
-            {error}
+            {t("min.errorCargarDatos")}: {error}
           </div>
         )}
         {!isLoading && !error && !hasData && graficoData && (
           <div className="absolute inset-0 flex items-center justify-center text-texto">
-            No hay datos de sensores para este ciclo.
+            {t("min.noDatosSensores")}
           </div>
         )}
         <canvas ref={canvasRef} />
