@@ -6,7 +6,7 @@ import { verifyToken } from "./lib/auth";
 // BYPASS DE AUTENTICACIÓN TEMPORAL - DESARROLLO SIN BD
 // Para reactivar la autenticación, cambiar a false
 // =====================================================
-const BYPASS_AUTH = true;
+const BYPASS_AUTH = false;
 // =====================================================
 
 const publicRoutes = ["/login", "/register", "/bootstrap"];
