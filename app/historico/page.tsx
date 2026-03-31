@@ -97,8 +97,8 @@ export default function Historico() {
 
   return (
     <div className="flex flex-col w-full gap-5">
-      <div className="flex flex-row items-center justify-between bg-background2 p-2 w-full rounded-md">
-        <div className="w-[35%] justify-start">
+      <div className="flex flex-row items-center justify-between bg-background2 p-2 w-full rounded-md h-13">
+        <div className="w-[35%] h-full justify-start">
           <ExportButton
             onExportGrafico={() => {
               handleExportGrafico(graficoData);
@@ -127,7 +127,7 @@ export default function Historico() {
             onChange={setDateRange}
           />
           <BotonAplicar
-            selectClasses={`bg-background3 cursor-pointer ${isLoadingCiclos ? "opacity-50" : ""}`}
+            selectClasses={`aspect-square bg-background3 cursor-pointer w-auto h-full ${isLoadingCiclos ? "opacity-50" : ""}`}
             onClick={handleApply}
             disabled={isLoadingCiclos}
           />
@@ -157,9 +157,7 @@ export default function Historico() {
         selectedCiclo={selectedCiclo}
         onDataLoaded={setGraficoData}
       />
-      <Productividad
-        onDataLoaded={setProductividadData}
-      />
+      <Productividad onDataLoaded={setProductividadData} />
     </div>
   );
 }

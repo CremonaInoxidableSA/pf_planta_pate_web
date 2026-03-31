@@ -14,7 +14,7 @@ export default function BotonAplicar({
 }: BotonAplicarProps) {
   return (
     <Button
-      className={`${selectClasses} min-w-12.5 min-h-12.5 bg-background3`}
+      className={`${selectClasses} bg-background3`}
       variant="ghost"
       onClick={onClick}
       disabled={disabled}

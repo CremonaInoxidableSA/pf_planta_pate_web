@@ -101,7 +101,10 @@
     "de": "de",
     "registros": "registros",
     "ciclosCorrectos": "Ciclos correctos",
-    "ciclosIncorrectos": "Ciclos incorrectos"
+    "ciclosIncorrectos": "Ciclos incorrectos",
+    "exportarExcel": "Exportar Excel",
+    "exportarDatosGrafico": "Exportar datos del gráfico",
+    "exportarDatosProductividad": "Exportar datos de productividad"
   },
   "mayus": {
     "titulo": "PF PLANTA PATE - SISTEMA DE ADQUISICIÓN DE DATOS",
