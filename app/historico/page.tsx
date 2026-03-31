@@ -5,10 +5,7 @@ import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import type { DateRange } from "react-day-picker";
 import ExportButton from "./(comps)/exportButton";
-import {
-  handleExportGrafico,
-  handleExportProductividad,
-} from "./(excel)/excelHandlers";
+import { saveAs } from "file-saver";
 import {
   Dialog,
   DialogContent,
@@ -95,18 +92,59 @@ export default function Historico() {
     setDialogOpen(false);
   };
 
+  // --- Exportación de Excel ---
+  const handleExportGrafico = async () => {
+    if (!selectedCiclo || !equipoId) {
+      toast.error(t("min.seleccionarCiclo"));
+      return;
+    }
+    try {
+      const url = `http://192.168.20.152:8000/historico-graficos/${equipoId}/descargar/${selectedCiclo.id_ciclo}`;
+      const response = await fetch(url);
+      if (!response.ok) throw new Error("Error al descargar archivo");
+      const blob = await response.blob();
+      saveAs(
+        blob,
+        `historico_grafico_equipo${equipoId}_ciclo${selectedCiclo.id_ciclo}.xlsx`,
+      );
+    } catch (err) {
+      toast.error(t("min.errorDescarga"), {
+        description: err instanceof Error ? err.message : String(err),
+      });
+    }
+  };
+
+  const handleExportProductividad = async () => {
+    if (!dateRange?.from || !dateRange?.to) {
+      toast.error(t("min.seleccionarFechas"));
+      return;
+    }
+    try {
+      const fechaInicio = format(dateRange.from, "yyyy-MM-dd");
+      const fechaFin = format(dateRange.to, "yyyy-MM-dd");
+      const url = `http://192.168.20.152:8000/historico-productividad/descargar/${equipoId}?fecha_inicio=${fechaInicio}&fecha_fin=${fechaFin}`;
+      const response = await fetch(url);
+      if (!response.ok) throw new Error("Error al descargar archivo");
+      const blob = await response.blob();
+      saveAs(
+        blob,
+        `productividad_equipo${equipoId}_${fechaInicio}_a_${fechaFin}.xlsx`,
+      );
+    } catch (err) {
+      toast.error(t("min.errorDescarga"), {
+        description: err instanceof Error ? err.message : String(err),
+      });
+    }
+  };
+
   return (
     <div className="flex flex-col w-full gap-5">
       <div className="flex flex-row items-center justify-between bg-background2 p-2 w-full rounded-md h-13">
         <div className="w-[35%] h-full justify-start">
           <ExportButton
-            onExportGrafico={() => {
-              handleExportGrafico(graficoData);
-            }}
-            onExportProductividad={() => {
-              handleExportProductividad(productividadData);
-            }}
-            disabled={isLoadingCiclos}
+            onExportGrafico={handleExportGrafico}
+            onExportProductividad={handleExportProductividad}
+            disabled={isLoadingCiclos || !appliedFilter}
           />
         </div>
 
