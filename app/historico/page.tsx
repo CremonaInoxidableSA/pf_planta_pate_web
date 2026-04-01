@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { startOfWeek, endOfWeek } from "date-fns";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import type { DateRange } from "react-day-picker";
@@ -50,10 +51,16 @@ export default function Historico() {
   const [ciclos, setCiclos] = useState<Ciclo[]>([]);
   const [isLoadingCiclos, setIsLoadingCiclos] = useState(false);
   // Estado para filtro de productividad
+  // Set default to current week (Monday to Sunday)
+  const today = new Date();
+  const defaultWeekRange = {
+    from: startOfWeek(today, { weekStartsOn: 1 }),
+    to: endOfWeek(today, { weekStartsOn: 1 }),
+  };
   const [productividadFilter, setProductividadFilter] = useState<{
     equipoId: number;
     dateRange: DateRange | undefined;
-  }>({ equipoId: 0, dateRange: undefined });
+  }>({ equipoId: 0, dateRange: defaultWeekRange });
 
   // Estado para los datos de los gráficos
   const [graficoData, setGraficoData] = useState<any>(null); // Usa el tipo correcto si lo tienes

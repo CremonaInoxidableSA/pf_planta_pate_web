@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { startOfWeek, endOfWeek } from "date-fns";
 import { useTranslation } from "react-i18next";
 import type { DateRange } from "react-day-picker";
 import { format } from "date-fns";
@@ -41,9 +42,24 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
   onFilterChange,
 }) => {
   const { t } = useTranslation();
-  const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
+  // Semana actual: domingo a sábado
+  const today = new Date();
+  const defaultWeekRange = {
+    from: startOfWeek(today, { weekStartsOn: 0 }),
+    to: endOfWeek(today, { weekStartsOn: 0 }),
+  };
+  const [dateRange, setDateRange] = useState<DateRange | undefined>(
+    defaultWeekRange,
+  );
   const [equipoSeleccionado, setEquipoSeleccionado] =
     useState<EquipoProductividadId>(0);
+  // Cargar datos automáticamente al montar si hay filtro válido
+  useEffect(() => {
+    if (dateRange?.from && dateRange?.to && equipoSeleccionado !== undefined) {
+      handleApply();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Notificar cambios de filtro al padre
   const notifyFilterChange = (
