@@ -11,6 +11,7 @@ import {
 
 import { useCocinaContext } from "@/context/CocinaContext";
 import { useEnfriadorContext } from "@/context/EnfriadorContext";
+import Image from "next/image";
 
 interface Equipo {
   tipo: "COCINA" | "ENFRIADOR";
@@ -172,8 +173,7 @@ export function ImagenLayout() {
       </div>
 
       <div className="relative w-full grow">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           alt="Imagen de prueba"
           className="w-full h-full object-contain z-1 min-h-[80vh]"
           src="/layout.png"

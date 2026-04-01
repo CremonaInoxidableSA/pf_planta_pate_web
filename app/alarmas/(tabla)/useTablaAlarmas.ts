@@ -14,7 +14,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import type { DateRange } from "react-day-picker";
-import type { Alarma, AlarmaData } from "./types";
+import type { Alarma } from "./types";
 import { getColumnDefs } from "./columnas";
 
 export function useTablaAlarmas() {
@@ -71,10 +71,8 @@ export function useTablaAlarmas() {
 
   useEffect(() => {
     loadData(dateRange);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateRange]);
 
-  // Ya no se filtra por fecha en frontend, lo hace el backend
   const dateFilteredData = data;
 
   const columnDefs = useMemo(

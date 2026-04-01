@@ -121,7 +121,6 @@ const Tabla: React.FC<TablaProps> = ({
         </Table>
       </div>
 
-      {/* ── Pagination ── */}
       <div className="flex items-center justify-between text-sm text-lightgrey">
         <span>
           {t("min.pagina")} {table.getState().pagination.pageIndex + 1}{" "}

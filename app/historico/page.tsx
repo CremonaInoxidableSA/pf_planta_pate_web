@@ -50,8 +50,6 @@ export default function Historico() {
   const [selectedCiclo, setSelectedCiclo] = useState<Ciclo | null>(null);
   const [ciclos, setCiclos] = useState<Ciclo[]>([]);
   const [isLoadingCiclos, setIsLoadingCiclos] = useState(false);
-  // Estado para filtro de productividad
-  // Set default to current week (Monday to Sunday)
   const today = new Date();
   const defaultWeekRange = {
     from: startOfWeek(today, { weekStartsOn: 1 }),
@@ -62,14 +60,11 @@ export default function Historico() {
     dateRange: DateRange | undefined;
   }>({ equipoId: 0, dateRange: defaultWeekRange });
 
-  // Estado para los datos de los gráficos
-  const [graficoData, setGraficoData] = useState<any>(null); // Usa el tipo correcto si lo tienes
-  const [productividadData, setProductividadData] = useState<any>(null); // Usa el tipo correcto si lo tienes
+  const [setGraficoData] = useState<any>(null);
+  const [setProductividadData] = useState<any>(null);
 
-  // Cargar el último ciclo y sus datos automáticamente al montar la página
   useEffect(() => {
     const fetchUltimoCicloYDatos = async () => {
-      try {
         const response = await authFetch(
           "/api/historico-graficos/ultimo-ciclo",
         );
@@ -84,7 +79,6 @@ export default function Historico() {
             fecha_fin: data.fecha_fin || "",
             tiempo_transcurrido: data.tiempo_transcurrido || "",
           };
-          // Buscar los datos del ciclo para la tabla y el gráfico
           if (data.fecha_inicio && data.fecha_fin) {
             setIsLoadingCiclos(true);
             try {
@@ -114,9 +108,6 @@ export default function Historico() {
             }
           }
         }
-      } catch (e) {
-        // No hacer nada si falla
-      }
     };
     fetchUltimoCicloYDatos();
   }, []);
@@ -163,7 +154,6 @@ export default function Historico() {
     setDialogOpen(false);
   };
 
-  // --- Exportación de Excel ---
   const handleExportGrafico = async () => {
     if (!selectedCiclo || !equipoId) {
       toast.error(t("min.seleccionarCiclo"));

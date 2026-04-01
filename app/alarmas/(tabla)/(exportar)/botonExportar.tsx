@@ -15,7 +15,6 @@ import {
   exportPDF,
   getColHeaders,
   exportExcelFromAPI,
-  exportExcel,
 } from "../exportar";
 import type { Alarma } from "../types";
 
@@ -27,7 +26,6 @@ interface BotonExportarProps {
 
 const BotonExportar: React.FC<BotonExportarProps> = ({
   allRows,
-  visibleRows,
   dateRange,
 }) => {
   const { t } = useTranslation();

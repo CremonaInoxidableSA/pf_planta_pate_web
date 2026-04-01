@@ -32,7 +32,6 @@ const Filtros: React.FC<FiltrosProps> = ({
 
   return (
     <>
-      {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-2">
         <BotonExportar
           allRows={table.getPrePaginationRowModel().rows}
@@ -63,7 +62,6 @@ const Filtros: React.FC<FiltrosProps> = ({
         )}
       </div>
 
-      {/* Filtros por columna */}
       <div className="flex gap-5">
         {(["description", "type", "state", "time"] as ColumnKey[]).map(
           (col) => (

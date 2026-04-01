@@ -193,7 +193,6 @@ export default function EquipoPage({ type }: EquipoPageProps) {
 
   return (
     <div className="w-full h-200 flex flex-col gap-5">
-      {/* SELECCIÓN Y ESTADO */}
       <div className="w-full grid grid-cols-3 gap-5">
         <Selector
           isCocina={isCocina}
@@ -214,7 +213,6 @@ export default function EquipoPage({ type }: EquipoPageProps) {
         </p>
       </div>
 
-      {/* SECCIONES DE INFORMACIÓN */}
       <div className="grid grid-cols-3 w-full h-full gap-5">
         <div className="flex flex-col gap-5 col-span-1 h-full">
           <div className="flex flex-row gap-5">

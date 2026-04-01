@@ -17,8 +17,8 @@ export default function Home() {
         </p>
 
         <div className="w-full h-full flex flex-col items-center gap-5">
-            <ContenedorAlarmas linea="1"/>
-            <ContenedorAlarmas linea="2"/>
+          <ContenedorAlarmas linea="1" />
+          <ContenedorAlarmas linea="2" />
         </div>
       </div>
 

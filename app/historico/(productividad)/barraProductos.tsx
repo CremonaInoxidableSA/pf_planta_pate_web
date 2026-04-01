@@ -15,10 +15,8 @@ interface BarraProductosProps {
 const BarraProductos = ({ productos }: BarraProductosProps) => {
   const { t } = useTranslation();
 
-  // Calcular el total de ciclos para el porcentaje
   const totalCiclos = productos.reduce((sum, p) => sum + p.cantidad_ciclos, 0);
 
-  // Colores para las barras
   const colores = [
     "bg-blue-500",
     "bg-green-500",
@@ -39,7 +37,6 @@ const BarraProductos = ({ productos }: BarraProductosProps) => {
 
       {productos.length > 0 ? (
         <>
-          {/* Barra de progreso apilada */}
           <div className="w-full h-6 bg-background3 rounded-md overflow-hidden flex">
             {productos.map((producto, index) => {
               const porcentaje =
@@ -57,7 +54,6 @@ const BarraProductos = ({ productos }: BarraProductosProps) => {
             })}
           </div>
 
-          {/* Leyenda de productos */}
           <div className="flex flex-wrap gap-3 text-sm">
             {productos.map((producto, index) => {
               const porcentaje =

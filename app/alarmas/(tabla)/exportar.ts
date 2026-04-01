@@ -1,27 +1,22 @@
-// Exportar Excel desde API backend
 export const exportExcelFromAPI = async (dateRange?: {
   from?: Date;
   to?: Date;
 }) => {
   try {
-    // Si no hay fechas, usar hoy para ambos
     const today = new Date();
     const from = dateRange?.from ?? today;
     const to = dateRange?.to ?? today;
     const fromStr = from.toISOString().slice(0, 10);
     const toStr = to.toISOString().slice(0, 10);
-    let url = `/api/alarmas/descarga?descargar=1&fecha_inicio=${fromStr}&fecha_fin=${toStr}`;
+    const url = `/api/alarmas/descarga?descargar=1&fecha_inicio=${fromStr}&fecha_fin=${toStr}`;
     const response = await fetch(url);
     if (!response.ok) throw new Error("Error al descargar archivo");
     const blob = await response.blob();
     const fecha = `_${fromStr}_a_${toStr}`;
     const fileName = `alarmas${fecha}.xlsx`;
-    // @ts-ignore
     if (window.saveAs) {
-      // file-saver presente
       window.saveAs(blob, fileName);
     } else {
-      // fallback
       const link = document.createElement("a");
       link.href = window.URL.createObjectURL(blob);
       link.download = fileName;

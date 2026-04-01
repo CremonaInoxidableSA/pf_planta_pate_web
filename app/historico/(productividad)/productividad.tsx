@@ -33,7 +33,6 @@ const Productividad = ({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Notificar datos al padre
   const handleDataLoaded = (d: ProductividadData) => {
     setData(d);
     onDataLoaded?.(d);

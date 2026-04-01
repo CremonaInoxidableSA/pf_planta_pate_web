@@ -7,7 +7,6 @@ export async function GET(request: Request) {
     const fecha_inicio = searchParams.get("fecha_inicio");
     const fecha_fin = searchParams.get("fecha_fin");
 
-    // Si es descarga de Excel
     if (descargar === "1" && fecha_inicio && fecha_fin) {
       const url = `${BASE_URL}/alarmas/descargar?fecha_inicio=${fecha_inicio}&fecha_fin=${fecha_fin}`;
       const response = await fetch(url);
@@ -21,7 +20,6 @@ export async function GET(request: Request) {
           },
         });
       }
-      // Pasar el archivo binario tal cual
       const blob = await response.arrayBuffer();
       return new Response(blob, {
         status: 200,
@@ -34,7 +32,6 @@ export async function GET(request: Request) {
       });
     }
 
-    // Consulta normal de alarmas
     let url = `${BASE_URL}/alarmas/defecto`;
     if (fecha_inicio && fecha_fin) {
       url = `${BASE_URL}/alarmas?fecha_inicio=${fecha_inicio}&fecha_fin=${fecha_fin}`;

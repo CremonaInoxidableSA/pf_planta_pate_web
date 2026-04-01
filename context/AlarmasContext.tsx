@@ -57,7 +57,7 @@ export const AlarmasProvider: React.FC<{ children: React.ReactNode }> = ({
         const data = JSON.parse(event.data);
         setAlarmas(data);
         setLoading(false);
-      } catch (e) {
+      } catch {
         setError("Error al parsear datos de alarmas");
       }
     };

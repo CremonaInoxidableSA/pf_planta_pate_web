@@ -5,12 +5,14 @@ import { useCocinaContext } from "@/context/CocinaContext";
 import { useEnfriadorContext } from "@/context/EnfriadorContext";
 import Grafico from "@/components/cocinas&enfriadores/graficoIndividual/graficoMonitoreoIndividual";
 import type { HistorialItem } from "@/components/cocinas&enfriadores/graficoIndividual/graficoTypes";
+import { useTranslation } from "react-i18next";
 
 const COCINA_IDS = [1, 2, 3, 4, 5, 6];
 
 const GraficoMonitoreo: React.FC<{ id: number }> = ({ id }) => {
   const { cocinas } = useCocinaContext();
   const { enfriadores } = useEnfriadorContext();
+  const { t } = useTranslation();
 
   const isCocina = COCINA_IDS.includes(id);
 
@@ -38,23 +40,20 @@ const GraficoMonitoreo: React.FC<{ id: number }> = ({ id }) => {
     <div
       className={`flex flex-col w-full h-full bg-background2 rounded-md p-3 border-b-2 ${borderColor} gap-2 min-h-0`}
     >
-      {/* Header */}
       <div className="flex items-center justify-between shrink-0">
         <span className={`font-semibold ${textColor}`}>{label}</span>
         <span className="text-sm text-lightgrey">{estado}</span>
       </div>
 
-      {/* Temperaturas actuales */}
       <div className="flex gap-4 text-sm shrink-0">
         <span className="text-waterTemp">
-          Agua: {info?.temp_agua ?? "—"} °C
+          {t("min.tempAgua")}: {info?.temp_agua ?? "—"} °C
         </span>
         <span className="text-greengraph">
-          Prod: {info?.temp_prod ?? "—"} °C
+          {t("min.tempProd")}: {info?.temp_prod ?? "—"} °C
         </span>
       </div>
 
-      {/* Gráfico */}
       <div className="flex-1 min-h-0">
         <Grafico historial={historial} estado={estado} isCocina={isCocina} />
       </div>

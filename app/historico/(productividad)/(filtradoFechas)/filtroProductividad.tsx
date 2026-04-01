@@ -12,7 +12,6 @@ import SelectorEquiposProductividad, {
 } from "./selectorLineas";
 import { authFetch } from "@/app/api/api";
 
-// Tipo para los datos de productividad que devuelve la API
 export interface ProductividadData {
   ciclos_realizados: number;
   produccion_total: number;
@@ -42,7 +41,6 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
   onFilterChange,
 }) => {
   const { t } = useTranslation();
-  // Semana actual: domingo a sábado
   const today = new Date();
   const defaultWeekRange = {
     from: startOfWeek(today, { weekStartsOn: 0 }),
@@ -53,15 +51,12 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
   );
   const [equipoSeleccionado, setEquipoSeleccionado] =
     useState<EquipoProductividadId>(0);
-  // Cargar datos automáticamente al montar si hay filtro válido
   useEffect(() => {
     if (dateRange?.from && dateRange?.to && equipoSeleccionado !== undefined) {
       handleApply();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Notificar cambios de filtro al padre
   const notifyFilterChange = (
     newEquipoId: number,
     newDateRange: DateRange | undefined,
@@ -73,7 +68,6 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
   const handleApply = async () => {
     if (!dateRange?.from || !dateRange?.to) return;
 
-    // Notificar filtro al padre también al aplicar
     notifyFilterChange(equipoSeleccionado, dateRange);
 
     const fechaInicio = format(dateRange.from, "yyyy-MM-dd");
@@ -99,7 +93,6 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
       const errorMessage =
         error instanceof Error ? error.message : "Error desconocido";
       onError?.(errorMessage);
-      console.error("Error fetching productividad:", error);
     } finally {
       setIsLoading(false);
       onLoading?.(false);

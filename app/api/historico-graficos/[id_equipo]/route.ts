@@ -1,7 +1,3 @@
-type Props = {
-  params: Promise<{ id_equipo: string }>;
-};
-
 import { NextRequest } from "next/server";
 
 function getBaseUrl(): string {

@@ -28,7 +28,6 @@ const BarraCiclos = ({
 
       {totalCiclos > 0 ? (
         <>
-          {/* Barra de progreso apilada */}
           <div className="w-full h-6 bg-background3 rounded-md overflow-hidden flex">
             {ciclos_correctos > 0 && (
               <div
@@ -52,7 +51,6 @@ const BarraCiclos = ({
             )}
           </div>
 
-          {/* Leyenda */}
           <div className="flex flex-wrap gap-3 text-sm">
             {ciclos_correctos > 0 && (
               <div className="flex items-center gap-2">

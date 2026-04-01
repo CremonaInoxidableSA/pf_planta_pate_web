@@ -26,7 +26,6 @@ export async function GET(request: Request, props: Props): Promise<Response> {
   try {
     const { id_equipo, fecha_inicio, fecha_fin } = await props.params;
 
-    // Validar que los parámetros son correctos
     const equipoId = parseInt(id_equipo, 10);
     if (isNaN(equipoId) || equipoId < 0 || equipoId > 16) {
       return Response.json(
@@ -35,7 +34,6 @@ export async function GET(request: Request, props: Props): Promise<Response> {
       );
     }
 
-    // Validar formato de fechas (YYYY-MM-DD)
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
     if (!dateRegex.test(fecha_inicio) || !dateRegex.test(fecha_fin)) {
       return Response.json(

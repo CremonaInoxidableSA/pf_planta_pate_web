@@ -98,7 +98,7 @@ export const LineaProvider = ({ children }: { children: React.ReactNode }) => {
         setLineasData({
           1: linea1,
           2: linea2,
-          3: { cocinas: [], enfriadores: [] }, // Línea 3 vacía por ahora
+          3: { cocinas: [], enfriadores: [] },
         });
       }, 0);
       return () => clearTimeout(timer);

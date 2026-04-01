@@ -45,11 +45,8 @@ interface UserAvatarProps {
   apellido?: string | null;
   rol?: string | null;
   loading?: boolean;
-  /** Tailwind size classes, e.g. "w-6.25 h-6.25" */
   sizeClass?: string;
-  /** Tailwind text-size class for the initials */
   textClass?: string;
-  /** Pixel size passed to next/image for the superadmin logo */
   imgPx?: number;
 }
 

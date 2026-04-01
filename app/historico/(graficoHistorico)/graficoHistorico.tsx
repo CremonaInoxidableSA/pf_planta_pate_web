@@ -88,15 +88,13 @@ const GraficoHistorico = ({
         const { default: zoomPlugin } = await import("chartjs-plugin-zoom");
         Chart.register(zoomPlugin);
         setZoomPluginLoaded(true);
-      } catch (error) {
-        console.error("Error cargando chartjs-plugin-zoom:", error);
+      } catch {
         setZoomPluginLoaded(true);
       }
     };
     loadZoomPlugin();
   }, []);
 
-  // Fetch sensor data when a ciclo is selected
   useEffect(() => {
     if (!selectedCiclo || !filter?.equipoId) {
       setGraficoData(null);
@@ -128,10 +126,8 @@ const GraficoHistorico = ({
     };
 
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCiclo, filter?.equipoId]);
 
-  // Build chart when sensor data and zoom plugin are ready
   useEffect(() => {
     if (!graficoData || !canvasRef.current || !zoomPluginLoaded) return;
 
@@ -140,7 +136,6 @@ const GraficoHistorico = ({
       .map(([sensorName, readings]) => {
         const sensorReadings = readings as SensorReading[];
         if (sensorReadings.length === 0) return null;
-        // Use right axis for Nivel agua, left for others
         const isNivelAgua = sensorName === "Nivel agua";
         return {
           label: sensorName,
@@ -269,7 +264,6 @@ const GraficoHistorico = ({
               <span className="ml-2">({general.tiempo_transcurrido})</span>
             )}
           </p>
-          {/* Valores máximos */}
           {general && (
             <div className="flex flex-wrap gap-4 mt-2">
               <span
