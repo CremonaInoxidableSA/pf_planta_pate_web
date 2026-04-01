@@ -237,7 +237,7 @@ const GraficoHistorico = ({
 
   if (!selectedCiclo) {
     return (
-      <div className="bg-background2 rounded-md p-5 w-full h-200 flex items-center justify-center text-texto">
+      <div className="w-full h-190 flex items-center justify-center text-texto">
         {filter
           ? t("min.seleccionaCicloParaVisualizar")
           : t("min.aplicaFiltroParaComenzar")}
@@ -251,7 +251,7 @@ const GraficoHistorico = ({
   const fechaFin = general?.fecha_fin ?? selectedCiclo.fecha_fin;
 
   return (
-    <div className="bg-background2 rounded-md p-5 w-full">
+    <div className="w-full">
       <div className="flex items-start justify-between mb-4">
         <div>
           <h3 className="text-lg font-semibold text-texto">

@@ -19,6 +19,7 @@ import SelectorHistorico from "@/app/historico/(comps)/selectorHistorico";
 import { authFetch } from "@/app/api/api";
 import TablaCiclos from "./(tablaCiclos)/tablaCiclos";
 import GraficoHistorico from "./(graficoHistorico)/graficoHistorico";
+import { Spinner } from "@/components/ui/spinner";
 import Productividad from "./(productividad)/productividad";
 
 export interface Ciclo {
@@ -252,13 +253,17 @@ export default function Historico() {
           />
         </DialogContent>
       </Dialog>
-      {appliedFilter && selectedCiclo && (
-        <GraficoHistorico
-          filter={appliedFilter}
-          selectedCiclo={selectedCiclo}
-          onDataLoaded={setGraficoData}
-        />
-      )}
+      <div className="w-full min-h-190 flex items-center justify-center bg-background2 rounded-md p-5">
+        {isLoadingCiclos ? (
+          <Spinner className="w-12 h-12 text-primary" />
+        ) : appliedFilter && selectedCiclo ? (
+          <GraficoHistorico
+            filter={appliedFilter}
+            selectedCiclo={selectedCiclo}
+            onDataLoaded={setGraficoData}
+          />
+        ) : null}
+      </div>
       <Productividad
         onDataLoaded={setProductividadData}
         onProductividadFilterChange={setProductividadFilter}
