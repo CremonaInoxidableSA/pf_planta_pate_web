@@ -109,14 +109,17 @@ export default function EquipoPage({ type }: EquipoPageProps) {
     {
       label: t("min.pesoProducto"),
       value: isCocina
-        ? ((equipo?.detalles as any)?.peso_producto ?? "N/A")
+        ? "peso_producto" in (equipo?.detalles ?? {})
+          ? ((equipo?.detalles as { peso_producto?: number }).peso_producto ??
+            "N/A")
+          : "N/A"
         : "N/A",
       unit: "kg",
     },
   ];
 
   const datosIO = useMemo(() => {
-    const toBool = (v: any) => v === true;
+    const toBool = (v: boolean | undefined) => v === true;
     const defaultBaseIO = [
       { label: t("min.bomba"), value: false },
       { label: t("min.entradaAgua"), value: false },

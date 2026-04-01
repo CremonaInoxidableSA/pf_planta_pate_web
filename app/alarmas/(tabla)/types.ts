@@ -1,4 +1,4 @@
-export interface Alerta {
+export interface Alarma {
   key: string;
   description: string;
   type: string;

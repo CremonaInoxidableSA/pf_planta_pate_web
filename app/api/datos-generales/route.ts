@@ -33,8 +33,7 @@ export async function GET(request: NextRequest) {
         }
         try {
           controller.close();
-        } catch {
-        }
+        } catch {}
       };
 
       request.signal.addEventListener("abort", cleanup);
@@ -44,8 +43,7 @@ export async function GET(request: NextRequest) {
           controller.enqueue(
             encoder.encode(`event: ${event}\ndata: ${data}\n\n`),
           );
-        } catch {
-        }
+        } catch {}
       };
 
       const connect = () => {

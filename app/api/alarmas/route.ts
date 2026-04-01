@@ -2,7 +2,7 @@ const BASE_URL = process.env.API_DATOS_URL ?? "http://192.168.20.152:8000";
 
 export async function GET() {
   try {
-    const response = await fetch(`${BASE_URL}/alarmas`, {
+    const response = await fetch(`${BASE_URL}/alarmas/defecto`, {
       cache: "no-store",
     });
 

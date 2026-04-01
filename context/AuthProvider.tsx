@@ -15,7 +15,7 @@ import Cookies from "js-cookie";
 // BYPASS DE AUTENTICACIÓN TEMPORAL - DESARROLLO SIN BD
 // Para reactivar la autenticación, cambiar a false
 // =====================================================
-const BYPASS_AUTH = false
+const BYPASS_AUTH = false;
 
 // Usuario mock para desarrollo sin base de datos
 const MOCK_USER: UserSession = {

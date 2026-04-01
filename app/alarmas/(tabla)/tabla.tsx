@@ -26,12 +26,12 @@ import {
   ChevronsRight,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import type { Alerta } from "./types";
+import type { Alarma } from "./types";
 
 interface TablaProps {
-  table: TanstackTable<Alerta>;
+  table: TanstackTable<Alarma>;
   isLoading: boolean;
-  columnDefs: ColumnDef<Alerta>[];
+  columnDefs: ColumnDef<Alarma>[];
   error: string | null;
 }
 

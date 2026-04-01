@@ -8,11 +8,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { FilterX } from "lucide-react";
 import DateRangePicker from "@/components/selectores/dateRangePicker";
-import type { Alerta, ColumnKey } from "./types";
+import type { Alarma, ColumnKey } from "./types";
 import BotonExportar from "./(exportar)/botonExportar";
 
 interface FiltrosProps {
-  table: Table<Alerta>;
+  table: Table<Alarma>;
   dateRange: DateRange | undefined;
   setDateRange: (value: DateRange | undefined) => void;
   error: string | null;
@@ -37,6 +37,7 @@ const Filtros: React.FC<FiltrosProps> = ({
         <BotonExportar
           allRows={table.getPrePaginationRowModel().rows}
           visibleRows={table.getRowModel().rows}
+          dateRange={dateRange}
         />
 
         <DateRangePicker value={dateRange} onChange={setDateRange} />

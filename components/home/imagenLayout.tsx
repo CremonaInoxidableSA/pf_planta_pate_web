@@ -70,8 +70,7 @@ function getEstadoColor(estado: string): string {
   const estadoUpper = estado.toUpperCase();
 
   if (estadoUpper === "FALLA") return "#C13D";
-  if (["OPERACIONAL", "PRE OPERACIONAL"].includes(estadoUpper))
-    return "#9b9D";
+  if (["OPERACIONAL", "PRE OPERACIONAL"].includes(estadoUpper)) return "#9b9D";
   if (estadoUpper === "PAUSA") return "#BB8D";
   if (estadoUpper === "FINALIZADO") return "#9bbD";
   if (estadoUpper === "INACTIVO") return "#666D";

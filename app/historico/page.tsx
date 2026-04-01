@@ -46,14 +46,15 @@ export default function Historico() {
   const [selectedCiclo, setSelectedCiclo] = useState<Ciclo | null>(null);
   const [ciclos, setCiclos] = useState<Ciclo[]>([]);
   const [isLoadingCiclos, setIsLoadingCiclos] = useState(false);
-  // Para acceder a los datos de los hijos
-  const [graficoData, setGraficoData] = useState<any>(null);
-  const [productividadData, setProductividadData] = useState<any>(null);
   // Estado para filtro de productividad
   const [productividadFilter, setProductividadFilter] = useState<{
     equipoId: number;
     dateRange: DateRange | undefined;
   }>({ equipoId: 0, dateRange: undefined });
+
+  // Estado para los datos de los gráficos
+  const [graficoData, setGraficoData] = useState<any>(null); // Usa el tipo correcto si lo tienes
+  const [productividadData, setProductividadData] = useState<any>(null); // Usa el tipo correcto si lo tienes
 
   const handleApply = async () => {
     if (!dateRange?.from || !dateRange?.to) return;

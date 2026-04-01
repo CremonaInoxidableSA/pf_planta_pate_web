@@ -6,13 +6,15 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 1. Abrir `context/AuthProvider.tsx`
 2. Cambiar la línea 17:
+
    ```tsx
    // ANTES (bypass activo):
    const BYPASS_AUTH = true;
-   
+
    // DESPUÉS (autenticación normal):
    const BYPASS_AUTH = false;
    ```
+
 ---
 
 ## Getting Started

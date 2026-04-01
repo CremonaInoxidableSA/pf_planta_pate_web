@@ -11,17 +11,24 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Download } from "lucide-react";
-import { exportPDF, exportExcel, getColHeaders } from "../exportar";
-import type { Alerta } from "../types";
+import {
+  exportPDF,
+  getColHeaders,
+  exportExcelFromAPI,
+  exportExcel,
+} from "../exportar";
+import type { Alarma } from "../types";
 
 interface BotonExportarProps {
-  allRows: Row<Alerta>[];
-  visibleRows: Row<Alerta>[];
+  allRows: Row<Alarma>[];
+  visibleRows: Row<Alarma>[];
+  dateRange?: { from?: Date; to?: Date };
 }
 
 const BotonExportar: React.FC<BotonExportarProps> = ({
   allRows,
   visibleRows,
+  dateRange,
 }) => {
   const { t } = useTranslation();
   const colHeaders = getColHeaders(t);
@@ -46,23 +53,9 @@ const BotonExportar: React.FC<BotonExportarProps> = ({
         </DropdownMenuItem>
         <DropdownMenuItem
           className="hover:bg-background5 cursor-pointer"
-          onClick={() => exportPDF(visibleRows, colHeaders)}
-        >
-          {t("min.expvisiblespdf")}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          className="hover:bg-background5 cursor-pointer"
-          onClick={() => exportExcel(allRows, colHeaders, "Todas_Alertas")}
+          onClick={() => exportExcelFromAPI(dateRange)}
         >
           {t("min.exptodasexcel")}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          className="hover:bg-background5 cursor-pointer"
-          onClick={() =>
-            exportExcel(visibleRows, colHeaders, "Alertas_Visibles")
-          }
-        >
-          {t("min.expvisiblesexcel")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

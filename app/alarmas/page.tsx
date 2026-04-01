@@ -1,8 +1,8 @@
 "use client";
 import { useTranslation } from "react-i18next";
-import { useTablaAlertas } from "@/app/alertas/(tabla)/useTablaAlertas";
-import Filtros from "@/app/alertas/(tabla)/filtros";
-import Tabla from "@/app/alertas/(tabla)/tabla";
+import { useTablaAlarmas } from "@/app/alarmas/(tabla)/useTablaAlarmas";
+import Filtros from "@/app/alarmas/(tabla)/filtros";
+import Tabla from "@/app/alarmas/(tabla)/tabla";
 
 export default function Home() {
   const { t } = useTranslation();
@@ -15,13 +15,13 @@ export default function Home() {
     loadData,
     handleClearFilters,
     columnDefs,
-  } = useTablaAlertas();
+  } = useTablaAlarmas();
 
   return (
     <section className="flex flex-col w-full">
       <div className="text-center pointer-events-none">
         <p className="text-4xl font-bold leading-none">{t("min.historial")}</p>
-        <p className="text-2xl text-lightgrey">{t("min.alertas")}</p>
+        <p className="text-2xl text-lightgrey">{t("min.alarmas")}</p>
       </div>
       <div className="flex flex-col gap-5">
         <Filtros

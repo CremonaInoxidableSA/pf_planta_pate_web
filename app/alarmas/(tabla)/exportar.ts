@@ -1,10 +1,53 @@
+// Exportar Excel desde API backend
+export const exportExcelFromAPI = async (dateRange?: {
+  from?: Date;
+  to?: Date;
+}) => {
+  try {
+    // Si no hay fechas, usar hoy para ambos
+    const today = new Date();
+    const from = dateRange?.from ?? today;
+    const to = dateRange?.to ?? today;
+    const fromStr = from.toISOString().slice(0, 10);
+    const toStr = to.toISOString().slice(0, 10);
+    let url = `/api/alarmas/descarga?descargar=1&fecha_inicio=${fromStr}&fecha_fin=${toStr}`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Error al descargar archivo");
+    const blob = await response.blob();
+    const fecha = `_${fromStr}_a_${toStr}`;
+    const fileName = `alarmas${fecha}.xlsx`;
+    // @ts-ignore
+    if (window.saveAs) {
+      // file-saver presente
+      window.saveAs(blob, fileName);
+    } else {
+      // fallback
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    toast.success("Éxito", {
+      description: "Excel descargado correctamente",
+      position: "bottom-right",
+    });
+  } catch (err) {
+    toast.error("Error", {
+      description:
+        err instanceof Error ? err.message : "Error al descargar el Excel",
+      position: "bottom-right",
+    });
+  }
+};
 import * as XLSX from "xlsx";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import { toast } from "sonner";
 import logoDataURL from "@/public/logo/cremonabase64";
 import type { Row } from "@tanstack/react-table";
-import type { Alerta } from "./types";
+import type { Alarma } from "./types";
 import { formatDate } from "./utils";
 
 export const getColHeaders = (t: (key: string) => string): string[] => [
@@ -14,14 +57,14 @@ export const getColHeaders = (t: (key: string) => string): string[] => [
   t("min.fechaRegistro"),
 ];
 
-export const rowToArray = (row: Alerta): string[] => [
+export const rowToArray = (row: Alarma): string[] => [
   row.description,
   row.type,
   row.state,
   formatDate(row.time),
 ];
 
-export const exportPDF = (rows: Row<Alerta>[], colHeaders: string[]): void => {
+export const exportPDF = (rows: Row<Alarma>[], colHeaders: string[]): void => {
   try {
     const doc = new jsPDF({
       orientation: "portrait",
@@ -91,7 +134,7 @@ export const exportPDF = (rows: Row<Alerta>[], colHeaders: string[]): void => {
 };
 
 export const exportExcel = (
-  rows: Row<Alerta>[],
+  rows: Row<Alarma>[],
   colHeaders: string[],
   fileName: string,
 ): void => {
@@ -102,7 +145,7 @@ export const exportExcel = (
     });
     const ws = XLSX.utils.json_to_sheet(sheetData);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Alertas");
+    XLSX.utils.book_append_sheet(wb, ws, "Alarmas");
     XLSX.writeFile(wb, `${fileName}.xlsx`);
     toast.success("Éxito", {
       description: "Excel descargado correctamente",

@@ -14,12 +14,12 @@ import {
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import type { DateRange } from "react-day-picker";
-import type { Alerta, AlarmaData } from "./types";
+import type { Alarma, AlarmaData } from "./types";
 import { getColumnDefs } from "./columnas";
 
-export function useTablaAlertas() {
+export function useTablaAlarmas() {
   const { t } = useTranslation();
-  const [data, setData] = useState<Alerta[]>([]);
+  const [data, setData] = useState<Alarma[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -27,50 +27,55 @@ export function useTablaAlertas() {
   const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
   const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 });
 
-  const loadData = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const res = await authFetch("/api/alarmas");
-      if (!res.ok) throw new Error(`${res.status}`);
-      const apiData: AlarmaData[] = await res.json();
-      setData(
-        apiData
-          .filter((a) => a.descripcion?.trim())
-          .map((a) => ({
-            key: a.id_alarma.toString(),
-            description: a.descripcion,
-            type: a.tipo,
-            state: a.estadoAlarma ? "Activo" : "Inactivo",
-            time: a.fecha_registro,
-          })),
-      );
-    } catch {
-      setError(t("min.noSePudieronObtenerDatos"));
-    } finally {
-      setIsLoading(false);
-    }
-  }, [t]);
+  const loadData = useCallback(
+    async (range?: DateRange) => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        let url = "/api/alarmas";
+        if (range?.from && range?.to) {
+          const from = range.from.toISOString().slice(0, 10);
+          const to = range.to.toISOString().slice(0, 10);
+          url += `?fecha_inicio=${from}&fecha_fin=${to}`;
+        }
+        const res = await authFetch(url);
+        if (!res.ok) throw new Error(`${res.status}`);
+        const apiData = await res.json();
+        setData(
+          (apiData as any[])
+            .filter((a) => a.descripcion?.trim())
+            .map((a) => ({
+              key:
+                a.id?.toString() ??
+                a.id_alarma?.toString() ??
+                Math.random().toString(),
+              description: a.descripcion,
+              type: a.tipo_alarma ?? a.tipo ?? "",
+              state:
+                a.estadoAlarma !== undefined
+                  ? a.estadoAlarma
+                    ? "Activo"
+                    : "Inactivo"
+                  : "-",
+              time: a.fecha_inicio ?? a.fecha_registro ?? "",
+            })),
+        );
+      } catch {
+        setError(t("min.noSePudieronObtenerDatos"));
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [t],
+  );
 
   useEffect(() => {
-    loadData();
-  }, [loadData]);
+    loadData(dateRange);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dateRange]);
 
-  const dateFilteredData = useMemo(() => {
-    if (!dateRange?.from && !dateRange?.to) return data;
-    const from = dateRange?.from ?? new Date(0);
-    const to = dateRange?.to
-      ? new Date(new Date(dateRange.to).setHours(23, 59, 59, 999))
-      : new Date();
-    return data.filter((item) => {
-      try {
-        const d = new Date(item.time);
-        return d >= from && d <= to;
-      } catch {
-        return false;
-      }
-    });
-  }, [data, dateRange]);
+  // Ya no se filtra por fecha en frontend, lo hace el backend
+  const dateFilteredData = data;
 
   const columnDefs = useMemo(
     () => getColumnDefs(t, columnFilters),
@@ -94,6 +99,7 @@ export function useTablaAlertas() {
     setColumnFilters([]);
     setDateRange(undefined);
     toast.success(t("min.filtrosLimpiados"), { position: "bottom-right" });
+    loadData(undefined);
   };
 
   return {

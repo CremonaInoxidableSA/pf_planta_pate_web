@@ -38,11 +38,11 @@ export const HeaderPrincipal: React.FC<Header> = ({ currentPath }) => {
     },
     {
       id: 2,
-      url: "/alertas",
+      url: "/alarmas",
       icon: (
         <Link
           className="group relative flex items-center justify-center w-6.25 h-6.25 ease-in-out"
-          href="/alertas"
+          href="/alarmas"
         >
           <div className="absolute inset-0 rounded-md bg-gray-400/0 group-hover:bg-gray-400/20 ease-in-out group-hover:scale-150 pointer-events-none" />
           <VscBell className="w-6.25 h-6.25 transition-transform ease-in-out group-hover:scale-110" />
