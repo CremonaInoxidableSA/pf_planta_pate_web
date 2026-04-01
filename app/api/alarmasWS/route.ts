@@ -12,7 +12,7 @@ export async function GET() {
 
   const stream = new ReadableStream({
     start(controller: ReadableStreamDefaultController<string>) {
-      let ws: WebSocket;
+      const ws: WebSocket = undefined as unknown as WebSocket;
       let closed = false;
       function sendEvent(data: unknown) {
         if (!closed) {
@@ -20,17 +20,20 @@ export async function GET() {
         }
       }
 
-      ws = new WebSocket("ws://192.168.20.152:8001/ws/datos-alarmas");
+      const socket = new WebSocket("ws://192.168.20.152:8001/ws/datos-alarmas");
 
-      ws.on("message", (msg: WebSocket.Data) => {
+      socket.on("message", (msg: WebSocket.Data) => {
         const data = JSON.parse(msg.toString());
         sendEvent(data);
       });
 
-      if (typeof (controller as any).signal !== "undefined") {
-        (controller as any).signal.addEventListener("abort", () => {
+      const ctrl = controller as ReadableStreamDefaultController<string> & {
+        signal?: AbortSignal;
+      };
+      if (typeof ctrl.signal !== "undefined") {
+        ctrl.signal.addEventListener("abort", () => {
           closed = true;
-          if (ws && ws.readyState === WebSocket.OPEN) ws.close();
+          if (socket && socket.readyState === WebSocket.OPEN) socket.close();
         });
       }
     },
