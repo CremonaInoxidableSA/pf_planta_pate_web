@@ -6,6 +6,7 @@ import LayoutClient from "./layout-client";
 import { ThemeProvider } from "@/components/theme/themeProvider";
 import { AuthProvider } from "@/context/AuthProvider";
 import { AppProvider } from "@/context/AppContext";
+import { AlarmasProvider } from "@/context/AlarmasContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,7 +48,9 @@ export default function RootLayout({
         >
           <AuthProvider>
             <AppProvider>
-              <LayoutClient>{children}</LayoutClient>
+              <AlarmasProvider>
+                <LayoutClient>{children}</LayoutClient>
+              </AlarmasProvider>
             </AppProvider>
           </AuthProvider>
         </ThemeProvider>

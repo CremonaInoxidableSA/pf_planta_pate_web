@@ -117,7 +117,9 @@
     "errorCargarDatos": "Error loading data",
     "noDatosSensores": "No sensor data for this cycle.",
     "rangoSeleccionado": "Selected range",
-    "seleccionarFechas": "Select date range"
+    "seleccionarFechas": "Select date range",
+    "alarmasActivasLinea": "Active alarms line",
+    "sinAlarmasActivas": "No active alarms"
   },
   "mayus": {
     "titulo": "PF PLANTA PATE - DATA ACQUISITION SYSTEM",
@@ -139,8 +141,6 @@
     "importarBDD": "IMPORT DATABASE",
     "exportarBDD": "EXPORT DATABASE",
     "generarReclamo": "GENERATE CLAIM",
-    "listaUsuarios": "USER LIST",
-    "alarmasLinea1": "LINE 1 ALARMS",
-    "alarmasLinea2": "LINE 2 ALARMS"
+    "listaUsuarios": "USER LIST"
   }
 }
