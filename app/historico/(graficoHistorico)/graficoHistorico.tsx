@@ -40,7 +40,7 @@ interface CicloGeneral {
   nivel_agua_min: number;
 }
 
-interface GraficoData {
+export interface GraficoData {
   general: CicloGeneral;
   [sensorName: string]: SensorReading[] | CicloGeneral;
 }

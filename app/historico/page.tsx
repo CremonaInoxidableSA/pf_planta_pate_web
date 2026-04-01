@@ -60,54 +60,58 @@ export default function Historico() {
     dateRange: DateRange | undefined;
   }>({ equipoId: 0, dateRange: defaultWeekRange });
 
-  const [setGraficoData] = useState<any>(null);
-  const [setProductividadData] = useState<any>(null);
+  // Tipos correctos para los datos cargados
+  const [graficoData, setGraficoData] = useState<
+    import("./(graficoHistorico)/graficoHistorico").GraficoData | null
+  >(null);
+  const [productividadData, setProductividadData] = useState<
+    | import("./(productividad)/(filtradoFechas)/filtroProductividad").ProductividadData
+    | null
+  >(null);
 
   useEffect(() => {
     const fetchUltimoCicloYDatos = async () => {
-        const response = await authFetch(
-          "/api/historico-graficos/ultimo-ciclo",
-        );
-        if (!response.ok) return;
-        const data = await response.json();
-        if (data && data.id_ciclo && data.id_equipo) {
-          setEquipoId(Number(data.id_equipo));
-          const cicloObj = {
-            id_ciclo: data.id_ciclo,
-            lote: data.lote || "",
-            fecha_inicio: data.fecha_inicio || "",
-            fecha_fin: data.fecha_fin || "",
-            tiempo_transcurrido: data.tiempo_transcurrido || "",
-          };
-          if (data.fecha_inicio && data.fecha_fin) {
-            setIsLoadingCiclos(true);
-            try {
-              const ciclosResp = await authFetch(
-                `/api/historico-graficos/${data.id_equipo}?fecha_inicio=${data.fecha_inicio}&fecha_fin=${data.fecha_fin}`,
-              );
-              let ciclosData: Ciclo[] = [];
-              if (ciclosResp.ok) {
-                const raw = await ciclosResp.json();
-                if (Array.isArray(raw)) {
-                  ciclosData = raw.filter(Boolean);
-                } else if (raw) {
-                  ciclosData = [raw];
-                }
+      const response = await authFetch("/api/historico-graficos/ultimo-ciclo");
+      if (!response.ok) return;
+      const data = await response.json();
+      if (data && data.id_ciclo && data.id_equipo) {
+        setEquipoId(Number(data.id_equipo));
+        const cicloObj = {
+          id_ciclo: data.id_ciclo,
+          lote: data.lote || "",
+          fecha_inicio: data.fecha_inicio || "",
+          fecha_fin: data.fecha_fin || "",
+          tiempo_transcurrido: data.tiempo_transcurrido || "",
+        };
+        if (data.fecha_inicio && data.fecha_fin) {
+          setIsLoadingCiclos(true);
+          try {
+            const ciclosResp = await authFetch(
+              `/api/historico-graficos/${data.id_equipo}?fecha_inicio=${data.fecha_inicio}&fecha_fin=${data.fecha_fin}`,
+            );
+            let ciclosData: Ciclo[] = [];
+            if (ciclosResp.ok) {
+              const raw = await ciclosResp.json();
+              if (Array.isArray(raw)) {
+                ciclosData = raw.filter(Boolean);
+              } else if (raw) {
+                ciclosData = [raw];
               }
-              setCiclos(ciclosData);
-              setAppliedFilter({
-                dateRange: {
-                  from: new Date(data.fecha_inicio),
-                  to: new Date(data.fecha_fin),
-                },
-                equipoId: Number(data.id_equipo),
-              });
-              setSelectedCiclo(cicloObj);
-            } finally {
-              setIsLoadingCiclos(false);
             }
+            setCiclos(ciclosData);
+            setAppliedFilter({
+              dateRange: {
+                from: new Date(data.fecha_inicio),
+                to: new Date(data.fecha_fin),
+              },
+              equipoId: Number(data.id_equipo),
+            });
+            setSelectedCiclo(cicloObj);
+          } finally {
+            setIsLoadingCiclos(false);
           }
         }
+      }
     };
     fetchUltimoCicloYDatos();
   }, []);
