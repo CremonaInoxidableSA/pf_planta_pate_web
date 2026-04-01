@@ -11,11 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Download } from "lucide-react";
-import {
-  exportPDF,
-  getColHeaders,
-  exportExcelFromAPI,
-} from "../exportar";
+import { exportPDF, getColHeaders, exportExcelFromAPI } from "../exportar";
 import type { Alarma } from "../types";
 
 interface BotonExportarProps {

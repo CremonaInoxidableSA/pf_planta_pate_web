@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { startOfWeek, endOfWeek } from "date-fns";
 import { useTranslation } from "react-i18next";
 import type { DateRange } from "react-day-picker";
@@ -51,21 +51,15 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
   );
   const [equipoSeleccionado, setEquipoSeleccionado] =
     useState<EquipoProductividadId>(0);
-  useEffect(() => {
-    if (dateRange?.from && dateRange?.to && equipoSeleccionado !== undefined) {
-      handleApply();
-    }
-  }, []);
 
-  const notifyFilterChange = (
-    newEquipoId: number,
-    newDateRange: DateRange | undefined,
-  ) => {
-    onFilterChange?.({ equipoId: newEquipoId, dateRange: newDateRange });
-  };
-  const [isLoading, setIsLoading] = useState(false);
+    const notifyFilterChange = (
+      newEquipoId: number,
+      newDateRange: DateRange | undefined,
+    ) => {
+      onFilterChange?.({ equipoId: newEquipoId, dateRange: newDateRange });
+    };
 
-  const handleApply = async () => {
+  const handleApply = useCallback(async () => {
     if (!dateRange?.from || !dateRange?.to) return;
 
     notifyFilterChange(equipoSeleccionado, dateRange);
@@ -97,7 +91,23 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
       setIsLoading(false);
       onLoading?.(false);
     }
-  };
+  }, [
+    dateRange,
+    equipoSeleccionado,
+    notifyFilterChange,
+    onLoading,
+    onError,
+    onDataLoaded,
+  ]);
+
+  useEffect(() => {
+    if (dateRange?.from && dateRange?.to && equipoSeleccionado !== undefined) {
+      handleApply();
+    }
+  }, [dateRange?.from, dateRange?.to, equipoSeleccionado, handleApply]);
+
+  
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <div className="w-[20%] h-full flex flex-col justify-evenly gap-3">
