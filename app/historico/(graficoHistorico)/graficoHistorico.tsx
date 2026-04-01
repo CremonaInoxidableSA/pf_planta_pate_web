@@ -126,7 +126,7 @@ const GraficoHistorico = ({
     };
 
     fetchData();
-  }, [selectedCiclo, filter?.equipoId]);
+  }, [selectedCiclo, filter?.equipoId, onDataLoaded]);
 
   useEffect(() => {
     if (!graficoData || !canvasRef.current || !zoomPluginLoaded) return;
