@@ -34,6 +34,8 @@ export interface HistoricoFilter {
   equipoId: number;
 }
 
+import { useEffect } from "react";
+
 export default function Historico() {
   const { t } = useTranslation();
 
@@ -55,6 +57,61 @@ export default function Historico() {
   // Estado para los datos de los gráficos
   const [graficoData, setGraficoData] = useState<any>(null); // Usa el tipo correcto si lo tienes
   const [productividadData, setProductividadData] = useState<any>(null); // Usa el tipo correcto si lo tienes
+
+  // Cargar el último ciclo y sus datos automáticamente al montar la página
+  useEffect(() => {
+    const fetchUltimoCicloYDatos = async () => {
+      try {
+        const response = await authFetch(
+          "/api/historico-graficos/ultimo-ciclo",
+        );
+        if (!response.ok) return;
+        const data = await response.json();
+        if (data && data.id_ciclo && data.id_equipo) {
+          setEquipoId(Number(data.id_equipo));
+          const cicloObj = {
+            id_ciclo: data.id_ciclo,
+            lote: data.lote || "",
+            fecha_inicio: data.fecha_inicio || "",
+            fecha_fin: data.fecha_fin || "",
+            tiempo_transcurrido: data.tiempo_transcurrido || "",
+          };
+          // Buscar los datos del ciclo para la tabla y el gráfico
+          if (data.fecha_inicio && data.fecha_fin) {
+            setIsLoadingCiclos(true);
+            try {
+              const ciclosResp = await authFetch(
+                `/api/historico-graficos/${data.id_equipo}?fecha_inicio=${data.fecha_inicio}&fecha_fin=${data.fecha_fin}`,
+              );
+              let ciclosData: Ciclo[] = [];
+              if (ciclosResp.ok) {
+                const raw = await ciclosResp.json();
+                if (Array.isArray(raw)) {
+                  ciclosData = raw.filter(Boolean);
+                } else if (raw) {
+                  ciclosData = [raw];
+                }
+              }
+              setCiclos(ciclosData);
+              setAppliedFilter({
+                dateRange: {
+                  from: new Date(data.fecha_inicio),
+                  to: new Date(data.fecha_fin),
+                },
+                equipoId: Number(data.id_equipo),
+              });
+              setSelectedCiclo(cicloObj);
+            } finally {
+              setIsLoadingCiclos(false);
+            }
+          }
+        }
+      } catch (e) {
+        // No hacer nada si falla
+      }
+    };
+    fetchUltimoCicloYDatos();
+  }, []);
 
   const handleApply = async () => {
     if (!dateRange?.from || !dateRange?.to) return;
@@ -78,7 +135,7 @@ export default function Historico() {
         });
         return;
       }
-      setCiclos(data);
+      setCiclos(Array.isArray(data) ? data.filter(Boolean) : []);
       setAppliedFilter({ dateRange: dateRange as DateRange, equipoId });
       setDialogOpen(true);
     } catch (error) {
@@ -188,20 +245,20 @@ export default function Historico() {
               {t("min.seleccionarCiclo")}
             </DialogTitle>
           </DialogHeader>
-          {appliedFilter && (
-            <TablaCiclos
-              ciclos={ciclos}
-              selectedCicloId={selectedCiclo?.id_ciclo ?? null}
-              onCicloSelect={handleCicloSelect}
-            />
-          )}
+          <TablaCiclos
+            ciclos={Array.isArray(ciclos) ? ciclos : []}
+            selectedCicloId={selectedCiclo?.id_ciclo ?? null}
+            onCicloSelect={handleCicloSelect}
+          />
         </DialogContent>
       </Dialog>
-      <GraficoHistorico
-        filter={appliedFilter}
-        selectedCiclo={selectedCiclo}
-        onDataLoaded={setGraficoData}
-      />
+      {appliedFilter && selectedCiclo && (
+        <GraficoHistorico
+          filter={appliedFilter}
+          selectedCiclo={selectedCiclo}
+          onDataLoaded={setGraficoData}
+        />
+      )}
       <Productividad
         onDataLoaded={setProductividadData}
         onProductividadFilterChange={setProductividadFilter}
