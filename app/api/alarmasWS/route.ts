@@ -12,7 +12,6 @@ export async function GET() {
 
   const stream = new ReadableStream({
     start(controller: ReadableStreamDefaultController<string>) {
-      const ws: WebSocket = undefined as unknown as WebSocket;
       let closed = false;
       function sendEvent(data: unknown) {
         if (!closed) {
