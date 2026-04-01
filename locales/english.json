@@ -139,6 +139,8 @@
     "importarBDD": "IMPORT DATABASE",
     "exportarBDD": "EXPORT DATABASE",
     "generarReclamo": "GENERATE CLAIM",
-    "listaUsuarios": "USER LIST"
+    "listaUsuarios": "USER LIST",
+    "alarmasLinea1": "LINE 1 ALARMS",
+    "alarmasLinea2": "LINE 2 ALARMS"
   }
 }
