@@ -60,14 +60,8 @@ export default function Historico() {
     dateRange: DateRange | undefined;
   }>({ equipoId: 0, dateRange: defaultWeekRange });
 
-  // Tipos correctos para los datos cargados
-  const [graficoData, setGraficoData] = useState<
-    import("./(graficoHistorico)/graficoHistorico").GraficoData | null
-  >(null);
-  const [productividadData, setProductividadData] = useState<
-    | import("./(productividad)/(filtradoFechas)/filtroProductividad").ProductividadData
-    | null
-  >(null);
+  const handleGraficoDataLoaded = () => {};
+  const handleProductividadDataLoaded = () => {};
 
   useEffect(() => {
     const fetchUltimoCicloYDatos = async () => {
@@ -261,12 +255,12 @@ export default function Historico() {
           <GraficoHistorico
             filter={appliedFilter}
             selectedCiclo={selectedCiclo}
-            onDataLoaded={setGraficoData}
+            onDataLoaded={handleGraficoDataLoaded}
           />
         ) : null}
       </div>
       <Productividad
-        onDataLoaded={setProductividadData}
+        onDataLoaded={handleProductividadDataLoaded}
         onProductividadFilterChange={setProductividadFilter}
         productividadFilter={productividadFilter}
       />
