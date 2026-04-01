@@ -52,12 +52,12 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
   const [equipoSeleccionado, setEquipoSeleccionado] =
     useState<EquipoProductividadId>(0);
 
-    const notifyFilterChange = (
-      newEquipoId: number,
-      newDateRange: DateRange | undefined,
-    ) => {
+  const notifyFilterChange = useCallback(
+    (newEquipoId: number, newDateRange: DateRange | undefined) => {
       onFilterChange?.({ equipoId: newEquipoId, dateRange: newDateRange });
-    };
+    },
+    [onFilterChange],
+  );
 
   const handleApply = useCallback(async () => {
     if (!dateRange?.from || !dateRange?.to) return;
@@ -106,7 +106,6 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
     }
   }, [dateRange?.from, dateRange?.to, equipoSeleccionado, handleApply]);
 
-  
   const [isLoading, setIsLoading] = useState(false);
 
   return (
