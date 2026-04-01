@@ -158,7 +158,7 @@ export default function Historico() {
       return;
     }
     try {
-      const url = `http://192.168.20.152:8000/historico-graficos/${equipoId}/descargar/${selectedCiclo.id_ciclo}`;
+      const url = `/api/historico-graficos/${equipoId}/descargar/${selectedCiclo.id_ciclo}`;
       const response = await fetch(url);
       if (!response.ok) throw new Error("Error al descargar archivo");
       const blob = await response.blob();
@@ -182,7 +182,7 @@ export default function Historico() {
     try {
       const fechaInicio = format(dateRange.from, "yyyy-MM-dd");
       const fechaFin = format(dateRange.to, "yyyy-MM-dd");
-      const url = `http://192.168.20.152:8000/historico-productividad/descargar/${equipoId}?fecha_inicio=${fechaInicio}&fecha_fin=${fechaFin}`;
+      const url = `/api/historico-productividad/descargar/${equipoId}?fecha_inicio=${fechaInicio}&fecha_fin=${fechaFin}`;
       const response = await fetch(url);
       if (!response.ok) throw new Error("Error al descargar archivo");
       const blob = await response.blob();

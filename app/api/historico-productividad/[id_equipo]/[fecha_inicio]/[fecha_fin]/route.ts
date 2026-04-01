@@ -7,7 +7,7 @@ type Props = {
 };
 
 function getBaseUrl(): string {
-  const raw = process.env.API_DATOS_URL ?? "http://192.168.20.152:8000";
+  const raw = process.env.API_DATOS_URL ?? "http://localhost:8000";
   return raw.startsWith("http") ? raw : `http://${raw}`;
 }
 

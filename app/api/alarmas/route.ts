@@ -1,4 +1,4 @@
-const BASE_URL = process.env.API_DATOS_URL ?? "http://192.168.20.152:8000";
+const BASE_URL = process.env.API_DATOS_URL ?? "http://localhost:8000";
 
 export async function GET() {
   try {

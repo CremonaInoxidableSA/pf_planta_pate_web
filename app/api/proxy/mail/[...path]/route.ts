@@ -3,7 +3,7 @@ type Props = {
 };
 
 function getBaseUrl(): string {
-  const raw = process.env.API_MAIL_URL ?? "";
+  const raw = process.env.API_MAIL_URL ?? "http://localhost:8001";
   if (!raw) {
     throw new Error(
       "API_MAIL_URL no está configurada en las variables de entorno",
