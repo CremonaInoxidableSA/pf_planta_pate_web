@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 export default function Home() {
   const { t } = useTranslation();
   return (
-    <section className="p-5 flex flex-row w-full gap-5 items-center bg-background2 rounded-md">
+    <section className="p-5 flex flex-row w-full gap-5 items-center bg-background2 rounded-md h-215">
       <div className="w-1/4 h-full flex flex-col items-center justify-center">
         <h1 className="flex justify-center w-full text-3xl text-texto font-semibold">
           {t("mayus.alarmas")}

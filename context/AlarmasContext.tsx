@@ -47,8 +47,6 @@ export const AlarmasProvider: React.FC<{ children: React.ReactNode }> = ({
   const eventSourceRef = useRef<EventSource | null>(null);
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
     const es = new EventSource("/api/alarmasWS");
     eventSourceRef.current = es;
 

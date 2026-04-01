@@ -174,9 +174,11 @@ export function ImagenLayout() {
 
       <div className="relative w-full grow">
         <Image
-          alt="Imagen de prueba"
-          className="w-full h-full object-contain z-1 min-h-[80vh]"
-          src="/layout.png"
+          alt="Cocinas y Enfriadores"
+          className="w-full h-full object-contain z-1"
+          src="/cocinasEnfriadores.png"
+          fill
+          unoptimized
         />
 
         {sections.map((section) => {
