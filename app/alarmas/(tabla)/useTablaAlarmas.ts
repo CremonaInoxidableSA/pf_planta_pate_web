@@ -40,22 +40,32 @@ export function useTablaAlarmas() {
         }
         const res = await authFetch(url);
         if (!res.ok) throw new Error(`${res.status}`);
-        const apiData = await res.json();
+        type ApiAlarma = {
+          id?: number | string;
+          id_alarma?: number | string;
+          descripcion?: string;
+          tipo_alarma?: string;
+          tipo?: string;
+          estadoAlarma?: boolean;
+          fecha_inicio?: string;
+          fecha_registro?: string;
+        };
+        const apiData: ApiAlarma[] = await res.json();
         setData(
-          (apiData as any[])
+          apiData
             .filter((a) => a.descripcion?.trim())
             .map((a) => ({
               key:
                 a.id?.toString() ??
                 a.id_alarma?.toString() ??
                 Math.random().toString(),
-              description: a.descripcion,
+              description: a.descripcion ?? "",
               type: a.tipo_alarma ?? a.tipo ?? "",
               state:
                 a.estadoAlarma !== undefined
                   ? a.estadoAlarma
-                    ? "Activo"
-                    : "Inactivo"
+                    ? t("min.activo")
+                    : t("min.inactivo")
                   : "-",
               time: a.fecha_inicio ?? a.fecha_registro ?? "",
             })),
@@ -71,7 +81,7 @@ export function useTablaAlarmas() {
 
   useEffect(() => {
     loadData(dateRange);
-  }, [dateRange]);
+  }, [dateRange, loadData]);
 
   const dateFilteredData = data;
 
