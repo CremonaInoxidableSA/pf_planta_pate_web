@@ -42,32 +42,24 @@ export function useTablaAlarmas() {
         if (!res.ok) throw new Error(`${res.status}`);
         type ApiAlarma = {
           id?: number | string;
-          id_alarma?: number | string;
+          nombre_alarmas?: string;
           descripcion?: string;
           tipo_alarma?: string;
-          tipo?: string;
-          estadoAlarma?: boolean;
+          seccion?: string;
           fecha_inicio?: string;
-          fecha_registro?: string;
+          fecha_fin?: string;
         };
         const apiData: ApiAlarma[] = await res.json();
         setData(
           apiData
             .filter((a) => a.descripcion?.trim())
             .map((a) => ({
-              key:
-                a.id?.toString() ??
-                a.id_alarma?.toString() ??
-                Math.random().toString(),
+              key: a.id?.toString() ?? Math.random().toString(),
+              name: a.nombre_alarmas ?? "",
               description: a.descripcion ?? "",
-              type: a.tipo_alarma ?? a.tipo ?? "",
-              state:
-                a.estadoAlarma !== undefined
-                  ? a.estadoAlarma
-                    ? t("min.activo")
-                    : t("min.inactivo")
-                  : "-",
-              time: a.fecha_inicio ?? a.fecha_registro ?? "",
+              type: a.tipo_alarma ?? "",
+              time: a.fecha_inicio ?? "",
+              timeEnd: a.fecha_fin ?? "",
             })),
         );
       } catch {

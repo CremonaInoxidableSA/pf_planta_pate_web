@@ -2,6 +2,10 @@ import WebSocket from "ws";
 
 export const dynamic = "force-dynamic";
 
+const WS_URL =
+  process.env.WS_DATOS_ALARMAS_URL ??
+  "ws://localhost:8000/ws/datos-alarmas";
+
 export async function GET() {
   const headers = new Headers({
     "Content-Type": "text/event-stream",
@@ -19,7 +23,7 @@ export async function GET() {
         }
       }
 
-      const socket = new WebSocket("ws://192.168.20.152:8001/ws/datos-alarmas");
+      const socket = new WebSocket(WS_URL);
 
       socket.on("message", (msg: WebSocket.Data) => {
         const data = JSON.parse(msg.toString());

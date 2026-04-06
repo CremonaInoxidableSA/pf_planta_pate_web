@@ -13,10 +13,10 @@ export const getColumnDefs = (
 
   return [
     {
-      accessorKey: "description",
-      header: t("min.descripcion"),
+      accessorKey: "name",
+      header: t("min.nombre"),
       cell: ({ getValue }) =>
-        highlightText(getValue<string>() || "", getColFilter("description")),
+        highlightText(getValue<string>() || "", getColFilter("name")),
     },
     {
       accessorKey: "type",
@@ -25,17 +25,27 @@ export const getColumnDefs = (
         highlightText(getValue<string>() || "", getColFilter("type")),
     },
     {
-      accessorKey: "state",
-      header: t("min.estado"),
+      accessorKey: "description",
+      header: t("min.descripcion"),
       cell: ({ getValue }) =>
-        highlightText(getValue<string>() || "", getColFilter("state")),
+        highlightText(getValue<string>() || "", getColFilter("description")),
     },
     {
       accessorKey: "time",
-      header: t("min.fechaRegistro"),
+      header: t("min.fechaInicio"),
       accessorFn: (row) => formatDate(row.time),
       cell: ({ row }) =>
         highlightText(formatDate(row.original.time), getColFilter("time")),
+    },
+    {
+      accessorKey: "timeEnd",
+      header: t("min.fechaFin"),
+      accessorFn: (row) => formatDate(row.timeEnd),
+      cell: ({ row }) =>
+        highlightText(
+          formatDate(row.original.timeEnd),
+          getColFilter("timeEnd"),
+        ),
     },
   ];
 };

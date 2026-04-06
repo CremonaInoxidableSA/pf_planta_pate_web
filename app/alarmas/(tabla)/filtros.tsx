@@ -63,19 +63,19 @@ const Filtros: React.FC<FiltrosProps> = ({
       </div>
 
       <div className="flex gap-5">
-        {(["description", "type", "state", "time"] as ColumnKey[]).map(
-          (col) => (
-            <Input
-              key={col}
-              placeholder={`${t("min.filtrar")} ${table.getColumn(col)?.columnDef.header as string}…`}
-              value={(table.getColumn(col)?.getFilterValue() as string) ?? ""}
-              className="h-7 text-xs bg-transparent border-[#515151] text-[#d9d9d9] placeholder:text-[#515151]"
-              onChange={(e) =>
-                table.getColumn(col)?.setFilterValue(e.target.value)
-              }
-            />
-          ),
-        )}
+        {(
+          ["name", "type", "description", "time", "timeEnd"] as ColumnKey[]
+        ).map((col) => (
+          <Input
+            key={col}
+            placeholder={`${t("min.filtrar")} ${table.getColumn(col)?.columnDef.header as string}…`}
+            value={(table.getColumn(col)?.getFilterValue() as string) ?? ""}
+            className="h-7 text-xs bg-transparent border-[#515151] text-[#d9d9d9] placeholder:text-[#515151]"
+            onChange={(e) =>
+              table.getColumn(col)?.setFilterValue(e.target.value)
+            }
+          />
+        ))}
       </div>
     </>
   );

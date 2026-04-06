@@ -1,17 +1,20 @@
 export interface Alarma {
   key: string;
+  name: string;
   description: string;
   type: string;
-  state: string;
   time: string;
+  timeEnd: string;
 }
 
 export interface AlarmaData {
-  id_alarma: number;
+  id: number;
+  nombre_alarmas: string;
   descripcion: string;
-  tipo: string;
-  estadoAlarma: boolean;
-  fecha_registro: string;
+  tipo_alarma: string;
+  seccion: string;
+  fecha_inicio: string;
+  fecha_fin: string;
 }
 
-export type ColumnKey = "description" | "type" | "state" | "time";
+export type ColumnKey = "name" | "description" | "type" | "time" | "timeEnd";

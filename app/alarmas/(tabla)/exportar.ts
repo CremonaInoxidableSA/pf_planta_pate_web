@@ -46,17 +46,19 @@ import type { Alarma } from "./types";
 import { formatDate } from "./utils";
 
 export const getColHeaders = (t: (key: string) => string): string[] => [
-  t("min.descripcion"),
+  t("min.nombre"),
   t("min.tipo"),
-  t("min.estado"),
-  t("min.fechaRegistro"),
+  t("min.descripcion"),
+  t("min.fechaInicio"),
+  t("min.fechaFin"),
 ];
 
 export const rowToArray = (row: Alarma): string[] => [
-  row.description,
+  row.name,
   row.type,
-  row.state,
+  row.description,
   formatDate(row.time),
+  formatDate(row.timeEnd),
 ];
 
 export const exportPDF = (rows: Row<Alarma>[], colHeaders: string[]): void => {
