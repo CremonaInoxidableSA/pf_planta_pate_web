@@ -52,12 +52,9 @@ const Selector: React.FC<SelectorProps> = ({
 
   const handleChange = (selectedValue: string) => {
     const numValue = Number(selectedValue);
-
-    if (!isNaN(numValue)) {
+    if (!isNaN(numValue) && numValue !== value) {
       setInternalValue(numValue);
       onChange(numValue);
-    } else {
-      setInternalValue(value);
     }
   };
 

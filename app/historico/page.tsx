@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { startOfWeek, endOfWeek } from "date-fns";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
@@ -60,8 +60,8 @@ export default function Historico() {
     dateRange: DateRange | undefined;
   }>({ equipoId: 0, dateRange: defaultWeekRange });
 
-  const handleGraficoDataLoaded = () => {};
-  const handleProductividadDataLoaded = () => {};
+  const handleGraficoDataLoaded = useCallback(() => {}, []);
+  const handleProductividadDataLoaded = useCallback(() => {}, []);
 
   useEffect(() => {
     const fetchUltimoCicloYDatos = async () => {

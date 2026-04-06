@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import BarraProductos from "./barraProductos";
@@ -33,10 +33,13 @@ const Productividad = ({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleDataLoaded = (d: ProductividadData) => {
-    setData(d);
-    onDataLoaded?.(d);
-  };
+  const handleDataLoaded = useCallback(
+    (d: ProductividadData) => {
+      setData(d);
+      onDataLoaded?.(d);
+    },
+    [onDataLoaded],
+  );
 
   return (
     <div className="bg-background2 rounded-md p-5 w-full gap-5 flex items-center justify-between">

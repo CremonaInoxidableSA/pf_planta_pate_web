@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useTranslation } from "react-i18next";
 import {
   Select,
@@ -48,35 +49,42 @@ const SelectorEquiposProductividad: React.FC<
   SelectorEquiposProductividadProps
 > = ({ value, onChange }) => {
   const { t } = useTranslation();
+  const [internalValue, setInternalValue] = React.useState<number>(value);
+
+  React.useEffect(() => {
+    setInternalValue(value);
+  }, [value]);
 
   const getDisplayName = (id: number): string => {
     const generalOption = opcionesEquipos.general.find((opt) => opt.id === id);
     if (generalOption) {
       return t(`min.${generalOption.key}`);
     }
-
     const cocinaOption = opcionesEquipos.cocinas.find((opt) => opt.id === id);
     if (cocinaOption) {
       return `${t("min.cocina")} ${cocinaOption.num}`;
     }
-
     const enfriadorOption = opcionesEquipos.enfriadores.find(
       (opt) => opt.id === id,
     );
     if (enfriadorOption) {
       return `${t("min.enfriador")} ${enfriadorOption.num}`;
     }
-
     return "";
   };
 
+  const handleChange = (val: string) => {
+    const numValue = Number(val);
+    if (!isNaN(numValue) && numValue !== internalValue) {
+      setInternalValue(numValue);
+      onChange(numValue);
+    }
+  };
+
   return (
-    <Select
-      value={String(value)}
-      onValueChange={(val) => onChange(Number(val))}
-    >
+    <Select value={String(internalValue)} onValueChange={handleChange}>
       <SelectTrigger className="w-full bg-background3">
-        <SelectValue>{getDisplayName(value)}</SelectValue>
+        <SelectValue>{getDisplayName(internalValue)}</SelectValue>
       </SelectTrigger>
       <SelectContent
         position="popper"
