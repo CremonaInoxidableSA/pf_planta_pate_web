@@ -18,7 +18,7 @@ const BootstrapPage = () => {
   useEffect(() => {
     const checkSetup = async () => {
       try {
-        const res = await fetch(`/api/proxy/auth/needs-setup`);
+        const res = await fetch(`/api/needs-setup`);
         const data = await res.json();
 
         if (data.needs_setup) {
@@ -63,6 +63,9 @@ const BootstrapPage = () => {
         setLoading(false);
         return;
       }
+
+      // Invalidar cache de needs-setup para que no redirija más a bootstrap
+      await fetch("/api/needs-setup/invalidate", { method: "POST" });
 
       setSuccess(true);
       setLoading(false);

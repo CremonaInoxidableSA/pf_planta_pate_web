@@ -1,22 +1,17 @@
 "use client";
 
-import { useState, useCallback } from "react";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import BarraProductos from "./barraProductos";
-import FiltroFechas, {
-  type ProductividadData,
-} from "./(filtradoFechas)/filtroProductividad";
+import { type ProductividadData } from "./(filtradoFechas)/filtroProductividad";
 import BarraCiclos from "./barraCiclos";
 
 import type { DateRange } from "react-day-picker";
 
 interface ProductividadProps {
-  onDataLoaded?: (data: ProductividadData | null) => void;
-  onProductividadFilterChange?: (filter: {
-    equipoId: number;
-    dateRange: DateRange | undefined;
-  }) => void;
+  data?: ProductividadData | null;
+  isLoading?: boolean;
+  error?: string | null;
   productividadFilter?: {
     equipoId: number;
     dateRange: DateRange | undefined;
@@ -24,26 +19,16 @@ interface ProductividadProps {
 }
 
 const Productividad = ({
-  onDataLoaded,
-  onProductividadFilterChange,
+  data = null,
+  isLoading = false,
+  error = null,
   productividadFilter,
 }: ProductividadProps) => {
   const { t } = useTranslation();
-  const [data, setData] = useState<ProductividadData | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const handleDataLoaded = useCallback(
-    (d: ProductividadData) => {
-      setData(d);
-      onDataLoaded?.(d);
-    },
-    [onDataLoaded],
-  );
 
   return (
     <div className="bg-background2 rounded-md p-5 w-full gap-5 flex items-center justify-between">
-      <div className="w-[80%] flex flex-col justify-center">
+      <div className="w-full flex flex-col justify-center">
         <h1 className="text-2xl">{t("mayus.productividad")}</h1>
         {typeof productividadFilter?.dateRange?.from !== "undefined" &&
           typeof productividadFilter?.dateRange?.to !== "undefined" && (
@@ -86,13 +71,6 @@ const Productividad = ({
           ciclos_incorrectos={data?.ciclos_incorrectos ?? 0}
         />
       </div>
-      <hr className="h-full border-3 rounded-2xl" />
-      <FiltroFechas
-        onDataLoaded={handleDataLoaded}
-        onLoading={setIsLoading}
-        onError={setError}
-        onFilterChange={onProductividadFilterChange}
-      />
     </div>
   );
 };

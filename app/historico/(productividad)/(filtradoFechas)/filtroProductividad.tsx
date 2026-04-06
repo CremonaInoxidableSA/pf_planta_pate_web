@@ -10,6 +10,7 @@ import SelectorEquiposProductividad, {
   type EquipoProductividadId,
 } from "./selectorLineas";
 import { authFetch } from "@/app/api/api";
+import { Button } from "@/components/ui/button";
 
 export interface ProductividadData {
   ciclos_realizados: number;
@@ -58,8 +59,11 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
     [onFilterChange],
   );
 
-  const handleApply = useCallback(async () => {
-    if (!dateRange?.from || !dateRange?.to) return;
+  useEffect(() => {
+    if (!dateRange?.from || !dateRange?.to || equipoSeleccionado === undefined)
+      return;
+
+    const controller = new AbortController();
 
     notifyFilterChange(equipoSeleccionado, dateRange);
 
@@ -69,39 +73,36 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
     onLoading?.(true);
     onError?.(null);
 
-    try {
-      const response = await authFetch(
-        `/api/historico-productividad/${equipoSeleccionado}/${fechaInicio}/${fechaFin}`,
-      );
+    authFetch(
+      `/api/historico-productividad/${equipoSeleccionado}/${fechaInicio}/${fechaFin}`,
+      { signal: controller.signal },
+    )
+      .then(async (response) => {
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || "Error al obtener datos");
+        }
+        const data: ProductividadData = await response.json();
+        onDataLoaded?.(data);
+      })
+      .catch((error) => {
+        if (error instanceof DOMException && error.name === "AbortError")
+          return;
+        const errorMessage =
+          error instanceof Error ? error.message : "Error desconocido";
+        onError?.(errorMessage);
+      })
+      .finally(() => {
+        onLoading?.(false);
+      });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Error al obtener datos");
-      }
-
-      const data: ProductividadData = await response.json();
-      onDataLoaded?.(data);
-    } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : "Error desconocido";
-      onError?.(errorMessage);
-    } finally {
-      onLoading?.(false);
-    }
+    return () => controller.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    dateRange,
+    dateRange?.from?.getTime(),
+    dateRange?.to?.getTime(),
     equipoSeleccionado,
-    notifyFilterChange,
-    onLoading,
-    onError,
-    onDataLoaded,
   ]);
-
-  useEffect(() => {
-    if (dateRange?.from && dateRange?.to && equipoSeleccionado !== undefined) {
-      handleApply();
-    }
-  }, [dateRange?.from, dateRange?.to, equipoSeleccionado, handleApply]);
 
   return (
     <div className="w-[20%] h-full flex flex-col justify-evenly gap-3">
@@ -119,6 +120,11 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
         onChange={(range) => {
           setDateRange(range);
           notifyFilterChange(equipoSeleccionado, range);
+        }}
+      />
+      <Button 
+        onClick={() => {
+          
         }}
       />
     </div>

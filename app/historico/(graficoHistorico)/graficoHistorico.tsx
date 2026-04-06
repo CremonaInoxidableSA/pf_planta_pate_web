@@ -102,6 +102,8 @@ const GraficoHistorico = ({
       return;
     }
 
+    const controller = new AbortController();
+
     const fetchData = async () => {
       setIsLoading(true);
       setError(null);
@@ -109,6 +111,7 @@ const GraficoHistorico = ({
       try {
         const response = await authFetch(
           `/api/historico-graficos/${filter.equipoId}/${selectedCiclo.id_ciclo}`,
+          { signal: controller.signal },
         );
         if (!response.ok) {
           const err = await response.json();
@@ -118,6 +121,7 @@ const GraficoHistorico = ({
         setGraficoData(data);
         onDataLoaded?.(data);
       } catch (e) {
+        if (e instanceof DOMException && e.name === "AbortError") return;
         setError(e instanceof Error ? e.message : "Error desconocido");
         onDataLoaded?.(null);
       } finally {
@@ -126,7 +130,9 @@ const GraficoHistorico = ({
     };
 
     fetchData();
-  }, [selectedCiclo, filter?.equipoId, onDataLoaded]);
+    return () => controller.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCiclo?.id_ciclo, filter?.equipoId]);
 
   useEffect(() => {
     if (!graficoData || !canvasRef.current || !zoomPluginLoaded) return;

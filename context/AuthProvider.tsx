@@ -171,30 +171,69 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [user]);
 
+  const decodeToken = (t?: string) => {
+    if (!t) return null;
+    try {
+      const parts = t.split(".");
+      if (parts.length < 2) return null;
+      const payload = parts[1];
+      const b64 = payload.replace(/-/g, "+").replace(/_/g, "/");
+      const json = decodeURIComponent(
+        atob(b64)
+          .split("")
+          .map((c) => `%${("00" + c.charCodeAt(0).toString(16)).slice(-2)}`)
+          .join(""),
+      );
+      return JSON.parse(json);
+    } catch {
+      return null;
+    }
+  };
+
+  const isTokenValid = (t?: string): boolean => {
+    if (!t) return false;
+    const payload = decodeToken(t);
+    if (!payload || !payload.sub) return false;
+    if (payload.exp && payload.exp * 1000 < Date.now()) return false;
+    return true;
+  };
+
   const checkSession = async () => {
     try {
-      const needsSetupRes = await fetch(`/api/proxy/auth/needs-setup`);
-      if (needsSetupRes.ok) {
-        const needsSetupData = await needsSetupRes.json();
-        if (needsSetupData.needs_setup === true) {
-          setNeedBootstrap(true);
-          setUser(null);
-          setLoading(false);
-          return;
-        } else {
-          setNeedBootstrap(false);
+      // 1. Verificar needs-setup (con cache en sessionStorage)
+      const setupDone =
+        typeof window !== "undefined" &&
+        sessionStorage.getItem("setup_done") === "true";
+
+      if (!setupDone) {
+        const needsSetupRes = await fetch(`/api/needs-setup`);
+        if (needsSetupRes.ok) {
+          const needsSetupData = await needsSetupRes.json();
+          if (needsSetupData.needs_setup === true) {
+            setNeedBootstrap(true);
+            setUser(null);
+            setLoading(false);
+            return;
+          } else {
+            setNeedBootstrap(false);
+            if (typeof window !== "undefined") {
+              sessionStorage.setItem("setup_done", "true");
+            }
+          }
         }
+      } else {
+        setNeedBootstrap(false);
       }
 
+      // 2. Leer token y usuario de localStorage
       const token =
         (typeof window !== "undefined" &&
           localStorage.getItem("access_token")) ||
         undefined;
 
       let hydratedFromStorage = false;
-      let storedUserRaw: string | null = null;
       if (typeof window !== "undefined") {
-        storedUserRaw = localStorage.getItem("user");
+        const storedUserRaw = localStorage.getItem("user");
         if (storedUserRaw) {
           const parsed = JSON.parse(storedUserRaw);
           setUser(parsed);
@@ -202,42 +241,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       }
 
-      const decodeToken = (t?: string) => {
-        if (!t) return null;
-        try {
-          const parts = t.split(".");
-          if (parts.length < 2) return null;
-          const payload = parts[1];
-          const b64 = payload.replace(/-/g, "+").replace(/_/g, "/");
-          const json = decodeURIComponent(
-            atob(b64)
-              .split("")
-              .map((c) => `%${("00" + c.charCodeAt(0).toString(16)).slice(-2)}`)
-              .join(""),
-          );
-          const decoded = JSON.parse(json);
-          return decoded;
-        } catch {
-          return null;
-        }
-      };
-
-      if (token) {
-        const payload = decodeToken(token);
-        if (payload && payload.sub) {
-          if (!hydratedFromStorage) {
-            setUser({
-              username: payload.sub,
-              rol: payload.rol ?? undefined,
-            } as UserSession);
-            setLoading(false);
-            return;
-          }
-        } else {
-          setUser(null);
+      // 3. Si tenemos token válido + usuario en storage, confiar en local y salir
+      if (token && isTokenValid(token)) {
+        if (hydratedFromStorage) {
           setLoading(false);
           return;
         }
+        // Token válido pero sin user en storage: crear user mínimo del token
+        const payload = decodeToken(token);
+        if (payload && payload.sub) {
+          setUser({
+            username: payload.sub,
+            rol: payload.rol ?? undefined,
+          } as UserSession);
+          setLoading(false);
+          return;
+        }
+      }
+
+      // 4. Sin token válido o sin datos locales → verificar con backend
+      if (!token) {
+        setUser(null);
+        setLoading(false);
+        return;
       }
 
       const res = await fetch(`/api/proxy/auth/check`, {
@@ -424,6 +450,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (typeof window !== "undefined") {
         localStorage.removeItem("access_token");
         localStorage.removeItem("user");
+        sessionStorage.removeItem("setup_done");
         Cookies.remove("access_token");
       }
 
@@ -435,6 +462,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (typeof window !== "undefined") {
         localStorage.removeItem("access_token");
         localStorage.removeItem("user");
+        sessionStorage.removeItem("setup_done");
       }
       router.push("/login");
       return false;

@@ -16,10 +16,10 @@ function buildHeaders(request: NextRequest): Record<string, string> {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id_equipo: string; id_ciclo: string } },
+  { params }: { params: Promise<{ id_equipo: string; id_ciclo: string }> },
 ) {
   try {
-    const { id_equipo, id_ciclo } = params;
+    const { id_equipo, id_ciclo } = await params;
     const equipoId = parseInt(id_equipo, 10);
     const cicloId = parseInt(id_ciclo, 10);
     if (isNaN(equipoId) || equipoId < 1 || isNaN(cicloId) || cicloId < 1) {

@@ -17,11 +17,15 @@ import { toast } from "sonner";
 import DateRangePicker from "@/components/selectores/dateRangePicker";
 import BotonAplicar from "@/app/historico/(productividad)/(filtradoFechas)/botonAplicar";
 import SelectorHistorico from "@/app/historico/(comps)/selectorHistorico";
+import SelectorEquiposProductividad, {
+  type EquipoProductividadId,
+} from "@/app/historico/(productividad)/(filtradoFechas)/selectorLineas";
 import { authFetch } from "@/app/api/api";
 import TablaCiclos from "./(tablaCiclos)/tablaCiclos";
 import GraficoHistorico from "./(graficoHistorico)/graficoHistorico";
 import { Spinner } from "@/components/ui/spinner";
 import Productividad from "./(productividad)/productividad";
+import type { ProductividadData } from "./(productividad)/(filtradoFechas)/filtroProductividad";
 
 export interface Ciclo {
   id_ciclo: number;
@@ -61,53 +65,74 @@ export default function Historico() {
   }>({ equipoId: 0, dateRange: defaultWeekRange });
 
   const handleGraficoDataLoaded = useCallback(() => {}, []);
-  const handleProductividadDataLoaded = useCallback(() => {}, []);
+
+  const [prodEquipoId, setProdEquipoId] = useState<EquipoProductividadId>(0);
+  const [prodDateRange, setProdDateRange] = useState<DateRange | undefined>(
+    defaultWeekRange,
+  );
+  const [isLoadingProductividad, setIsLoadingProductividad] = useState(false);
+  const [productividadData, setProductividadData] =
+    useState<ProductividadData | null>(null);
+  const [productividadError, setProductividadError] = useState<string | null>(
+    null,
+  );
 
   useEffect(() => {
+    const controller = new AbortController();
     const fetchUltimoCicloYDatos = async () => {
-      const response = await authFetch("/api/historico-graficos/ultimo-ciclo");
-      if (!response.ok) return;
-      const data = await response.json();
-      if (data && data.id_ciclo && data.id_equipo) {
-        setEquipoId(Number(data.id_equipo));
-        const cicloObj = {
-          id_ciclo: data.id_ciclo,
-          lote: data.lote || "",
-          fecha_inicio: data.fecha_inicio || "",
-          fecha_fin: data.fecha_fin || "",
-          tiempo_transcurrido: data.tiempo_transcurrido || "",
-        };
-        if (data.fecha_inicio && data.fecha_fin) {
-          setIsLoadingCiclos(true);
-          try {
-            const ciclosResp = await authFetch(
-              `/api/historico-graficos/${data.id_equipo}?fecha_inicio=${data.fecha_inicio}&fecha_fin=${data.fecha_fin}`,
-            );
-            let ciclosData: Ciclo[] = [];
-            if (ciclosResp.ok) {
-              const raw = await ciclosResp.json();
-              if (Array.isArray(raw)) {
-                ciclosData = raw.filter(Boolean);
-              } else if (raw) {
-                ciclosData = [raw];
+      try {
+        const response = await authFetch(
+          "/api/historico-graficos/ultimo-ciclo",
+          { signal: controller.signal },
+        );
+        if (!response.ok) return;
+        const data = await response.json();
+        if (data && data.id_ciclo && data.id_equipo) {
+          setEquipoId(Number(data.id_equipo));
+          const cicloObj = {
+            id_ciclo: data.id_ciclo,
+            lote: data.lote || "",
+            fecha_inicio: data.fecha_inicio || "",
+            fecha_fin: data.fecha_fin || "",
+            tiempo_transcurrido: data.tiempo_transcurrido || "",
+          };
+          if (data.fecha_inicio && data.fecha_fin) {
+            setIsLoadingCiclos(true);
+            try {
+              const ciclosResp = await authFetch(
+                `/api/historico-graficos/${data.id_equipo}?fecha_inicio=${data.fecha_inicio}&fecha_fin=${data.fecha_fin}`,
+                { signal: controller.signal },
+              );
+              let ciclosData: Ciclo[] = [];
+              if (ciclosResp.ok) {
+                const raw = await ciclosResp.json();
+                if (Array.isArray(raw)) {
+                  ciclosData = raw.filter(Boolean);
+                } else if (raw) {
+                  ciclosData = [raw];
+                }
               }
+              setCiclos(ciclosData);
+              setAppliedFilter({
+                dateRange: {
+                  from: new Date(data.fecha_inicio),
+                  to: new Date(data.fecha_fin),
+                },
+                equipoId: Number(data.id_equipo),
+              });
+              setSelectedCiclo(cicloObj);
+            } finally {
+              setIsLoadingCiclos(false);
             }
-            setCiclos(ciclosData);
-            setAppliedFilter({
-              dateRange: {
-                from: new Date(data.fecha_inicio),
-                to: new Date(data.fecha_fin),
-              },
-              equipoId: Number(data.id_equipo),
-            });
-            setSelectedCiclo(cicloObj);
-          } finally {
-            setIsLoadingCiclos(false);
           }
         }
+      } catch (e) {
+        if (e instanceof DOMException && e.name === "AbortError") return;
+        throw e;
       }
     };
     fetchUltimoCicloYDatos();
+    return () => controller.abort();
   }, []);
 
   const handleApply = async () => {
@@ -174,21 +199,20 @@ export default function Historico() {
   };
 
   const handleExportProductividad = async () => {
-    const { equipoId, dateRange } = productividadFilter;
-    if (!dateRange?.from || !dateRange?.to) {
+    if (!prodDateRange?.from || !prodDateRange?.to) {
       toast.error(t("min.seleccionarFechas"));
       return;
     }
     try {
-      const fechaInicio = format(dateRange.from, "yyyy-MM-dd");
-      const fechaFin = format(dateRange.to, "yyyy-MM-dd");
-      const url = `/api/historico-productividad/descargar/${equipoId}?fecha_inicio=${fechaInicio}&fecha_fin=${fechaFin}`;
+      const fechaInicio = format(prodDateRange.from, "yyyy-MM-dd");
+      const fechaFin = format(prodDateRange.to, "yyyy-MM-dd");
+      const url = `/api/historico-productividad/descargar/${prodEquipoId}?fecha_inicio=${fechaInicio}&fecha_fin=${fechaFin}`;
       const response = await fetch(url);
       if (!response.ok) throw new Error("Error al descargar archivo");
       const blob = await response.blob();
       saveAs(
         blob,
-        `productividad_equipo${equipoId}_${fechaInicio}_a_${fechaFin}.xlsx`,
+        `productividad_equipo${prodEquipoId}_${fechaInicio}_a_${fechaFin}.xlsx`,
       );
     } catch (err) {
       toast.error(t("min.errorDescarga"), {
@@ -197,13 +221,46 @@ export default function Historico() {
     }
   };
 
+  const handleApplyProductividad = async () => {
+    if (!prodDateRange?.from || !prodDateRange?.to) return;
+    const fechaInicio = format(prodDateRange.from, "yyyy-MM-dd");
+    const fechaFin = format(prodDateRange.to, "yyyy-MM-dd");
+    setIsLoadingProductividad(true);
+    setProductividadError(null);
+    try {
+      const response = await authFetch(
+        `/api/historico-productividad/${prodEquipoId}/${fechaInicio}/${fechaFin}`,
+      );
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Error al obtener datos");
+      }
+      const data: ProductividadData = await response.json();
+      setProductividadData(data);
+      setProductividadFilter({
+        equipoId: prodEquipoId,
+        dateRange: prodDateRange,
+      });
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") return;
+      const errorMessage =
+        error instanceof Error ? error.message : "Error desconocido";
+      setProductividadError(errorMessage);
+      toast.error(t("min.errorObtenerCiclos"), {
+        description: errorMessage,
+        position: "bottom-right",
+      });
+    } finally {
+      setIsLoadingProductividad(false);
+    }
+  };
+
   return (
     <div className="flex flex-col w-full gap-5">
       <div className="flex flex-row items-center justify-between bg-background2 p-2 w-full rounded-md h-13">
         <div className="w-[35%] h-full justify-start">
           <ExportButton
-            onExportGrafico={handleExportGrafico}
-            onExportProductividad={handleExportProductividad}
+            onExport={handleExportGrafico}
             disabled={isLoadingCiclos || !appliedFilter}
           />
         </div>
@@ -231,6 +288,7 @@ export default function Historico() {
           />
         </div>
       </div>
+
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent
           aria-describedby={undefined}
@@ -248,6 +306,7 @@ export default function Historico() {
           />
         </DialogContent>
       </Dialog>
+
       <div className="w-full min-h-190 flex items-center justify-center bg-background2 rounded-md p-5">
         {isLoadingCiclos ? (
           <Spinner className="w-12 h-12 text-primary" />
@@ -259,9 +318,40 @@ export default function Historico() {
           />
         ) : null}
       </div>
+
+      <div className="flex flex-row items-center justify-between bg-background2 p-2 w-full rounded-md h-13">
+        <div className="w-[35%] h-full justify-start">
+          <ExportButton
+            onExport={handleExportProductividad}
+            disabled={isLoadingProductividad || !productividadData}
+          />
+        </div>
+
+        <h2 className="w-[30%] flex justify-center items-center text-texto text-xl">
+          {t("mayus.productividad")}
+        </h2>
+
+        <div className="flex flex-row items-stretch gap-5 w-[35%] justify-end h-full">
+          <SelectorEquiposProductividad
+            value={prodEquipoId}
+            onChange={setProdEquipoId}
+          />
+          <DateRangePicker
+            className="bg-background3 h-full"
+            value={prodDateRange}
+            onChange={setProdDateRange}
+          />
+          <BotonAplicar
+            selectClasses={`aspect-square bg-background3 cursor-pointer w-auto h-full ${isLoadingProductividad ? "opacity-50" : ""}`}
+            onClick={handleApplyProductividad}
+            disabled={isLoadingProductividad}
+          />
+        </div>
+      </div>
       <Productividad
-        onDataLoaded={handleProductividadDataLoaded}
-        onProductividadFilterChange={setProductividadFilter}
+        data={productividadData}
+        isLoading={isLoadingProductividad}
+        error={productividadError}
         productividadFilter={productividadFilter}
       />
     </div>
