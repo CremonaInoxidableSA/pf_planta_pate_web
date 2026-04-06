@@ -135,6 +135,40 @@ export default function Historico() {
     return () => controller.abort();
   }, []);
 
+  useEffect(() => {
+    const controller = new AbortController();
+    const fechaInicio = format(defaultWeekRange.from, "yyyy-MM-dd");
+    const fechaFin = format(defaultWeekRange.to, "yyyy-MM-dd");
+    setIsLoadingProductividad(true);
+    setProductividadError(null);
+    authFetch(
+      `/api/historico-productividad/${prodEquipoId}/${fechaInicio}/${fechaFin}`,
+      { signal: controller.signal },
+    )
+      .then(async (response) => {
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || "Error al obtener datos");
+        }
+        const data: ProductividadData = await response.json();
+        setProductividadData(data);
+        setProductividadFilter({
+          equipoId: prodEquipoId,
+          dateRange: defaultWeekRange,
+        });
+      })
+      .catch((error) => {
+        if (error instanceof DOMException && error.name === "AbortError")
+          return;
+        setProductividadError(
+          error instanceof Error ? error.message : "Error desconocido",
+        );
+      })
+      .finally(() => setIsLoadingProductividad(false));
+    return () => controller.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleApply = async () => {
     if (!dateRange?.from || !dateRange?.to) return;
     const fechaInicio = format(dateRange.from, "yyyy-MM-dd");

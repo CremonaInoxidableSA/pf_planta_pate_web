@@ -16,12 +16,12 @@ function buildHeaders(request: NextRequest): Record<string, string> {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id_equipo: string } },
+  { params }: { params: Promise<{ id_equipo: string }> },
 ) {
   try {
-    const { id_equipo } = params;
+    const { id_equipo } = await params;
     const equipoId = parseInt(id_equipo, 10);
-    if (isNaN(equipoId) || equipoId < 1) {
+    if (isNaN(equipoId) || equipoId < 0) {
       return new Response(JSON.stringify({ error: "id_equipo inválido." }), {
         status: 400,
       });
