@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next";
 import type { DateRange } from "react-day-picker";
 import { format } from "date-fns";
 import DateRangePicker from "@/components/selectores/dateRangePicker";
-import BotonAplicar from "@/app/historico/(productividad)/(filtradoFechas)/botonAplicar";
 import SelectorEquiposProductividad, {
   type EquipoProductividadId,
 } from "./selectorLineas";
@@ -67,7 +66,6 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
     const fechaInicio = format(dateRange.from, "yyyy-MM-dd");
     const fechaFin = format(dateRange.to, "yyyy-MM-dd");
 
-    setIsLoading(true);
     onLoading?.(true);
     onError?.(null);
 
@@ -88,7 +86,6 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
         error instanceof Error ? error.message : "Error desconocido";
       onError?.(errorMessage);
     } finally {
-      setIsLoading(false);
       onLoading?.(false);
     }
   }, [
@@ -105,8 +102,6 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
       handleApply();
     }
   }, [dateRange?.from, dateRange?.to, equipoSeleccionado, handleApply]);
-
-  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <div className="w-[20%] h-full flex flex-col justify-evenly gap-3">
@@ -125,11 +120,6 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
           setDateRange(range);
           notifyFilterChange(equipoSeleccionado, range);
         }}
-      />
-      <BotonAplicar
-        selectClasses={`cursor-pointer ${isLoading ? "opacity-50" : ""}`}
-        onClick={handleApply}
-        disabled={isLoading || !dateRange?.from || !dateRange?.to}
       />
     </div>
   );

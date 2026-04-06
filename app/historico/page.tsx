@@ -123,10 +123,10 @@ export default function Historico() {
         const errorData = await response.json();
         throw new Error(errorData.error || "Error al obtener ciclos");
       }
-      const data: Ciclo[] = await response.json();
-      if (data.length === 0) {
+      const data = await response.json();
+      if (!data || (Array.isArray(data) && data.length === 0)) {
         toast.error(t("min.errorObtenerCiclos"), {
-          description: t("min.noExistenDatos"),
+          description: t("min.noCiclosEntreFechas"),
           position: "bottom-right",
           id: `no-data-${fechaInicio}-${fechaFin}-${equipoId}`,
         });

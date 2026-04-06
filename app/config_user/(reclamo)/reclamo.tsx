@@ -94,7 +94,7 @@ export default function GenerarReclamo() {
   };
 
   return (
-    <DialogContent className="sm:max-w-150 bg-background3 z-800">
+    <DialogContent className="w-full bg-background3 z-800 p-5">
       <DialogHeader>
         <DialogTitle>{t("min.generarReclamo")}</DialogTitle>
         <DialogDescription>
