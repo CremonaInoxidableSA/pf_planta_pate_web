@@ -5,6 +5,7 @@ import React, {
   useState,
   useContext,
   useEffect,
+  useCallback,
   ReactNode,
 } from "react";
 import { useRouter, usePathname } from "next/navigation";
@@ -57,6 +58,33 @@ interface RegisterData {
   loading: boolean;
 }
 
+const decodeToken = (t?: string) => {
+  if (!t) return null;
+  try {
+    const parts = t.split(".");
+    if (parts.length < 2) return null;
+    const payload = parts[1];
+    const b64 = payload.replace(/-/g, "+").replace(/_/g, "/");
+    const json = decodeURIComponent(
+      atob(b64)
+        .split("")
+        .map((c) => `%${("00" + c.charCodeAt(0).toString(16)).slice(-2)}`)
+        .join(""),
+    );
+    return JSON.parse(json);
+  } catch {
+    return null;
+  }
+};
+
+const isTokenValid = (t?: string): boolean => {
+  if (!t) return false;
+  const payload = decodeToken(t);
+  if (!payload || !payload.sub) return false;
+  if (payload.exp && payload.exp * 1000 < Date.now()) return false;
+  return true;
+};
+
 export const AuthContext = createContext<AuthContextType | undefined>(
   undefined,
 );
@@ -92,113 +120,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const [needBootstrap, setNeedBootstrap] = useState(false);
 
-  useEffect(() => {
-    if (!BYPASS_AUTH) {
-      checkSession();
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!BYPASS_AUTH && pathname === "/login" && needBootstrap) {
-      checkSession();
-    }
-  }, [pathname, needBootstrap]);
-
-  useEffect(() => {
-    if (BYPASS_AUTH) {
-      if (
-        pathname === "/login" ||
-        pathname === "/register" ||
-        pathname === "/bootstrap"
-      ) {
-        router.push("/");
-      }
-      return;
-    }
-    if (!loading) {
-      if (!pathname) {
-        return;
-      }
-
-      const publicRoutes = [
-        "/login",
-        "/register",
-        "/bootstrap",
-        "/login/recuperacion",
-        "/login/recuperacion/reset_pass",
-      ];
-
-      const isPublicRoute = publicRoutes.some((route) =>
-        pathname.startsWith(route),
-      );
-
-      if (isPublicRoute) {
-        return;
-      }
-
-      if (needBootstrap && pathname !== "/bootstrap") {
-        router.push("/bootstrap");
-        return;
-      }
-
-      if (!user && pathname !== "/") {
-        router.push("/login");
-      }
-
-      if (user && (pathname === "/login" || pathname === "/register")) {
-        router.push("/");
-      }
-    }
-  }, [user, loading, needBootstrap, pathname, router]);
-
-  useEffect(() => {
-    if (user) {
-      setEmail(user.email ?? null);
-      setUsername(user.username ?? null);
-      setNombre(user.nombre ?? null);
-      setApellido(user.apellido ?? null);
-      setRol(user.rol ?? null);
-      setHabilitado(!!user.habilitado);
-      setReporte(!!user.reporte);
-    } else {
-      setEmail(null);
-      setUsername(null);
-      setNombre(null);
-      setApellido(null);
-      setRol(null);
-      setHabilitado(null);
-      setReporte(null);
-    }
-  }, [user]);
-
-  const decodeToken = (t?: string) => {
-    if (!t) return null;
-    try {
-      const parts = t.split(".");
-      if (parts.length < 2) return null;
-      const payload = parts[1];
-      const b64 = payload.replace(/-/g, "+").replace(/_/g, "/");
-      const json = decodeURIComponent(
-        atob(b64)
-          .split("")
-          .map((c) => `%${("00" + c.charCodeAt(0).toString(16)).slice(-2)}`)
-          .join(""),
-      );
-      return JSON.parse(json);
-    } catch {
-      return null;
-    }
-  };
-
-  const isTokenValid = (t?: string): boolean => {
-    if (!t) return false;
-    const payload = decodeToken(t);
-    if (!payload || !payload.sub) return false;
-    if (payload.exp && payload.exp * 1000 < Date.now()) return false;
-    return true;
-  };
-
-  const checkSession = async () => {
+  const checkSession = useCallback(async () => {
     try {
       // 1. Verificar needs-setup (con cache en sessionStorage)
       const setupDone =
@@ -310,7 +232,86 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (!BYPASS_AUTH) {
+      checkSession();
+    }
+  }, [checkSession]);
+
+  useEffect(() => {
+    if (!BYPASS_AUTH && pathname === "/login" && needBootstrap) {
+      checkSession();
+    }
+  }, [pathname, needBootstrap, checkSession]);
+
+  useEffect(() => {
+    if (BYPASS_AUTH) {
+      if (
+        pathname === "/login" ||
+        pathname === "/register" ||
+        pathname === "/bootstrap"
+      ) {
+        router.push("/");
+      }
+      return;
+    }
+    if (!loading) {
+      if (!pathname) {
+        return;
+      }
+
+      const publicRoutes = [
+        "/login",
+        "/register",
+        "/bootstrap",
+        "/login/recuperacion",
+        "/login/recuperacion/reset_pass",
+      ];
+
+      const isPublicRoute = publicRoutes.some((route) =>
+        pathname.startsWith(route),
+      );
+
+      if (isPublicRoute) {
+        return;
+      }
+
+      if (needBootstrap && pathname !== "/bootstrap") {
+        router.push("/bootstrap");
+        return;
+      }
+
+      if (!user && pathname !== "/") {
+        router.push("/login");
+      }
+
+      if (user && (pathname === "/login" || pathname === "/register")) {
+        router.push("/");
+      }
+    }
+  }, [user, loading, needBootstrap, pathname, router]);
+
+  useEffect(() => {
+    if (user) {
+      setEmail(user.email ?? null);
+      setUsername(user.username ?? null);
+      setNombre(user.nombre ?? null);
+      setApellido(user.apellido ?? null);
+      setRol(user.rol ?? null);
+      setHabilitado(!!user.habilitado);
+      setReporte(!!user.reporte);
+    } else {
+      setEmail(null);
+      setUsername(null);
+      setNombre(null);
+      setApellido(null);
+      setRol(null);
+      setHabilitado(null);
+      setReporte(null);
+    }
+  }, [user]);
 
   const login = async (
     username: string,

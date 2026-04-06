@@ -52,6 +52,9 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
   const [equipoSeleccionado, setEquipoSeleccionado] =
     useState<EquipoProductividadId>(0);
 
+  const fromTime = dateRange?.from?.getTime();
+  const toTime = dateRange?.to?.getTime();
+
   const notifyFilterChange = useCallback(
     (newEquipoId: number, newDateRange: DateRange | undefined) => {
       onFilterChange?.({ equipoId: newEquipoId, dateRange: newDateRange });
@@ -98,11 +101,7 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
 
     return () => controller.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    dateRange?.from?.getTime(),
-    dateRange?.to?.getTime(),
-    equipoSeleccionado,
-  ]);
+  }, [fromTime, toTime, equipoSeleccionado]);
 
   return (
     <div className="w-[20%] h-full flex flex-col justify-evenly gap-3">
@@ -122,11 +121,7 @@ const FiltroProductividad: React.FC<FiltroProductividadProps> = ({
           notifyFilterChange(equipoSeleccionado, range);
         }}
       />
-      <Button 
-        onClick={() => {
-          
-        }}
-      />
+      <Button onClick={() => {}} />
     </div>
   );
 };

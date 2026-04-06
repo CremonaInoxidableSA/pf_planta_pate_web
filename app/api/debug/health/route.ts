@@ -7,7 +7,7 @@ const SERVICES = {
   mail: process.env.API_MAIL_URL ?? "http://192.168.20.150:8001",
   datos: process.env.API_DATOS_URL ?? "http://192.168.20.152:8000",
   wsAlarmas: process.env.API_WS_ALARMAS_URL ?? "http://192.168.20.152:8001",
-  wsDatos: process.env.API_WS_DATOS_URL ?? "http://192.168.20.152:8000"
+  wsDatos: process.env.API_WS_DATOS_URL ?? "http://192.168.20.152:8000",
 } as const;
 
 export type ServiceName = keyof typeof SERVICES;
