@@ -54,6 +54,7 @@ export default function EquipoPage({ type }: EquipoPageProps) {
   const labelToKeyMap: Record<string, string> = {
     [t("min.tempAgua")]: "tempAgua",
     [t("min.tempProd")]: "tempProd",
+    [t("min.tempIngreso")]: "tempIngreso",
     [t("min.nivelAgua")]: "nivelAgua",
   };
 

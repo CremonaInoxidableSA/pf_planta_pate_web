@@ -32,31 +32,16 @@ export const HeaderPrincipal: React.FC<Header> = ({ currentPath }) => {
   const { t } = useTranslation();
 
   const opcionesIconos: OpcionIcono[] = [
-    {
-      id: 1,
-      icon: <UserIcon />,
-    },
-    {
-      id: 2,
-      url: "/alarmas",
-      icon: (
-        <Link
-          className="group relative flex items-center justify-center w-6.25 h-6.25 ease-in-out"
-          href="/alarmas"
-        >
-          <div className="absolute inset-0 rounded-md bg-gray-400/0 group-hover:bg-gray-400/20 ease-in-out group-hover:scale-150 pointer-events-none" />
-          <VscBell className="w-6.25 h-6.25 transition-transform ease-in-out group-hover:scale-110" />
-        </Link>
-      ),
-    },
+    { id: 1, icon: <UserIcon /> },
+    { id: 2, icon: <ThemeSwitcher /> },
     { id: 3, icon: <DropdownBanderas /> },
-    { id: 4, icon: <ThemeSwitcher /> },
   ];
 
   const opcionesMenu: OpcionMenu[] = [
     { id: 1, url: "/", text: t("min.home") },
     { id: 2, url: "/historico", text: t("min.historico") },
-    { id: 3, url: "/monitoreo", text: t("min.monitoreo") },
+    { id: 3, url: "/alarmas", text: t("min.alarmas") },
+    { id: 4, url: "/monitoreo", text: t("min.monitoreo") },
   ];
 
   return (
@@ -91,7 +76,11 @@ export const HeaderPrincipal: React.FC<Header> = ({ currentPath }) => {
               ) : (
                 url && (
                   <Link
-                    className={currentPath === url ? "activeLink" : ""}
+                    className={
+                      currentPath === url
+                        ? "underline underline-offset-4 decoration-2"
+                        : ""
+                    }
                     href={url}
                   >
                     <p className="header">{text}</p>

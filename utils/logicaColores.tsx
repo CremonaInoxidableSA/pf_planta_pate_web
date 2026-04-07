@@ -18,15 +18,11 @@ export const getColorClass = (
   }
 
   if (key === "tempIngreso") {
-    return "text-yellowGraph !important";
+    return "text-ingresoTemp !important";
   }
 
   if (key === "tempAgua") {
     return "text-waterTemp !important";
-  }
-
-  if (key === "tempIng") {
-    return "text-ingresoTemp !important";
   }
 
   if (key === "tempProd") {
