@@ -70,7 +70,10 @@ const Selector: React.FC<SelectorProps> = ({
   };
 
   return (
-    <Select value={value.toString()} onValueChange={handleChange}>
+    <Select
+      value={value.toString()}
+      onValueChange={handleChange}
+    >
       <SelectTrigger
         className={cn(
           "border-0 shadow-none focus-visible:ring-0 focus-visible:border-0 h-full! text-texto",
@@ -81,7 +84,7 @@ const Selector: React.FC<SelectorProps> = ({
       </SelectTrigger>
       <SelectContent
         position="popper"
-        className="bg-background2 border-border text-texto w-(--radix-select-trigger-width)"
+        className="bg-background3 border-border text-texto w-(--radix-select-trigger-width)"
       >
         {itemsList.map((item) => (
           <SelectItem

@@ -14,7 +14,7 @@ const ExportButton: React.FC<ExportButtonProps> = ({ onExport, disabled }) => {
   return (
     <Button
       variant="outline"
-      className="w-1/2 h-full flex items-center gap-2"
+      className="w-1/2 h-full flex items-center gap-2 bg-background3 hover:bg-background5"
       disabled={disabled}
       onClick={onExport}
     >

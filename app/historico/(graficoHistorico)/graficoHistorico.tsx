@@ -184,6 +184,7 @@ const GraficoHistorico = ({
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        animation: false,
         plugins: {
           legend: { display: true },
           tooltip: {
@@ -209,9 +210,11 @@ const GraficoHistorico = ({
           y: {
             title: {
               display: true,
-              text: "Temperatura (°C)",
+              text: t("min.temperaturaC"),
               color: "rgb(59, 130, 246)",
             },
+            min: 0,
+            max: 100,
             position: "left",
             ticks: { color: "rgb(59, 130, 246)" },
             grid: { color: "rgba(156, 163, 175, 0.1)" },
@@ -219,9 +222,11 @@ const GraficoHistorico = ({
           y2: {
             title: {
               display: true,
-              text: "Nivel agua (mm)",
+              text: t("min.nivelAguaMm"),
               color: "rgb(168, 85, 247)",
             },
+            min: 1000,
+            max: 2000,
             position: "right",
             ticks: { color: "rgb(168, 85, 247)" },
             grid: { drawOnChartArea: false },
@@ -234,7 +239,7 @@ const GraficoHistorico = ({
       chartRef.current?.destroy();
       chartRef.current = null;
     };
-  }, [graficoData, zoomPluginLoaded]);
+  }, [graficoData, zoomPluginLoaded, t]);
 
   if (!selectedCiclo) {
     return (

@@ -316,7 +316,7 @@ export default function Historico() {
             onChange={setDateRange}
           />
           <BotonAplicar
-            selectClasses={`aspect-square bg-background3 cursor-pointer w-auto h-full ${isLoadingCiclos ? "opacity-50" : ""}`}
+            selectClasses={`aspect-square cursor-pointer w-auto h-full ${isLoadingCiclos ? "opacity-50" : ""}`}
             onClick={handleApply}
             disabled={isLoadingCiclos}
           />
