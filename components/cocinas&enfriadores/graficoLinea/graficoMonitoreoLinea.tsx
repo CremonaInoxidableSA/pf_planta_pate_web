@@ -35,6 +35,16 @@ const GraficoMonitoreo: React.FC<{ id: number }> = ({ id }) => {
     : `Enfriador ${numero ?? id}`;
   const borderColor = isCocina ? "border-orange" : "border-blue";
   const textColor = isCocina ? "text-orange" : "text-blue";
+  const estadoColor =
+    estado === "FALLA"
+    ? "text-red bg-red/10 px-1.5 rounded"
+    : estado === "PAUSA"
+    ? "text-yellow bg-yellow/10 px-1.5 rounded"
+    : estado === "INACTIVO"
+    ? "text-gray bg-gray/10 px-1.5 rounded"
+    : estado === "FINALIZADO"
+    ? "text-blue bg-blue/10 px-1.5 rounded"
+    : "text-green bg-green/10 px-1.5 rounded";
 
   return (
     <div
@@ -42,7 +52,8 @@ const GraficoMonitoreo: React.FC<{ id: number }> = ({ id }) => {
     >
       <div className="flex items-center justify-between shrink-0">
         <span className={`font-semibold ${textColor}`}>{label}</span>
-        <span className="text-sm text-lightgrey">{estado}</span>
+        <span className={"text-sm"}>{info?.receta}</span>
+        <span className={`text-sm ${estadoColor}`}>{estado}</span>
       </div>
 
       <div className="flex gap-4 text-sm shrink-0">
