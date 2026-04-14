@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Download } from "lucide-react";
-import { exportPDF, getColHeaders, exportExcelFromAPI } from "../exportar";
+import { exportPDF, getColHeaders, exportExcel } from "../exportar";
 import type { Alarma } from "../types";
 
 interface BotonExportarProps {
@@ -41,13 +41,13 @@ const BotonExportar: React.FC<BotonExportarProps> = ({
       <DropdownMenuContent className="bg-background2">
         <DropdownMenuItem
           className="hover:bg-background5 cursor-pointer"
-          onClick={() => exportPDF(allRows, colHeaders)}
+          onClick={() => exportPDF(allRows, colHeaders, dateRange)}
         >
           {t("min.exptodaspdf")}
         </DropdownMenuItem>
         <DropdownMenuItem
           className="hover:bg-background5 cursor-pointer"
-          onClick={() => exportExcelFromAPI(dateRange)}
+          onClick={() => exportExcel(allRows, colHeaders, "alarmas", dateRange)}
         >
           {t("min.exptodasexcel")}
         </DropdownMenuItem>

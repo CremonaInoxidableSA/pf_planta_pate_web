@@ -61,7 +61,11 @@ export const rowToArray = (row: Alarma): string[] => [
   formatDate(row.timeEnd),
 ];
 
-export const exportPDF = (rows: Row<Alarma>[], colHeaders: string[]): void => {
+export const exportPDF = (
+  rows: Row<Alarma>[],
+  colHeaders: string[],
+  dateRange?: { from?: Date; to?: Date },
+): void => {
   try {
     const doc = new jsPDF({
       orientation: "portrait",
@@ -75,6 +79,10 @@ export const exportPDF = (rows: Row<Alarma>[], colHeaders: string[]): void => {
       month: "long",
       day: "numeric",
     });
+    const dateRangeStr =
+      dateRange?.from && dateRange?.to
+        ? `(${dateRange.from.toISOString().slice(0, 10)} a ${dateRange.to.toISOString().slice(0, 10)})`
+        : "";
 
     doc.setFillColor(255, 255, 255);
     doc.rect(0, 0, pageWidth, headerHeight, "F");
@@ -86,6 +94,10 @@ export const exportPDF = (rows: Row<Alarma>[], colHeaders: string[]): void => {
     doc.text(`Total de registros: ${rows.length}`, 20, 55);
     doc.setFont("helvetica", "normal");
     doc.text(exportDate, 145, 25);
+    if (dateRangeStr) {
+      doc.setFontSize(8);
+      doc.text(`Rango: ${dateRangeStr}`, 20, 68);
+    }
 
     const logoWidth = 120;
     const logoHeight = 25;
@@ -116,7 +128,15 @@ export const exportPDF = (rows: Row<Alarma>[], colHeaders: string[]): void => {
       tableLineWidth: 0.1,
     });
 
-    doc.save("Registro_Eventos.pdf");
+    const fromStr = dateRange?.from
+      ? dateRange.from.toISOString().slice(0, 10)
+      : "";
+    const toStr = dateRange?.to ? dateRange.to.toISOString().slice(0, 10) : "";
+    const fileName =
+      dateRange?.from && dateRange?.to
+        ? `Registro_Eventos_${fromStr}_a_${toStr}.pdf`
+        : "Registro_Eventos.pdf";
+    doc.save(fileName);
     toast.success("Éxito", {
       description: "PDF descargado correctamente",
       position: "bottom-right",
@@ -134,6 +154,7 @@ export const exportExcel = (
   rows: Row<Alarma>[],
   colHeaders: string[],
   fileName: string,
+  dateRange?: { from?: Date; to?: Date },
 ): void => {
   try {
     const sheetData = rows.map((r) => {
@@ -143,7 +164,16 @@ export const exportExcel = (
     const ws = XLSX.utils.json_to_sheet(sheetData);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Alarmas");
-    XLSX.writeFile(wb, `${fileName}.xlsx`);
+    const exportDate = new Date().toISOString().slice(0, 10);
+    const fromStr = dateRange?.from
+      ? dateRange.from.toISOString().slice(0, 10)
+      : "";
+    const toStr = dateRange?.to ? dateRange.to.toISOString().slice(0, 10) : "";
+    const fileNameWithDate =
+      dateRange?.from && dateRange?.to
+        ? `${fileName}_${fromStr}_a_${toStr}.xlsx`
+        : `${fileName}_${exportDate}.xlsx`;
+    XLSX.writeFile(wb, fileNameWithDate);
     toast.success("Éxito", {
       description: "Excel descargado correctamente",
       position: "bottom-right",

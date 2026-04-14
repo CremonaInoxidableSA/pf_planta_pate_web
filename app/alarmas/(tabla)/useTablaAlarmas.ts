@@ -75,7 +75,20 @@ export function useTablaAlarmas() {
     loadData(dateRange);
   }, [dateRange, loadData]);
 
-  const dateFilteredData = data;
+  const dateFilteredData = useMemo(() => {
+    if (!dateRange?.from || !dateRange?.to) return data;
+
+    const from = new Date(dateRange.from);
+    from.setHours(0, 0, 0, 0);
+    const to = new Date(dateRange.to);
+    to.setHours(23, 59, 59, 999);
+
+    return data.filter((row) => {
+      const rowDate = row.time ? new Date(row.time) : null;
+      if (!rowDate) return false;
+      return rowDate >= from && rowDate <= to;
+    });
+  }, [data, dateRange]);
 
   const columnDefs = useMemo(
     () => getColumnDefs(t, columnFilters),
