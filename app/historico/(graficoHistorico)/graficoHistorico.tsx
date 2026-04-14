@@ -62,10 +62,10 @@ interface GraficoHistoricoProps {
 }
 
 const coloresSensores: Record<string, string> = {
-  "Temperatura agua": "rgb(3, 157, 252)",
-  "Temperatura producto": "rgb(41, 207, 0)",
-  "Temperatura ingreso": "rgb(159, 0, 207)",
-  "Nivel agua": "rgb(168, 85, 247)",
+  "Temperatura agua": "#039dfc",
+  "Temperatura producto": "#29cf00",
+  "Temperatura ingreso": "#9f00cf",
+  "Nivel agua": "#a855f7",
 };
 
 const GraficoHistorico = ({
@@ -156,7 +156,7 @@ const GraficoHistorico = ({
               y: r.valor,
             })),
           borderColor: coloresSensores[sensorName],
-          backgroundColor: coloresSensores[sensorName] + "1A",
+          backgroundColor: coloresSensores[sensorName] + "50",
           tension: 0.3,
           pointRadius: 2,
           yAxisID: isNivelAgua ? "y2" : "y",
@@ -259,24 +259,26 @@ const GraficoHistorico = ({
   return (
     <div className="w-full">
       <div className="flex items-start justify-between mb-4">
-        <div>
-          <h3 className="text-lg font-semibold text-texto">
-            {t("min.ciclo")} {selectedCiclo.id_ciclo} — {lote}
-            {general?.receta && (
-              <span className="ml-2 text-sm font-normal text-orange">
-                {general.receta}
-              </span>
-            )}
-          </h3>
-          <p className="text-sm text-orange">
-            {format(new Date(fechaInicio), "dd/MM/yyyy HH:mm")} —{" "}
-            {format(new Date(fechaFin), "HH:mm")}
-            {general?.tiempo_transcurrido && (
-              <span className="ml-2">({general.tiempo_transcurrido})</span>
-            )}
-          </p>
+        <div className="flex flex-row justify-between w-full items-center">
+          <div>
+            <h3 className="text-lg font-semibold text-texto">
+              {t("min.ciclo")} {selectedCiclo.id_ciclo} - {lote}
+              {general?.receta && (
+                <span className="ml-2 text-sm font-normal text-orange">
+                  {general.receta}
+                </span>
+              )}
+            </h3>
+            <p className="text-sm text-orange ">
+              {format(new Date(fechaInicio), "dd/MM/yyyy HH:mm")} -{" "}
+              {format(new Date(fechaFin), "HH:mm")}
+              {general?.tiempo_transcurrido && (
+                <span className="ml-2">({general.tiempo_transcurrido})</span>
+              )}
+            </p>
+          </div>
           {general && (
-            <div className="flex flex-wrap gap-4 mt-2">
+            <div className="flex flex-wrap gap-4">
               <span
                 className="flex items-center gap-1 text-sm"
                 style={{ color: "rgb(3, 157, 252)" }}

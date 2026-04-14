@@ -140,7 +140,7 @@ export default function ConfiguracionUsuario() {
       admin: t("min.admin"),
       user: t("min.usuario"),
     };
-    return (role && roleMap[role]) || role || "—";
+    return (role && roleMap[role]) || role || "-";
   };
 
   const fullname = `${nombre ?? ""}${nombre || apellido ? " " : ""}${
@@ -164,17 +164,17 @@ export default function ConfiguracionUsuario() {
         <div className="flex flex-col gap-5 text-left">
           <div>
             <p className="font-semibold text-xl">{t("min.nombre")}</p>
-            <p>{fullname || "—"}</p>
+            <p>{fullname || "-"}</p>
           </div>
 
           <div>
             <p className="font-semibold text-lg">{t("min.email")}</p>
-            <p>{email || "—"}</p>
+            <p>{email || "-"}</p>
           </div>
 
           <div>
             <p className="font-semibold text-lg">{t("min.rol")}</p>
-            <p>{rol ? getRoleName(rol) : "—"}</p>
+            <p>{rol ? getRoleName(rol) : "-"}</p>
           </div>
 
           <div>

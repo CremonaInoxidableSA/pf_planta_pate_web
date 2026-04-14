@@ -37,14 +37,14 @@ const GraficoMonitoreo: React.FC<{ id: number }> = ({ id }) => {
   const textColor = isCocina ? "text-orange" : "text-blue";
   const estadoColor =
     estado === "FALLA"
-    ? "text-red bg-red/10 px-1.5 rounded"
-    : estado === "PAUSA"
-    ? "text-yellow bg-yellow/10 px-1.5 rounded"
-    : estado === "INACTIVO"
-    ? "text-gray bg-gray/10 px-1.5 rounded"
-    : estado === "FINALIZADO"
-    ? "text-blue bg-blue/10 px-1.5 rounded"
-    : "text-green bg-green/10 px-1.5 rounded";
+      ? "text-red bg-red/10 px-1.5 rounded"
+      : estado === "PAUSA"
+        ? "text-yellow bg-yellow/10 px-1.5 rounded"
+        : estado === "INACTIVO"
+          ? "text-gray bg-gray/10 px-1.5 rounded"
+          : estado === "FINALIZADO"
+            ? "text-blue bg-blue/10 px-1.5 rounded"
+            : "text-green bg-green/10 px-1.5 rounded";
 
   return (
     <div
@@ -58,10 +58,10 @@ const GraficoMonitoreo: React.FC<{ id: number }> = ({ id }) => {
 
       <div className="flex gap-4 text-sm shrink-0">
         <span className="text-waterTemp">
-          {t("min.tempAgua")}: {info?.temp_agua ?? "—"} °C
+          {t("min.tempAgua")}: {info?.temp_agua ?? "-"} °C
         </span>
         <span className="text-greengraph">
-          {t("min.tempProd")}: {info?.temp_prod ?? "—"} °C
+          {t("min.tempProd")}: {info?.temp_prod ?? "-"} °C
         </span>
       </div>
 

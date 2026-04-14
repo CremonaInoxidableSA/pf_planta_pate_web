@@ -56,7 +56,7 @@ export const columns = (
         admin: t("min.admin"),
         user: t("min.usuario"),
       };
-      return roleMap[role] ?? role ?? "—";
+      return roleMap[role] ?? role ?? "-";
     },
   },
   {
