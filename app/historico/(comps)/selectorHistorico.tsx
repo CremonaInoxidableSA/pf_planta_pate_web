@@ -8,6 +8,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectGroup,
+  SelectLabel,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
@@ -70,10 +72,7 @@ const Selector: React.FC<SelectorProps> = ({
   };
 
   return (
-    <Select
-      value={value.toString()}
-      onValueChange={handleChange}
-    >
+    <Select value={value.toString()} onValueChange={handleChange}>
       <SelectTrigger
         className={cn(
           "border-0 shadow-none focus-visible:ring-0 focus-visible:border-0 h-full! text-texto",
@@ -86,15 +85,45 @@ const Selector: React.FC<SelectorProps> = ({
         position="popper"
         className="bg-background3 border-border text-texto w-(--radix-select-trigger-width)"
       >
-        {itemsList.map((item) => (
-          <SelectItem
-            key={item.id.toString()}
-            value={item.id.toString()}
-            className={cn("cursor-pointer w-full text-texto", optionClasses)}
-          >
-            {getDisplayName(item)}
-          </SelectItem>
-        ))}
+        <SelectGroup>
+          <SelectLabel className="text-orange py-1.5 text-sm font-semibold">
+            {t("mayus.cocinas")}
+          </SelectLabel>
+          {itemsList
+            .filter((item) => item.type === "cocina")
+            .map((item) => (
+              <SelectItem
+                key={item.id.toString()}
+                value={item.id.toString()}
+                className={cn(
+                  "cursor-pointer w-full text-texto",
+                  optionClasses,
+                )}
+              >
+                {getDisplayName(item)}
+              </SelectItem>
+            ))}
+        </SelectGroup>
+
+        <SelectGroup>
+          <SelectLabel className="text-blue py-1.5 text-sm font-semibold">
+            {t("mayus.enfriadores")}
+          </SelectLabel>
+          {itemsList
+            .filter((item) => item.type === "enfriador")
+            .map((item) => (
+              <SelectItem
+                key={item.id.toString()}
+                value={item.id.toString()}
+                className={cn(
+                  "cursor-pointer w-full text-texto",
+                  optionClasses,
+                )}
+              >
+                {getDisplayName(item)}
+              </SelectItem>
+            ))}
+        </SelectGroup>
       </SelectContent>
     </Select>
   );
