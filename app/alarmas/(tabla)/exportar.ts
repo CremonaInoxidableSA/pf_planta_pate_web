@@ -76,9 +76,9 @@ export const exportPDF = (rows: Row<Alarma>[], colHeaders: string[]): void => {
       day: "numeric",
     });
 
-    doc.setFillColor(19, 19, 19);
+    doc.setFillColor(255, 255, 255);
     doc.rect(0, 0, pageWidth, headerHeight, "F");
-    doc.setTextColor(255, 255, 255);
+    doc.setTextColor(0, 0, 0);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(10);
     doc.text("Fecha de exportación:", 20, 25);
@@ -102,17 +102,17 @@ export const exportPDF = (rows: Row<Alarma>[], colHeaders: string[]): void => {
       theme: "grid",
       margin: { top: headerHeight + 10 },
       styles: {
-        fillColor: [41, 41, 41],
-        textColor: [255, 255, 255],
+        fillColor: [255, 255, 255],
+        textColor: [0, 0, 0],
         fontSize: 9,
       },
       headStyles: {
-        fillColor: [25, 25, 25],
-        textColor: [255, 255, 255],
+        fillColor: [245, 245, 245],
+        textColor: [0, 0, 0],
         fontStyle: "bold",
       },
-      alternateRowStyles: { fillColor: [30, 30, 30] },
-      tableLineColor: [100, 100, 100],
+      alternateRowStyles: { fillColor: [255, 255, 255] },
+      tableLineColor: [200, 200, 200],
       tableLineWidth: 0.1,
     });
 
