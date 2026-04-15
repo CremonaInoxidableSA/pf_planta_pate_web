@@ -332,6 +332,7 @@ export default function Historico() {
             <DialogTitle className="text-texto">
               {t("min.seleccionarCiclo")}
             </DialogTitle>
+            
           </DialogHeader>
           <TablaCiclos
             ciclos={Array.isArray(ciclos) ? ciclos : []}

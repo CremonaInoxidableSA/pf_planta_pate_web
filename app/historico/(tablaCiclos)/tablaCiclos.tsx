@@ -32,52 +32,72 @@ const TablaCiclos: React.FC<TablaCiclosProps> = ({
   const [selectedKeys, setSelectedKeys] = useState(
     new Set(selectedCicloId ? [selectedCicloId.toString()] : []),
   );
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredCiclos = ciclos.filter((ciclo) => {
+    if (!searchTerm) return true;
+    const searchStr = searchTerm.toLowerCase();
+    const cicloData =
+      `${ciclo.id_ciclo} ${ciclo.lote} ${ciclo.fecha_inicio} ${ciclo.fecha_fin} ${ciclo.tiempo_transcurrido}`.toLowerCase();
+    return cicloData.includes(searchStr);
+  });
 
   return (
-    <div className="max-h-[70vh] overflow-y-auto">
-      <Table
-        aria-label="Tabla de ciclos"
-        className="min-w-150 backdrop-blur-sm text-texto"
-      >
-        <TableHeader>
-          <TableRow>
-            <TableHead>ID</TableHead>
-            <TableHead>{t("min.lote")}</TableHead>
-            <TableHead>{t("min.inicio")}</TableHead>
-            <TableHead>{t("min.fin")}</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {ciclos.map((ciclo) => {
-            const isSelected = selectedKeys.has(ciclo.id_ciclo.toString());
+    <div className="space-y-4">
+      <input
+        type="text"
+        placeholder={t("min.buscar") || "Buscar..."}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="w-full px-2 py-1 bg-background2 rounded-md border border-background4 focus:outline-none focus:border-gray-500"
+      />
+      <div className="max-h-[70vh] overflow-y-auto">
+        <Table
+          aria-label="Tabla de ciclos"
+          className="min-w-150 backdrop-blur-sm text-texto"
+        >
+          <TableHeader>
+            <TableRow>
+              <TableHead>ID</TableHead>
+              <TableHead>{t("min.lote")}</TableHead>
+              <TableHead>{t("min.inicio")}</TableHead>
+              <TableHead>{t("min.fin")}</TableHead>
+              <TableHead>{t("min.tiempoTranscurrido")}</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {filteredCiclos.map((ciclo) => {
+              const isSelected = selectedKeys.has(ciclo.id_ciclo.toString());
 
-            return (
-              <TableRow
-                key={ciclo.id_ciclo}
-                className={`text-sm cursor-pointer ${isSelected ? "bg-gray-600/70" : "hover:bg-gray-700/50"}`}
-                onClick={() => {
-                  const id = ciclo.id_ciclo.toString();
-                  const newKeys = new Set([id]);
+              return (
+                <TableRow
+                  key={ciclo.id_ciclo}
+                  className={`text-sm cursor-pointer ${isSelected ? "bg-gray-600/70" : "hover:bg-gray-700/50"}`}
+                  onClick={() => {
+                    const id = ciclo.id_ciclo.toString();
+                    const newKeys = new Set([id]);
 
-                  setSelectedKeys(newKeys);
-                  if (onCicloSelect) {
-                    onCicloSelect(ciclo);
-                  }
-                }}
-              >
-                <TableCell>{ciclo.id_ciclo}</TableCell>
-                <TableCell>{ciclo.lote}</TableCell>
-                <TableCell>
-                  {new Date(ciclo.fecha_inicio).toLocaleDateString("es-ES")}
-                </TableCell>
-                <TableCell>
-                  {new Date(ciclo.fecha_fin).toLocaleDateString("es-ES")}
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+                    setSelectedKeys(newKeys);
+                    if (onCicloSelect) {
+                      onCicloSelect(ciclo);
+                    }
+                  }}
+                >
+                  <TableCell>{ciclo.id_ciclo}</TableCell>
+                  <TableCell>{ciclo.lote}</TableCell>
+                  <TableCell>
+                    {new Date(ciclo.fecha_inicio).toLocaleString("es-ES")}
+                  </TableCell>
+                  <TableCell>
+                    {new Date(ciclo.fecha_fin).toLocaleString("es-ES")}
+                  </TableCell>
+                  <TableCell>{ciclo.tiempo_transcurrido}</TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 };

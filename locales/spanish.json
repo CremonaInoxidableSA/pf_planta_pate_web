@@ -120,7 +120,9 @@
     "rangoSeleccionado": "Rango seleccionado",
     "seleccionarFechas": "Seleccionar rango de fechas",
     "alarmasActivasLinea": "Alarmas activas línea",
-    "sinAlarmasActivas": "Sin alarmas activas"
+    "sinAlarmasActivas": "Sin alarmas activas",
+    "tiempoTranscurrido": "Tiempo transcurrido",
+    "buscar": "Buscar..."
   },
   "mayus": {
     "titulo": "PF PLANTA PATE - SISTEMA DE ADQUISICIÓN DE DATOS",
