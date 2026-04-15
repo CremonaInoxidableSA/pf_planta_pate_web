@@ -214,7 +214,7 @@ export default function ConfiguracionUsuario() {
       <div className="flex flex-col h-full w-4/5 gap-5">
         <div className="flex items-center justify-between">
           <p className="text-2xl w-full flex justify-center">
-            {t("mayu.listaUsuarios")}
+            {t("mayus.listaUsuarios")}
           </p>
           {isLoading && (
             <div className="flex items-center gap-2">

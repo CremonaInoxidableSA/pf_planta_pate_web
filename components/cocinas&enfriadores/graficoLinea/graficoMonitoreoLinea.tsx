@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { useCocinaContext } from "@/context/CocinaContext";
 import { useEnfriadorContext } from "@/context/EnfriadorContext";
 import Grafico from "@/components/cocinas&enfriadores/graficoIndividual/graficoMonitoreoIndividual";
@@ -10,6 +11,7 @@ import { useTranslation } from "react-i18next";
 const COCINA_IDS = [1, 2, 3, 4, 5, 6];
 
 const GraficoMonitoreo: React.FC<{ id: number }> = ({ id }) => {
+  const router = useRouter();
   const { cocinas } = useCocinaContext();
   const { enfriadores } = useEnfriadorContext();
   const { t } = useTranslation();
@@ -46,16 +48,28 @@ const GraficoMonitoreo: React.FC<{ id: number }> = ({ id }) => {
             ? "text-blue bg-blue/10 px-1.5 rounded"
             : "text-green bg-green/10 px-1.5 rounded";
 
+  const handleEquipoClick = () => {
+    const route = isCocina ? `/cocinas?id=${id}` : `/enfriadores?id=${id}`;
+    router.push(route);
+  };
+
   return (
     <div
       className={`flex flex-col w-full h-full bg-background2 rounded-md p-3 border-b-2 ${borderColor} gap-2 min-h-0`}
     >
       <div className="flex items-center justify-between shrink-0 w-full">
         <div className="flex flex-row items-center gap-2">
-          <span className={`font-semibold ${textColor}`}>{label}</span>
+          <span
+            onClick={handleEquipoClick}
+            className={`font-semibold ${textColor} cursor-pointer hover:opacity-80 transition-opacity`}
+          >
+            {label}
+          </span>
           <span className={"text-sm"}>{info?.receta}</span>
         </div>
-        <span className={`flex flex-col text-sm py-2 justify-center items-center ${estadoColor}`}>
+        <span
+          className={`flex flex-col text-sm py-2 justify-center items-center ${estadoColor}`}
+        >
           {estado} - {info?.tiempoTranscurrido ?? ""}
         </span>
       </div>

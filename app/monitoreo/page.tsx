@@ -25,7 +25,7 @@ const Monitoreo = () => {
         <Selector />
       </div>
 
-      <div className="flex-1 flex flex-col gap-5 overflow-hidden">
+      <div className="flex-1 flex flex-col gap-5">
         <div className="flex-1 flex flex-row gap-5 min-h-0">
           {linea.cocinas.map((id) => (
             <GraficoMonitoreo key={`equipo-${id}`} id={id} />
