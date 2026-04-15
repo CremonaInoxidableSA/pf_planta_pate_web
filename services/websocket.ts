@@ -10,7 +10,7 @@ export default function useWebSocket(pollId: string) {
   const [error, setError] = useState<string | null>(null);
   const socketRef = useRef<WebSocket | null>(null);
   const retryCountRef = useRef(0);
-  const reconnectTimeoutRef = useRef<NodeJS.Timeout>();
+  const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const connectRef = useRef<(() => void) | null>(null);
 
   const connect = useCallback(() => {

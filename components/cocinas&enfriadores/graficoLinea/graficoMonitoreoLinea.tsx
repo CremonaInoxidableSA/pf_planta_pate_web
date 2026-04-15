@@ -50,10 +50,14 @@ const GraficoMonitoreo: React.FC<{ id: number }> = ({ id }) => {
     <div
       className={`flex flex-col w-full h-full bg-background2 rounded-md p-3 border-b-2 ${borderColor} gap-2 min-h-0`}
     >
-      <div className="flex items-center justify-between shrink-0">
-        <span className={`font-semibold ${textColor}`}>{label}</span>
-        <span className={"text-sm"}>{info?.receta}</span>
-        <span className={`text-sm ${estadoColor}`}>{estado}</span>
+      <div className="flex items-center justify-between shrink-0 w-full">
+        <div className="flex flex-row items-center gap-2">
+          <span className={`font-semibold ${textColor}`}>{label}</span>
+          <span className={"text-sm"}>{info?.receta}</span>
+        </div>
+        <span className={`flex flex-col text-sm py-2 justify-center items-center ${estadoColor}`}>
+          {estado} - {info?.tiempoTranscurrido ?? ""}
+        </span>
       </div>
 
       <div className="flex gap-4 text-sm shrink-0">
