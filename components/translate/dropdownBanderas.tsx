@@ -1,15 +1,15 @@
 import React, { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import type { FlagComponent } from "country-flag-icons/react/3x2";
 import { FaChevronDown } from "react-icons/fa";
-import { US } from "country-flag-icons/react/3x2";
-import { AR } from "country-flag-icons/react/3x2";
+import { US, AR } from "country-flag-icons/react/3x2";
 import Cookies from "js-cookie";
 
 import useOutsideClick from "@/hooks/useOutsideClick";
 
 type Option = {
   value: "es" | "en";
-  flagComponent: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  flagComponent: FlagComponent;
 };
 
 const DropdownBanderas = () => {

@@ -1,7 +1,6 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
-import { useSearchParams } from "next/navigation";
 import { useMemo, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -20,11 +19,11 @@ import { SectorIOType } from "@/types/sectorIO";
 
 interface EquipoPageProps {
   type: "cocina" | "enfriador";
+  initialId?: string;
 }
 
-export default function EquipoPage({ type }: EquipoPageProps) {
+export default function EquipoPage({ type, initialId }: EquipoPageProps) {
   const { t } = useTranslation();
-  const searchParams = useSearchParams();
   const { cocinas } = useCocinaContext();
   const { enfriadores } = useEnfriadorContext();
   const router = useRouter();
@@ -32,14 +31,17 @@ export default function EquipoPage({ type }: EquipoPageProps) {
   const storageKey = `lastEquipoId_${type}`;
   const defaultId = type === "cocina" ? 1 : 7;
   const currentId = useMemo(() => {
-    const fromUrl = Number(searchParams.get("id"));
+    const fromUrl = Number(initialId);
+
     if (fromUrl) return fromUrl;
+
     if (typeof window !== "undefined") {
       const stored = Number(localStorage.getItem(storageKey));
       if (stored) return stored;
     }
+
     return defaultId;
-  }, [searchParams, storageKey, defaultId]);
+  }, [initialId, storageKey, defaultId]);
 
   const equipo =
     type === "cocina"

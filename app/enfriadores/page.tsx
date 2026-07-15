@@ -1,7 +1,15 @@
-"use client";
-
 import EquipoPage from "@/components/monitoreoIndividual/equiposPage";
 
-export default function EnfriadoresPage() {
-  return <EquipoPage type="enfriador" />;
+interface EnfriadoresPageProps {
+  searchParams: Promise<{
+    id?: string;
+  }>;
+}
+
+export default async function EnfriadoresPage({
+  searchParams,
+}: EnfriadoresPageProps) {
+  const { id } = await searchParams;
+
+  return <EquipoPage type="enfriador" initialId={id} />;
 }

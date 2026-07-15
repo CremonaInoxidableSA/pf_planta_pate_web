@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pf_pate_chile
+    restart: unless-stopped
+    expose:
+      - "3000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+    networks:
+      - app-network
+    volumes:
+      - /home/ec2-user/.aws:/root/.aws:ro
+
+networks:
+  app-network:
+    driver: bridge
