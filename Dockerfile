@@ -1,30 +1,43 @@
-# Build stage
+# ---------- Dependencies ----------
+FROM node:20-alpine AS deps
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm ci
+
+
+# ---------- Builder ----------
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-COPY package*.json ./
-
-RUN npm ci
-
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN npm run build
 
-FROM node:20-alpine
 
-ENV NODE_ENV=production
-ENV TZ=America/Argentina/Buenos_Aires
+# ---------- Runner ----------
+FROM node:20-alpine AS runner
 
 WORKDIR /app
 
-COPY package*.json ./
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
 
-RUN npm ci
+RUN addgroup -S nextjs && adduser -S nextjs -G nextjs
 
-COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+
+USER nextjs
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
