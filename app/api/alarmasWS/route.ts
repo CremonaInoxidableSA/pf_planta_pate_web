@@ -3,8 +3,7 @@ import WebSocket from "ws";
 export const dynamic = "force-dynamic";
 
 const WS_URL =
-  process.env.WS_DATOS_ALARMAS_URL ??
-  "ws://localhost:8000/ws/datos-alarmas";
+  process.env.WS_DATOS_ALARMAS_URL ?? "ws://localhost:8000/ws/datos-alarmas";
 
 export async function GET() {
   const headers = new Headers({

@@ -77,8 +77,7 @@ export const LineaProvider = ({ children }: { children: React.ReactNode }) => {
         [];
       const datosEnfriadores =
         (data["datos-enfriadores"] as
-          | [InfoEquipo, DetallesEquipo][]
-          | undefined) || [];
+          [InfoEquipo, DetallesEquipo][] | undefined) || [];
 
       const linea1 = {
         cocinas: datosCocinas.filter(([info]) => [1, 2, 3].includes(info.id)),

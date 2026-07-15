@@ -24,8 +24,7 @@ const GraficoMonitoreo: React.FC<{ id: number }> = ({ id }) => {
   const info = isCocina ? cocina?.info : enfriador?.info;
   const historial =
     ((isCocina ? cocina?.detalles.historial : enfriador?.detalles.historial) as
-      | HistorialItem[]
-      | undefined) ?? [];
+      HistorialItem[] | undefined) ?? [];
 
   const numero = isCocina
     ? cocina?.detalles.num_cocina

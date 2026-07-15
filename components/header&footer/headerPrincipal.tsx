@@ -1,7 +1,6 @@
 import { ThemeSwitcher } from "@/components/theme/themeSwitcher";
 
 import { useTranslation } from "react-i18next";
-import { VscBell } from "react-icons/vsc";
 
 import Link from "next/link";
 import Image from "next/image";

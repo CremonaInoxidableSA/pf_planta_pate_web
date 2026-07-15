@@ -65,8 +65,7 @@ export const EnfriadorProvider = ({
   const enfriadores =
     (
       data?.["datos-enfriadores"] as
-        | [EnfriadorInfo, EnfriadorDetalles][]
-        | undefined
+        [EnfriadorInfo, EnfriadorDetalles][] | undefined
     )?.map((item) => ({
       info: item[0],
       detalles: item[1],
