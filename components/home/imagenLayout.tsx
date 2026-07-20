@@ -17,8 +17,8 @@ interface Equipo {
   tipo: "COCINA" | "ENFRIADOR";
   id: number;
   estado: string;
-  tempAguaActual: number;
-  tempProductoActual: number;
+  tempAguaActual: number | null;
+  tempProductoActual: number | null;
   receta: string;
   tiempoTranscurrido: string;
 }
@@ -77,6 +77,16 @@ function getEstadoColor(estado: string): string {
   if (estadoUpper === "INACTIVO") return "#666D";
 
   return "black";
+}
+
+function formatearTemperatura(
+  valor: number | null | undefined,
+): string {
+  if (typeof valor !== "number" || !Number.isFinite(valor)) {
+    return "-";
+  }
+
+  return `${valor.toFixed(0)}°C`;
 }
 
 export function ImagenLayout() {
@@ -270,10 +280,10 @@ export function ImagenLayout() {
                               textShadow: "1px 1px 2px black",
                             }}
                           >
-                            {t("min.tempActual")}:{" "}
-                            {equipo.tempProductoActual !== undefined
-                              ? `${equipo.tempProductoActual.toFixed(0)}°C`
-                              : "-"}
+                            {t("min.tempIngreso")}:{" "}
+                            {formatearTemperatura(
+                              equipo.tempProductoActual,
+                            )}
                           </p>
                           <p
                             className="font-bold"
@@ -283,9 +293,7 @@ export function ImagenLayout() {
                             }}
                           >
                             {t("min.tempAgua")}:{" "}
-                            {equipo.tempAguaActual !== undefined
-                              ? `${equipo.tempAguaActual.toFixed(0)}°C`
-                              : "-"}
+                            {formatearTemperatura(equipo.tempAguaActual)}
                           </p>
                           <p
                             className="font-bold mt-px"
