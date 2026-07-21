@@ -4,7 +4,7 @@ import { verifyToken } from "./lib/auth";
 
 const BYPASS_AUTH = false;
 
-const publicRoutes = ["/login", "/register", "/bootstrap"];
+const publicRoutes = ["/login", "/register", "/bootstrap,", "/"];
 const adminRoutes = ["/config_user", "/api/config"];
 const routesWithOwnToken = ["/login/recuperacion/reset_pass"];
 

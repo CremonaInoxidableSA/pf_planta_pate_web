@@ -61,14 +61,27 @@ const Selector: React.FC<SelectorProps> = ({
   };
 
   const getDisplayName = (item: (typeof EQUIPOS_HISTORICO)[number]) => {
-    let typeLabel = "";
-    if (item.type === "cocina") {
-      typeLabel = t("min.cocina");
-    } else if (item.type === "enfriador") {
-      typeLabel = t("min.enfriador");
-    }
-    const lineLabel = t(`min.${item.lineKey}`);
-    return `${typeLabel} ${item.id} - ${lineLabel}`;
+    const typeLabel =
+      item.type === "cocina" ? t("min.cocina") : t("min.enfriador");
+
+    const isCocina = item.type === "cocina";
+    const equipmentNumber = isCocina
+      ? item.id <= 3
+        ? item.id
+        : item.id - 3
+      : item.id <= 10
+        ? item.id - 6
+        : item.id - 10;
+    const lineNumber = isCocina
+      ? item.id <= 3
+        ? 1
+        : 2
+      : item.id <= 10
+        ? 1
+        : 2;
+    const equipmentCode = `${isCocina ? "C" : "E"}${lineNumber}${equipmentNumber}`;
+
+    return `${typeLabel} ${equipmentNumber} - L${lineNumber} (${equipmentCode})`;
   };
 
   return (
