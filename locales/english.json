@@ -123,6 +123,7 @@
     "buscar": "Search..."
   },
   "mayus": {
+    "linea":"LINE",
     "titulo": "PF PLANTA PATE - DATA ACQUISITION SYSTEM",
     "alarmas": "ALARMS",
     "activas": "ACTIVE",

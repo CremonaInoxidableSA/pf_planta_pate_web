@@ -27,6 +27,7 @@ interface Section {
   name: string;
   key: string;
   path: string;
+  line: number;
   style: React.CSSProperties;
 }
 
@@ -47,22 +48,22 @@ const leftPositions = {
 
 const sectionConfig = {
   cocinas: [
-    { id: 1, key: "C1L1", line: 1, position: "C1" },
-    { id: 2, key: "C2L1", line: 1, position: "C2" },
-    { id: 3, key: "C3L1", line: 1, position: "C3" },
-    { id: 4, key: "C1L2", line: 2, position: "C1" },
-    { id: 5, key: "C2L2", line: 2, position: "C2" },
-    { id: 6, key: "C3L2", line: 2, position: "C3" },
+    { id: 1, key: "Cocina 1", line: 1, position: "C1" },
+    { id: 2, key: "Cocina 2", line: 1, position: "C2" },
+    { id: 3, key: "Cocina 3", line: 1, position: "C3" },
+    { id: 4, key: "Cocina 1", line: 2, position: "C1" },
+    { id: 5, key: "Cocina 2", line: 2, position: "C2" },
+    { id: 6, key: "Cocina 3", line: 2, position: "C3" },
   ],
   enfriadores: [
-    { id: 7, key: "E1L1", line: 1, position: "E1" },
-    { id: 8, key: "E2L1", line: 1, position: "E2" },
-    { id: 9, key: "E3L1", line: 1, position: "E3" },
-    { id: 10, key: "E4L1", line: 1, position: "E4" },
-    { id: 11, key: "E1L2", line: 2, position: "E1" },
-    { id: 12, key: "E2L2", line: 2, position: "E2" },
-    { id: 13, key: "E3L2", line: 2, position: "E3" },
-    { id: 14, key: "E4L2", line: 2, position: "E4" },
+    { id: 7, key: "Enfriador 1", line: 1, position: "E1" },
+    { id: 8, key: "Enfriador 2", line: 1, position: "E2" },
+    { id: 9, key: "Enfriador 3", line: 1, position: "E3" },
+    { id: 10, key: "Enfriador 4", line: 1, position: "E4" },
+    { id: 11, key: "Enfriador 1", line: 2, position: "E1" },
+    { id: 12, key: "Enfriador 2", line: 2, position: "E2" },
+    { id: 13, key: "Enfriador 3", line: 2, position: "E3" },
+    { id: 14, key: "Enfriador 4", line: 2, position: "E4" },
   ],
 };
 
@@ -78,9 +79,7 @@ function getEstadoColor(estado: string): string {
   return "black";
 }
 
-function formatearTemperatura(
-  valor: number | null | undefined,
-): string {
+function formatearTemperatura(valor: number | null | undefined): string {
   if (typeof valor !== "number" || !Number.isFinite(valor)) {
     return "-";
   }
@@ -107,6 +106,7 @@ export function ImagenLayout() {
           name: translatedName,
           key: key,
           path,
+          line,
           style: {
             top: line === 1 ? topL1 : topL2,
             left: leftPositions[position as keyof typeof leftPositions],
@@ -189,6 +189,8 @@ export function ImagenLayout() {
 
         {sections.map((section) => {
           const equipo = getEquipoData(section);
+          const tipoEquipo =
+            section.path.slice(1) === "cocinas" ? "cocina" : "enfriador";
 
           const equipoNum = section.id;
           const href = `${section.path}?id=${equipoNum}`;
@@ -196,13 +198,7 @@ export function ImagenLayout() {
             ...section.style,
             backgroundColor: equipo ? getEstadoColor(equipo.estado) : "black",
           };
-          const tipoEquipo =
-            section.path.slice(1) === "cocinas" ? "cocina" : "enfriador";
-          const sectionConfigItem = sectionConfig[
-            tipoEquipo === "cocina" ? "cocinas" : "enfriadores"
-          ].find((conf) => conf.key === section.key);
-
-          const lineaEquipo = sectionConfigItem?.line || "1";
+          const lineaEquipo = section.line;
 
           return (
             <Link
@@ -249,6 +245,14 @@ export function ImagenLayout() {
                             }}
                           >
                             {section.name}
+                          </p>
+                          <p
+                            className="font-semibold uppercase"
+                            style={{
+                              fontSize: "calc(0.7vw + 0.5vh)",
+                            }}
+                          >
+                            {t("mayus.linea")} {lineaEquipo}
                           </p>
                           <p
                             className="font-extrabold uppercase"
