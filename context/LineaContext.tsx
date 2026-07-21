@@ -16,7 +16,6 @@ interface InfoEquipo {
     | "PRE OPERATIVO"
     | "PRE OPERATIVO";
   temp_agua: number;
-  temp_prod: number;
   temp_ingreso: number;
   temp_chiller: number;
   niv_agua: number;

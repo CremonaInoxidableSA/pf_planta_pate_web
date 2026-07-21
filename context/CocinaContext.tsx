@@ -9,7 +9,6 @@ interface CocinaInfo {
   id: number;
   estado: string;
   temp_agua: number;
-  temp_prod: number;
   temp_ingreso: number;
   temp_chiller: number;
   niv_agua: number;

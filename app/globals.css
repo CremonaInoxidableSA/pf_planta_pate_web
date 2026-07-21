@@ -4,7 +4,24 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-headerbg: var(--headerbg);
   --color-background: var(--background);
+  --color-background2: var(--background2);
+  --color-background3: var(--background3);
+  --color-background4: var(--background4);
+  --color-background5: var(--background5);
+  --color-background6: var(--background6);
+
+  --color-redcremona: var(--color-redcremona);
+  --color-bluecremona: var(--color-bluecremona);
+  --color-orangecremona: var(--color-orangecremona);
+  --color-yellowcremona: var(--color-yellowcremona);
+  --color-greencremona: var(--color-greencremona);
+  --color-tealcremona: var(--color-tealcremona);
+  --color-cyancremona: var(--color-cyancremona);
+  --color-purplecremona: var(--color-purplecremona);
+  --color-pinkcremona: var(--color-pinkcremona);
+  
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -213,7 +230,6 @@
   --datosbluebackhover: #0c4566ff;
   --waterTemp: #0a96fc;
   --waterLevel: #a855f7;
-  --ingresoTemp: #ff5045;
   --greengraph: #4bc04b;
 }
 

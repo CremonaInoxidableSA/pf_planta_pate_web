@@ -55,7 +55,6 @@ export default function EquipoPage({ type, initialId }: EquipoPageProps) {
 
   const labelToKeyMap: Record<string, string> = {
     [t("min.tempAgua")]: "tempAgua",
-    [t("min.tempProd")]: "tempProd",
     [t("min.tempIngreso")]: "tempIngreso",
     [t("min.nivelAgua")]: "nivelAgua",
   };
@@ -64,11 +63,6 @@ export default function EquipoPage({ type, initialId }: EquipoPageProps) {
     {
       label: t("min.tempAgua"),
       value: equipo?.info.temp_agua ?? "N/A",
-      unit: "°C",
-    },
-    {
-      label: t("min.tempProd"),
-      value: equipo?.info.temp_prod ?? "N/A",
       unit: "°C",
     },
     {

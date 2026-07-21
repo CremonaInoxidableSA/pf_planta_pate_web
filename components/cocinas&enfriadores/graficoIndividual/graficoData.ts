@@ -4,8 +4,8 @@ export const ESTADOS_VACIO: string[] = ["INACTIVO"];
 
 export const historialToPoints = (
   historial: HistorialItem[],
-): { tempAgua: PuntoTiempo[]; tempProd: PuntoTiempo[] } => {
-  if (!historial.length) return { tempAgua: [], tempProd: [] };
+): { tempAgua: PuntoTiempo[]; tempIngreso: PuntoTiempo[] } => {
+  if (!historial.length) return { tempAgua: [], tempIngreso: [] };
 
   const sorted = [...historial].sort(
     (a, b) => new Date(a.tiempo).getTime() - new Date(b.tiempo).getTime(),
@@ -14,7 +14,7 @@ export const historialToPoints = (
   const t0 = new Date(sorted[0].tiempo).getTime() / 1000;
 
   const tempAgua: PuntoTiempo[] = [];
-  const tempProd: PuntoTiempo[] = [];
+  const tempIngreso: PuntoTiempo[] = [];
 
   for (const item of sorted) {
     const x = Math.round(new Date(item.tiempo).getTime() / 1000 - t0);
@@ -24,13 +24,13 @@ export const historialToPoints = (
     }
 
     if (
-      typeof item.temp_prod === "number" &&
-      !isNaN(item.temp_prod) &&
-      item.temp_prod !== 0
+      typeof item.temp_ingreso === "number" &&
+      !isNaN(item.temp_ingreso) &&
+      item.temp_ingreso !== 0
     ) {
-      tempProd.push({ x, y: item.temp_prod });
+      tempIngreso.push({ x, y: item.temp_ingreso });
     }
   }
 
-  return { tempAgua, tempProd };
+  return { tempAgua, tempIngreso };
 };

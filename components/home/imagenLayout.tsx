@@ -18,7 +18,6 @@ interface Equipo {
   id: number;
   estado: string;
   tempAguaActual: number | null;
-  tempProductoActual: number | null;
   receta: string;
   tiempoTranscurrido: string;
 }
@@ -48,22 +47,22 @@ const leftPositions = {
 
 const sectionConfig = {
   cocinas: [
-    { id: 1, key: "cocina1", line: 1, position: "C1" },
-    { id: 2, key: "cocina2", line: 1, position: "C2" },
-    { id: 3, key: "cocina3", line: 1, position: "C3" },
-    { id: 4, key: "cocina4", line: 2, position: "C1" },
-    { id: 5, key: "cocina5", line: 2, position: "C2" },
-    { id: 6, key: "cocina6", line: 2, position: "C3" },
+    { id: 1, key: "C1L1", line: 1, position: "C1" },
+    { id: 2, key: "C2L1", line: 1, position: "C2" },
+    { id: 3, key: "C3L1", line: 1, position: "C3" },
+    { id: 4, key: "C1L2", line: 2, position: "C1" },
+    { id: 5, key: "C2L2", line: 2, position: "C2" },
+    { id: 6, key: "C3L2", line: 2, position: "C3" },
   ],
   enfriadores: [
-    { id: 7, key: "enfriador1", line: 1, position: "E1" },
-    { id: 8, key: "enfriador2", line: 1, position: "E2" },
-    { id: 9, key: "enfriador3", line: 1, position: "E3" },
-    { id: 10, key: "enfriador4", line: 1, position: "E4" },
-    { id: 11, key: "enfriador5", line: 2, position: "E1" },
-    { id: 12, key: "enfriador6", line: 2, position: "E2" },
-    { id: 13, key: "enfriador7", line: 2, position: "E3" },
-    { id: 14, key: "enfriador8", line: 2, position: "E4" },
+    { id: 7, key: "E1L1", line: 1, position: "E1" },
+    { id: 8, key: "E2L1", line: 1, position: "E2" },
+    { id: 9, key: "E3L1", line: 1, position: "E3" },
+    { id: 10, key: "E4L1", line: 1, position: "E4" },
+    { id: 11, key: "E1L2", line: 2, position: "E1" },
+    { id: 12, key: "E2L2", line: 2, position: "E2" },
+    { id: 13, key: "E3L2", line: 2, position: "E3" },
+    { id: 14, key: "E4L2", line: 2, position: "E4" },
   ],
 };
 
@@ -141,7 +140,6 @@ export function ImagenLayout() {
           id: cocina.info.id,
           estado: cocina.info.estado,
           tempAguaActual: cocina.info.temp_agua,
-          tempProductoActual: cocina.info.temp_ingreso,
           receta: cocina.info.receta,
           tiempoTranscurrido: cocina.info.tiempoTranscurrido,
         };
@@ -155,7 +153,6 @@ export function ImagenLayout() {
           id: enfriador.info.id,
           estado: enfriador.info.estado,
           tempAguaActual: enfriador.info.temp_agua,
-          tempProductoActual: enfriador.info.temp_ingreso,
           receta: enfriador.info.receta,
           tiempoTranscurrido: enfriador.info.tiempoTranscurrido,
         };
@@ -167,7 +164,6 @@ export function ImagenLayout() {
       id: section.id,
       estado: "INACTIVO",
       tempAguaActual: 0,
-      tempProductoActual: 0,
       receta: "-",
       tiempoTranscurrido: "00:00",
     };
@@ -273,18 +269,6 @@ export function ImagenLayout() {
                                 : "8px",
                           }}
                         >
-                          <p
-                            className="font-bold"
-                            style={{
-                              fontSize: "calc(0.7vw + 0.4vh)",
-                              textShadow: "1px 1px 2px black",
-                            }}
-                          >
-                            {t("min.tempIngreso")}:{" "}
-                            {formatearTemperatura(
-                              equipo.tempProductoActual,
-                            )}
-                          </p>
                           <p
                             className="font-bold"
                             style={{

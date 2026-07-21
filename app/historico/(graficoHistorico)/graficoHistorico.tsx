@@ -34,8 +34,6 @@ interface CicloGeneral {
   receta: string;
   temp_agua_max: number;
   temp_agua_min: number;
-  temp_producto_max: number;
-  temp_producto_min: number;
   nivel_agua_max: number;
   nivel_agua_min: number;
 }
@@ -63,7 +61,6 @@ interface GraficoHistoricoProps {
 
 const coloresSensores: Record<string, string> = {
   "Temperatura agua": "#039dfc",
-  "Temperatura producto": "#29cf00",
   "Temperatura ingreso": "#9f00cf",
   "Nivel agua": "#a855f7",
 };
@@ -288,16 +285,6 @@ const GraficoHistorico = ({
                   style={{ background: "rgb(3, 157, 252)" }}
                 />
                 {t("min.tempAguaMax")}: <b>{general.temp_agua_max}°C</b>
-              </span>
-              <span
-                className="flex items-center gap-1 text-sm"
-                style={{ color: "rgb(41, 207, 0)" }}
-              >
-                <span
-                  className="w-3 h-3 rounded-sm inline-block"
-                  style={{ background: "rgb(41, 207, 0)" }}
-                />
-                {t("min.tempProductoMax")}: <b>{general.temp_producto_max}°C</b>
               </span>
               <span
                 className="flex items-center gap-1 text-sm"

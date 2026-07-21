@@ -25,10 +25,6 @@ export const getColorClass = (
     return "text-waterTemp !important";
   }
 
-  if (key === "tempProd") {
-    return "text-greengraph !important";
-  }
-
   if (key === "nivelAgua") {
     return "text-waterLevel !important";
   }

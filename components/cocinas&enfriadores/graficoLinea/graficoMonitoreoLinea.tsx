@@ -24,7 +24,8 @@ const GraficoMonitoreo: React.FC<{ id: number }> = ({ id }) => {
   const info = isCocina ? cocina?.info : enfriador?.info;
   const historial =
     ((isCocina ? cocina?.detalles.historial : enfriador?.detalles.historial) as
-      HistorialItem[] | undefined) ?? [];
+      | HistorialItem[]
+      | undefined) ?? [];
 
   const numero = isCocina
     ? cocina?.detalles.num_cocina
@@ -78,7 +79,7 @@ const GraficoMonitoreo: React.FC<{ id: number }> = ({ id }) => {
           {t("min.tempAgua")}: {info?.temp_agua ?? "-"} °C
         </span>
         <span className="text-greengraph">
-          {t("min.tempProd")}: {info?.temp_prod ?? "-"} °C
+          {t("min.tempIngreso")}: {info?.temp_ingreso ?? "-"} °C
         </span>
       </div>
 

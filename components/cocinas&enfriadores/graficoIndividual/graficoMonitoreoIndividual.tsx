@@ -68,7 +68,7 @@ const Grafico = ({ historial, estado, isCocina }: GraficoProps) => {
             fill: false,
           },
           {
-            label: "Temp. Producto",
+            label: "Temp. Ingreso",
             data: [],
             borderColor: prodColor,
             backgroundColor: prodColor + "33",
@@ -97,9 +97,9 @@ const Grafico = ({ historial, estado, isCocina }: GraficoProps) => {
       chart.data.datasets[0].data = [];
       chart.data.datasets[1].data = [];
     } else {
-      const { tempAgua, tempProd } = historialToPoints(historial);
+      const { tempAgua, tempIngreso } = historialToPoints(historial);
       chart.data.datasets[0].data = tempAgua;
-      chart.data.datasets[1].data = tempProd;
+      chart.data.datasets[1].data = tempIngreso;
     }
 
     chart.update("none");
