@@ -13,8 +13,7 @@ const ExportButton: React.FC<ExportButtonProps> = ({ onExport, disabled }) => {
   const { t } = useTranslation();
   return (
     <Button
-      variant="outline"
-      className="w-1/2 h-full flex items-center gap-2 bg-background3 hover:bg-background5"
+      className="w-1/2 h-full flex items-center gap-2 bg-[#761122] hover:bg-[#8f1529] text-white"
       disabled={disabled}
       onClick={onExport}
     >
