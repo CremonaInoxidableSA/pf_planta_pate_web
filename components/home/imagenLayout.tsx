@@ -48,22 +48,22 @@ const leftPositions = {
 
 const sectionConfig = {
   cocinas: [
-    { id: 1, key: "Cocina 1", line: 1, position: "C1" },
-    { id: 2, key: "Cocina 2", line: 1, position: "C2" },
-    { id: 3, key: "Cocina 3", line: 1, position: "C3" },
-    { id: 4, key: "Cocina 1", line: 2, position: "C1" },
-    { id: 5, key: "Cocina 2", line: 2, position: "C2" },
-    { id: 6, key: "Cocina 3", line: 2, position: "C3" },
+    { id: 1, key: "COCINA 1", line: 1, position: "C1" },
+    { id: 2, key: "COCINA 2", line: 1, position: "C2" },
+    { id: 3, key: "COCINA 3", line: 1, position: "C3" },
+    { id: 4, key: "COCINA 1", line: 2, position: "C1" },
+    { id: 5, key: "COCINA 2", line: 2, position: "C2" },
+    { id: 6, key: "COCINA 3", line: 2, position: "C3" },
   ],
   enfriadores: [
-    { id: 7, key: "Enfriador 1", line: 1, position: "E1" },
-    { id: 8, key: "Enfriador 2", line: 1, position: "E2" },
-    { id: 9, key: "Enfriador 3", line: 1, position: "E3" },
-    { id: 10, key: "Enfriador 4", line: 1, position: "E4" },
-    { id: 11, key: "Enfriador 1", line: 2, position: "E1" },
-    { id: 12, key: "Enfriador 2", line: 2, position: "E2" },
-    { id: 13, key: "Enfriador 3", line: 2, position: "E3" },
-    { id: 14, key: "Enfriador 4", line: 2, position: "E4" },
+    { id: 7, key: "ENFRIADOR 1", line: 1, position: "E1" },
+    { id: 8, key: "ENFRIADOR 2", line: 1, position: "E2" },
+    { id: 9, key: "ENFRIADOR 3", line: 1, position: "E3" },
+    { id: 10, key: "ENFRIADOR 4", line: 1, position: "E4" },
+    { id: 11, key: "ENFRIADOR 1", line: 2, position: "E1" },
+    { id: 12, key: "ENFRIADOR 2", line: 2, position: "E2" },
+    { id: 13, key: "ENFRIADOR 3", line: 2, position: "E3" },
+    { id: 14, key: "ENFRIADOR 4", line: 2, position: "E4" },
   ],
 };
 

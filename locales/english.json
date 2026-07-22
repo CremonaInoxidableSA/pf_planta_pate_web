@@ -143,6 +143,7 @@
     "importarBDD": "IMPORT DATABASE",
     "exportarBDD": "EXPORT DATABASE",
     "generarReclamo": "GENERATE CLAIM",
-    "listaUsuarios": "USER LIST"
+    "listaUsuarios": "USER LIST",
+    "idCiclo":"CYCLE ID"
   }
 }

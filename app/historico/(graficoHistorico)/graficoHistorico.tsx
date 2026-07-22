@@ -128,7 +128,6 @@ const GraficoHistorico = ({
 
     fetchData();
     return () => controller.abort();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCiclo?.id_ciclo, filter?.equipoId]);
 
   useEffect(() => {
@@ -259,7 +258,7 @@ const GraficoHistorico = ({
         <div className="flex flex-row justify-between w-full items-center">
           <div>
             <h3 className="text-lg font-semibold text-texto">
-              {t("min.ciclo")} {selectedCiclo.id_ciclo} - {lote}
+              {t("mayus.idCiclo")} {selectedCiclo.id_ciclo} - {lote}
               {general?.receta && (
                 <span className="ml-2 text-sm font-normal text-orange">
                   {general.receta}

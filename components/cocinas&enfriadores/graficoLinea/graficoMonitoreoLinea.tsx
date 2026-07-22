@@ -33,8 +33,8 @@ const GraficoMonitoreo: React.FC<{ id: number }> = ({ id }) => {
 
   const estado = info?.estado ?? "INACTIVO";
   const label = isCocina
-    ? `Cocina ${numero ?? id}`
-    : `Enfriador ${numero ?? id}`;
+    ? `COCINA ${numero ?? id}`
+    : `ENFRIADOR ${numero ?? id}`;
   const borderColor = isCocina ? "border-orange" : "border-blue";
   const textColor = isCocina ? "text-orange" : "text-blue";
   const estadoColor =
