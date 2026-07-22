@@ -58,19 +58,20 @@ const GraficoMonitoreo: React.FC<{ id: number }> = ({ id }) => {
       className={`flex flex-col w-full h-full bg-background2 rounded p-3 border-b-2 ${borderColor} gap-2 min-h-0`}
     >
       <div className="flex items-center justify-between shrink-0 w-full">
-        <div className="flex flex-row items-center gap-2">
+        <div className="flex flex-col items-center">
           <span
             onClick={handleEquipoClick}
-            className={`font-semibold ${textColor} cursor-pointer hover:opacity-80 transition-opacity`}
+            className={`font-semibold ${textColor} cursor-pointer hover:opacity-80 transition-opacity justify-start w-full`}
           >
             {label}
           </span>
-          <span className={"text-sm"}>{info?.receta}</span>
+          <span className={"text-sm"}>{t("mayus.receta")}: {info?.receta}</span>
         </div>
         <span
-          className={`flex flex-col text-sm py-2 justify-center items-center ${estadoColor}`}
+          className={`flex flex-col text-sm px-2 justify-center items-center ${estadoColor}`}
         >
-          {estado} - {info?.tiempoTranscurrido ?? ""}
+          <p>{estado}</p>
+          <p>{info?.tiempoTranscurrido ?? ""}</p>
         </span>
       </div>
 
@@ -83,9 +84,7 @@ const GraficoMonitoreo: React.FC<{ id: number }> = ({ id }) => {
         </span>
       </div>
 
-      <div className="flex-1 min-h-0">
-        <Grafico historial={historial} estado={estado} isCocina={isCocina} />
-      </div>
+      <Grafico historial={historial} estado={estado} isCocina={isCocina} />
     </div>
   );
 };
