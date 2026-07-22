@@ -61,7 +61,7 @@ interface GraficoHistoricoProps {
 
 const coloresSensores: Record<string, string> = {
   "Temperatura agua": "#039dfc",
-  "Temperatura ingreso": "#9f00cf",
+  "Temperatura ingreso": "#54c42d",
   "Nivel agua": "#a855f7",
 };
 
