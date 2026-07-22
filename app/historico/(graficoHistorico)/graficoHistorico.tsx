@@ -82,6 +82,12 @@ const GraficoHistorico = ({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const handleResetZoom = () => {
+    if (chartRef.current && typeof (chartRef.current as any).resetZoom === "function") {
+      (chartRef.current as any).resetZoom();
+    }
+  };
+
   useEffect(() => {
     const loadZoomPlugin = async () => {
       try {
@@ -208,7 +214,18 @@ const GraficoHistorico = ({
         scales: {
           x: {
             type: "time",
-            time: { tooltipFormat: "dd/MM/yyyy HH:mm:ss" },
+            time: {
+              tooltipFormat: "dd/MM/yyyy HH:mm:ss",
+              displayFormats: {
+                millisecond: "HH:mm:ss",
+                second: "HH:mm:ss",
+                minute: "HH:mm:ss",
+                hour: "HH:mm:ss",
+                day: "dd/MM/yyyy",
+                month: "MM/yyyy",
+                year: "yyyy",
+              },
+            },
             ticks: { color: "rgb(156, 163, 175)" },
             grid: { color: "rgba(156, 163, 175, 0.1)" },
           },
@@ -315,6 +332,14 @@ const GraficoHistorico = ({
                 />
                 {t("min.nivelAguaMax")}: <b>{general.nivel_agua_max} mm</b>
               </span>
+              <button
+                type="button"
+                className="rounded bg-orange px-3 py-1 text-sm font-medium text-white transition hover:bg-orange/90 disabled:cursor-not-allowed disabled:opacity-50"
+                onClick={handleResetZoom}
+                disabled={!hasData}
+              >
+                Reiniciar zoom
+              </button>
             </div>
           )}
         </div>

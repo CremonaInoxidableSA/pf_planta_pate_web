@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 interface CicloActivoProps {
-  datosCiclo: { label: string; value: string | number | null }[];
+  datosCiclo: { label: string; value: string | number | null; unit?: string }[];
   displayData: (
     data: string | number | null | boolean,
   ) => string | number | boolean;
@@ -25,7 +25,7 @@ const CicloActivo: React.FC<CicloActivoProps> = ({
             className="bg-background3 flex flex-col px-5 py-2.5 rounded"
           >
             <p className="text-lg text-texto">{dato.label}</p>
-            <p className="text-lg text-texto">{displayData(dato.value)}</p>
+            <p className="text-lg text-texto">{displayData(dato.value)} {dato.unit && `${dato.unit}`}</p>
           </li>
         ))}
       </ul>
