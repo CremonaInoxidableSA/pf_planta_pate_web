@@ -120,7 +120,9 @@
     "alarmasActivasLinea": "Alarmas activas línea",
     "sinAlarmasActivas": "Sin alarmas activas",
     "tiempoTranscurrido": "Tiempo transcurrido",
-    "buscar": "Buscar..."
+    "buscar": "Buscar...",
+    "tempIngresoMax": "Temp. ingreso máx",
+    "idCiclo":"ID Ciclo"
   },
   "mayus": {
     "linea":"LINEA",
@@ -144,6 +146,7 @@
     "exportarBDD": "EXPORTAR BASE DE DATOS",
     "generarReclamo": "GENERAR RECLAMO",
     "listaUsuarios": "LISTA DE USUARIOS",
-    "idCiclo":"ID CICLO"
+    "idCiclo":"ID CICLO",
+    "lote":"LOTE"
   }
 }

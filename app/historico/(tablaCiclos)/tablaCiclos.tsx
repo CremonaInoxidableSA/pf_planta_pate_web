@@ -58,7 +58,7 @@ const TablaCiclos: React.FC<TablaCiclosProps> = ({
         >
           <TableHeader>
             <TableRow>
-              <TableHead>ID</TableHead>
+              <TableHead>{t("min.idCiclo")}</TableHead>
               <TableHead>{t("min.lote")}</TableHead>
               <TableHead>{t("min.inicio")}</TableHead>
               <TableHead>{t("min.fin")}</TableHead>

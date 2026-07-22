@@ -33,6 +33,8 @@ interface CicloGeneral {
   fecha_inicio: string;
   fecha_fin: string;
   receta: string;
+  temp_ingreso_max: number;
+  temp_ingreso_min: number;
   temp_agua_max: number;
   temp_agua_min: number;
   nivel_agua_max: number;
@@ -266,20 +268,24 @@ const GraficoHistorico = ({
         <div className="flex flex-row justify-between w-full items-center">
           <div>
             <h3 className="text-lg font-semibold text-texto">
-              {t("mayus.idCiclo")} {selectedCiclo.id_ciclo} - {lote}
+              {t("mayus.idCiclo")}: {selectedCiclo.id_ciclo} | {t("mayus.lote")}
+              : {lote} | {t("mayus.receta")}:{" "}
               {general?.receta && (
-                <span className="ml-2 text-sm font-normal text-orange">
+                <span className="font-normal text-orange">
                   {general.receta}
                 </span>
               )}
             </h3>
-            <p className="text-sm text-orange ">
-              {format(new Date(fechaInicio), "dd/MM/yyyy HH:mm")} -{" "}
+            <p className="text-sm text-orange">
+              Fecha: {format(new Date(fechaInicio), "dd/MM/yyyy")} de{" "}
+              {format(new Date(fechaInicio), "HH:mm")} a{" "}
               {format(new Date(fechaFin), "HH:mm")}
-              {general?.tiempo_transcurrido && (
-                <span className="ml-2">({general.tiempo_transcurrido})</span>
-              )}
             </p>
+            {general?.tiempo_transcurrido && (
+              <p className="text-sm text-orange">
+                Duracion (HH:MM:SS): {general.tiempo_transcurrido}
+              </p>
+            )}
           </div>
           {general && (
             <div className="flex flex-wrap gap-4">
@@ -292,6 +298,12 @@ const GraficoHistorico = ({
                   style={{ background: "rgb(3, 157, 252)" }}
                 />
                 {t("min.tempAguaMax")}: <b>{general.temp_agua_max}°C</b>
+              </span>
+              <span
+                className="flex items-center gap-1 text-sm"
+                style={{ color: "rgb(84, 196, 45)" }}
+              >
+                {t("min.tempIngresoMax")}: <b>{general.temp_ingreso_max}°C</b>
               </span>
               <span
                 className="flex items-center gap-1 text-sm"
