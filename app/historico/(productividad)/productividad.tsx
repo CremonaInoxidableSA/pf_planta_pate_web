@@ -40,15 +40,6 @@ const Productividad = ({
                 : ""}
             </span>
           )}
-        <p className="text-sm text-orange">
-          {isLoading
-            ? t("min.cargando")
-            : error
-              ? error
-              : data
-                ? `${data.ciclos_realizados} ciclos - ${data.produccion_total} Tn`
-                : t("min.seleccionarRango")}
-        </p>
         <div className="w-full flex justify-evenly">
           <span className="flex flex-col items-center gap-1">
             <p className="text-4xl text-texto">
