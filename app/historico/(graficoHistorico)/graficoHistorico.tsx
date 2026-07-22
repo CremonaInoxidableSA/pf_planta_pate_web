@@ -178,7 +178,7 @@ const GraficoHistorico = ({
     const backgroundImagePlugin = createBackgroundImagePlugin({
       src: "/creminox.png",
       widthRatio: 0.5,
-      alpha: 0.12,
+      alpha: 0.4,
     });
 
     chartRef.current = new Chart(ctx, {
@@ -236,6 +236,7 @@ const GraficoHistorico = ({
           },
         },
       },
+      plugins: [backgroundImagePlugin],
     });
 
     return () => {
