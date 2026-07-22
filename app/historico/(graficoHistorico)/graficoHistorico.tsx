@@ -353,7 +353,7 @@ const GraficoHistorico = ({
                 onClick={handleResetZoom}
                 disabled={!hasData}
               >
-                Reiniciar zoom
+                {t("min.reiniciarZoom")}
               </button>
             </div>
           )}

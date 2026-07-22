@@ -122,7 +122,9 @@
     "tiempoTranscurrido": "Tiempo transcurrido",
     "buscar": "Buscar...",
     "tempIngresoMax": "Temp. ingreso máx",
-    "idCiclo":"ID Ciclo"
+    "idCiclo":"ID Ciclo",
+    "reiniciarZoom": "Reiniciar zoom",
+    "verificando": "Verificando..."
   },
   "mayus": {
     "linea":"LINEA",

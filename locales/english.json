@@ -122,7 +122,9 @@
     "tiempoTranscurrido": "Elapsed time",
     "buscar": "Search...",
     "tempIngresoMax": "Max inlet temp.",
-    "idCiclo":"Cycle ID"
+    "idCiclo":"Cycle ID",
+    "reiniciarZoom": "Reset zoom",
+    "verificando": "Verifying..."
   },
   "mayus": {
     "linea":"LINE",
