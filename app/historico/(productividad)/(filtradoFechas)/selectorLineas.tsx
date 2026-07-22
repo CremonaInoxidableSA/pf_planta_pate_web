@@ -60,16 +60,28 @@ const SelectorEquiposProductividad: React.FC<
     if (generalOption) {
       return t(`min.${generalOption.key}`);
     }
-    const cocinaOption = opcionesEquipos.cocinas.find((opt) => opt.id === id);
-    if (cocinaOption) {
-      return `${t("min.cocina")} ${cocinaOption.num}`;
+
+    const isCocina = id >= 1 && id <= 6;
+    const isEnfriador = id >= 7 && id <= 14;
+
+    if (isCocina || isEnfriador) {
+      const typeLabel = isCocina ? t("min.cocina") : t("min.enfriador");
+
+      const equipmentNumber = isCocina
+        ? id <= 3
+          ? id
+          : id - 3
+        : id <= 10
+          ? id - 6
+          : id - 10;
+
+      const lineNumber = isCocina ? (id <= 3 ? 1 : 2) : id <= 10 ? 1 : 2;
+
+      const equipmentCode = `${isCocina ? "C" : "E"}${lineNumber}${equipmentNumber}`;
+
+      return `${typeLabel} ${equipmentNumber} - L${lineNumber} (${equipmentCode})`;
     }
-    const enfriadorOption = opcionesEquipos.enfriadores.find(
-      (opt) => opt.id === id,
-    );
-    if (enfriadorOption) {
-      return `${t("min.enfriador")} ${enfriadorOption.num}`;
-    }
+
     return "";
   };
 
@@ -104,7 +116,7 @@ const SelectorEquiposProductividad: React.FC<
           </SelectLabel>
           {opcionesEquipos.cocinas.map((equipo) => (
             <SelectItem key={equipo.id} value={String(equipo.id)}>
-              {t("min.cocina")} {equipo.num}
+              {getDisplayName(equipo.id)}
             </SelectItem>
           ))}
         </SelectGroup>
@@ -115,7 +127,7 @@ const SelectorEquiposProductividad: React.FC<
           </SelectLabel>
           {opcionesEquipos.enfriadores.map((equipo) => (
             <SelectItem key={equipo.id} value={String(equipo.id)}>
-              {t("min.enfriador")} {equipo.num}
+              {getDisplayName(equipo.id)}
             </SelectItem>
           ))}
         </SelectGroup>
