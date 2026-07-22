@@ -331,7 +331,11 @@ const GraficoHistorico = ({
                 className="flex items-center gap-1 text-sm"
                 style={{ color: "rgb(84, 196, 45)" }}
               >
-                {t("min.tempIngresoMax")}: <b>{general.temp_ingreso_max}°C</b>
+                <span
+                  className="w-3 h-3 rounded inline-block"
+                  style={{ background: "rgb(84, 196, 45)" }}
+                />
+                {t("min.tempAguaMax")}: <b>{general.temp_agua_max}°C</b>
               </span>
               <span
                 className="flex items-center gap-1 text-sm"
