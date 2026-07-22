@@ -8,7 +8,7 @@ import { JSX } from "react";
 
 import DropdownBanderas from "@/components/translate/dropdownBanderas";
 import UserIcon from "@/components/userIcon/userIcon";
-import Logo from "@/public/logo/creminox_innovate.webp";
+import { LogoCreminoxInnovate as Logo} from "@/components/Logos";
 
 interface Header {
   currentPath: string;
@@ -93,13 +93,7 @@ export const HeaderPrincipal: React.FC<Header> = ({ currentPath }) => {
             rel="noopener noreferrer"
             target="_blank"
           >
-            <Image
-              src={Logo}
-              alt="Creminox logo"
-              className="h-6 w-auto"
-              priority
-              loading="eager"
-            />
+            <Logo extraClass="h-6 w-auto" />
           </Link>
         </ul>
       </div>

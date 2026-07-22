@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "@/public/logo/creminox-logo.webp";
+import { LogoCreminox as Logo } from "@/components/Logos";
 import { FiMapPin } from "react-icons/fi";
 import { CiMail } from "react-icons/ci";
 
@@ -60,7 +60,7 @@ const Footer: React.FC = () => {
             rel="noopener noreferrer"
             target="_blank"
           >
-            <Image src={Logo} alt="Creminox logo" />
+            <Logo />
           </Link>
         </div>
 
