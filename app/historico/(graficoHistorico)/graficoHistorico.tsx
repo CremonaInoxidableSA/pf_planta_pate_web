@@ -17,6 +17,7 @@ import { createBackgroundImagePlugin } from "@/components/cocinas&enfriadores/gr
 import { useTranslation } from "react-i18next";
 import type { HistoricoFilter, Ciclo } from "../page";
 import { authFetch } from "@/app/api/api";
+import { Spinner } from "@/components/ui/spinner";
 
 interface SensorReading {
   id: number;
@@ -80,10 +81,14 @@ const GraficoHistorico = ({
   const [hasData, setHasData] = useState(false);
   const [graficoData, setGraficoData] = useState<GraficoData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isChartReady, setIsChartReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleResetZoom = () => {
-    if (chartRef.current && typeof (chartRef.current as any).resetZoom === "function") {
+    if (
+      chartRef.current &&
+      typeof (chartRef.current as any).resetZoom === "function"
+    ) {
       (chartRef.current as any).resetZoom();
     }
   };
@@ -112,6 +117,7 @@ const GraficoHistorico = ({
 
     const fetchData = async () => {
       setIsLoading(true);
+      setIsChartReady(false);
       setError(null);
       setGraficoData(null);
       try {
@@ -141,6 +147,8 @@ const GraficoHistorico = ({
 
   useEffect(() => {
     if (!graficoData || !canvasRef.current || !zoomPluginLoaded) return;
+
+    setIsChartReady(false);
 
     const datasets = Object.entries(graficoData)
       .filter(([key, value]) => key !== "general" && Array.isArray(value))
@@ -173,6 +181,7 @@ const GraficoHistorico = ({
       setHasData(false);
       chartRef.current?.destroy();
       chartRef.current = null;
+      setIsChartReady(true);
       return;
     }
 
@@ -257,6 +266,8 @@ const GraficoHistorico = ({
       },
       plugins: [backgroundImagePlugin],
     });
+
+    setIsChartReady(true);
 
     return () => {
       chartRef.current?.destroy();
@@ -345,9 +356,11 @@ const GraficoHistorico = ({
         </div>
       </div>
       <div className="relative h-165">
-        {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center text-texto">
-            {t("min.cargandoDatos")}
+        <canvas ref={canvasRef} className="w-full h-full" />
+        {(isLoading || (!isChartReady && graficoData && !error)) && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-background2/80 text-texto">
+            <Spinner className="w-12 h-12 text-primary" />
+            <span>{t("min.cargandoDatos")}</span>
           </div>
         )}
         {error && !isLoading && (
@@ -355,12 +368,11 @@ const GraficoHistorico = ({
             {t("min.errorCargarDatos")}: {error}
           </div>
         )}
-        {!isLoading && !error && !hasData && graficoData && (
+        {!isLoading && !error && !hasData && graficoData && isChartReady && (
           <div className="absolute inset-0 flex items-center justify-center text-texto">
             {t("min.noDatosSensores")}
           </div>
         )}
-        <canvas ref={canvasRef} />
       </div>
     </div>
   );
