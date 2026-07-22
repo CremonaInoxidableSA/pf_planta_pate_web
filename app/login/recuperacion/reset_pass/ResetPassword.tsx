@@ -116,7 +116,7 @@ const ResetPassword = ({ initialToken }: ResetPasswordProps) => {
   if (validatingToken) {
     return (
       <section className="flex h-full w-full items-center justify-center">
-        <div className="w-auto h-[40vh] gap-3.75 flex flex-col items-center justify-center p-[3rem_4rem_2rem_4rem] max-w-480 bg-backgroundoscuro rounded-md">
+        <div className="w-auto h-[40vh] gap-3.75 flex flex-col items-center justify-center p-[3rem_4rem_2rem_4rem] max-w-480 bg-backgroundoscuro rounded">
           <LogoBase64 className="flex w-[65%] p-0 h-auto" />
           <div className="flex flex-col items-center gap-5">
             <Spinner />
@@ -130,7 +130,7 @@ const ResetPassword = ({ initialToken }: ResetPasswordProps) => {
   if (!tokenValid) {
     return (
       <section className="flex h-full w-full items-center justify-center">
-        <div className="w-auto h-[40vh] gap-3.75 flex flex-col items-center justify-center p-[3rem_4rem_2rem_4rem] max-w-480 bg-backgroundoscuro rounded-md">
+        <div className="w-auto h-[40vh] gap-3.75 flex flex-col items-center justify-center p-[3rem_4rem_2rem_4rem] max-w-480 bg-backgroundoscuro rounded">
           <LogoBase64 className="flex w-[65%] p-0 h-auto" />
           <div className="flex flex-col items-center gap-5 w-full">
             <p className="text-center text-red-500 font-semibold">
@@ -156,7 +156,7 @@ const ResetPassword = ({ initialToken }: ResetPasswordProps) => {
 
   return (
     <section className="flex h-full w-full items-center justify-center">
-      <div className="w-auto h-auto gap-3.75 flex flex-col items-center p-[3rem_4rem_2rem_4rem] max-w-480 bg-backgroundoscuro rounded-md">
+      <div className="w-auto h-auto gap-3.75 flex flex-col items-center p-[3rem_4rem_2rem_4rem] max-w-480 bg-backgroundoscuro rounded">
         <LogoBase64 className="flex w-[65%] p-0 h-auto" />
 
         <div className="w-full text-center mb-4">
@@ -180,7 +180,7 @@ const ResetPassword = ({ initialToken }: ResetPasswordProps) => {
               {t("min.nuevaContrasena")}
             </label>
             <input
-              className="bg-background2 p-3 rounded-md w-full flex items-center justify-center border-none px-4"
+              className="bg-background2 p-3 rounded w-full flex items-center justify-center border-none px-4"
               id="newPassword"
               name="newPassword"
               type="password"
@@ -201,7 +201,7 @@ const ResetPassword = ({ initialToken }: ResetPasswordProps) => {
               {t("min.confirmarContrasena")}
             </label>
             <input
-              className="bg-background2 p-3 rounded-md w-full flex items-center justify-center border-none px-4"
+              className="bg-background2 p-3 rounded w-full flex items-center justify-center border-none px-4"
               id="confirmPassword"
               name="confirmPassword"
               type="password"
@@ -217,7 +217,7 @@ const ResetPassword = ({ initialToken }: ResetPasswordProps) => {
           <Button
             disabled={loading}
             type="submit"
-            className="bg-[#e82a31] mt-1.25 p-3 rounded-md w-full h-13 flex items-center justify-center border-none font-semibold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed text-texto"
+            className="bg-[#e82a31] mt-1.25 p-3 rounded w-full h-13 flex items-center justify-center border-none font-semibold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed text-texto"
           >
             {loading ? <Spinner /> : t("min.actualizarContrasena")}
           </Button>

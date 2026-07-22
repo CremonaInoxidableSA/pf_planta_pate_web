@@ -37,7 +37,7 @@ const BarraProductos = ({ productos }: BarraProductosProps) => {
 
       {productos.length > 0 ? (
         <>
-          <div className="w-full h-6 bg-background3 rounded-md overflow-hidden flex">
+          <div className="w-full h-6 bg-background3 rounded overflow-hidden flex">
             {productos.map((producto, index) => {
               const porcentaje =
                 totalCiclos > 0
@@ -66,7 +66,7 @@ const BarraProductos = ({ productos }: BarraProductosProps) => {
                   className="flex items-center gap-2"
                 >
                   <div
-                    className={`w-3 h-3 rounded-sm ${colores[index % colores.length]}`}
+                    className={`w-3 h-3 rounded ${colores[index % colores.length]}`}
                   />
                   <span>
                     {producto.nombre_receta}: {producto.cantidad_ciclos} (
@@ -78,7 +78,7 @@ const BarraProductos = ({ productos }: BarraProductosProps) => {
           </div>
         </>
       ) : (
-        <div className="w-full h-6 bg-background3 rounded-md" />
+        <div className="w-full h-6 bg-background3 rounded" />
       )}
     </div>
   );

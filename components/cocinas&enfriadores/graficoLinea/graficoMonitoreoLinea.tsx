@@ -55,7 +55,7 @@ const GraficoMonitoreo: React.FC<{ id: number }> = ({ id }) => {
 
   return (
     <div
-      className={`flex flex-col w-full h-full bg-background2 rounded-md p-3 border-b-2 ${borderColor} gap-2 min-h-0`}
+      className={`flex flex-col w-full h-full bg-background2 rounded p-3 border-b-2 ${borderColor} gap-2 min-h-0`}
     >
       <div className="flex items-center justify-between shrink-0 w-full">
         <div className="flex flex-row items-center gap-2">

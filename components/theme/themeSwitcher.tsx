@@ -19,12 +19,12 @@ export const ThemeSwitcher = () => {
     >
       {isLight ? (
         <div className="group relative flex items-center justify-center w-6.25 h-6.25 ease-in-out">
-          <div className="absolute inset-0 rounded-md bg-gray-400/0 group-hover:bg-gray-400/20 ease-in-out group-hover:scale-150 pointer-events-none" />
+          <div className="absolute inset-0 rounded bg-gray-400/0 group-hover:bg-gray-400/20 ease-in-out group-hover:scale-150 pointer-events-none" />
           <MoonFilledIcon className="w-6.25 h-6.25 transition-transform ease-in-out group-hover:scale-110" />
         </div>
       ) : (
         <div className="group relative flex items-center justify-center w-6.25 h-6.25 ease-in-out">
-          <div className="absolute inset-0 rounded-md bg-gray-400/0 group-hover:bg-gray-400/20 ease-in-out group-hover:scale-150 pointer-events-none" />
+          <div className="absolute inset-0 rounded bg-gray-400/0 group-hover:bg-gray-400/20 ease-in-out group-hover:scale-150 pointer-events-none" />
           <SunFilledIcon className="w-6.25 h-6.25 transition-transform ease-in-out group-hover:scale-110" />
         </div>
       )}

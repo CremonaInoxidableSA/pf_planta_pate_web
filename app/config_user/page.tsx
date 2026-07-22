@@ -149,7 +149,7 @@ export default function ConfiguracionUsuario() {
 
   return (
     <div className="w-full flex flex-row gap-5">
-      <div className="h-full w-1/5 flex flex-col bg-background2 rounded-md p-5 justify-between self-stretch">
+      <div className="h-full w-1/5 flex flex-col bg-background2 rounded p-5 justify-between self-stretch">
         <div className="flex w-full items-center justify-center">
           <UserAvatar
             nombre={nombre}

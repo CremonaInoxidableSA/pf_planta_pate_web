@@ -14,7 +14,7 @@ export default function ContenedorAlarmas({ linea }: ContenedorAlarmasProps) {
   const { t } = useTranslation();
 
   return (
-    <div className="w-full h-full flex flex-col bg-background3 p-2.5 rounded-md overflow-y-auto">
+    <div className="w-full h-full flex flex-col bg-background3 p-2.5 rounded overflow-y-auto">
       <span className="font-semibold text-lg mb-2">
         {t("min.alarmasActivasLinea")} {linea}
       </span>

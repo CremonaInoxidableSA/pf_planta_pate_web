@@ -291,7 +291,7 @@ export default function Historico() {
 
   return (
     <div className="flex flex-col w-full gap-5">
-      <div className="flex flex-row items-center justify-between bg-background2 p-2 w-full rounded-md h-13">
+      <div className="flex flex-row items-center justify-between bg-background2 p-2 w-full rounded h-13">
         <div className="w-[35%] h-full justify-start">
           <ExportButton
             onExport={handleExportGrafico}
@@ -341,7 +341,7 @@ export default function Historico() {
         </DialogContent>
       </Dialog>
 
-      <div className="w-full min-h-190 flex items-center justify-center bg-background2 rounded-md p-5">
+      <div className="w-full min-h-190 flex items-center justify-center bg-background2 rounded p-5">
         {isLoadingCiclos ? (
           <Spinner className="w-12 h-12 text-primary" />
         ) : appliedFilter && selectedCiclo ? (
@@ -353,7 +353,7 @@ export default function Historico() {
         ) : null}
       </div>
 
-      <div className="flex flex-row items-center justify-between bg-background2 p-2 w-full rounded-md h-13">
+      <div className="flex flex-row items-center justify-between bg-background2 p-2 w-full rounded h-13">
         <div className="w-[35%] h-full justify-start">
           <ExportButton
             onExport={handleExportProductividad}

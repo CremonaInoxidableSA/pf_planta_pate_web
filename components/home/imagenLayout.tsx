@@ -216,7 +216,7 @@ export function ImagenLayout() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <span
-                    className={`absolute shadow border z-999 rounded-md p-0.5 flex flex-col justify-between ${
+                    className={`absolute shadow border z-999 rounded p-0.5 flex flex-col justify-between ${
                       equipo?.estado === "FALLA"
                         ? "bg-red"
                         : equipo?.estado === "PAUSA"

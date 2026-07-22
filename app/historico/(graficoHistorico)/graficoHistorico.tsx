@@ -13,6 +13,7 @@ import {
   Legend,
 } from "chart.js";
 import { useEffect, useRef, useState } from "react";
+import { createBackgroundImagePlugin } from "@/components/cocinas&enfriadores/graficoIndividual/chartBackgroundPlugin";
 import { useTranslation } from "react-i18next";
 import type { HistoricoFilter, Ciclo } from "../page";
 import { authFetch } from "@/app/api/api";
@@ -174,6 +175,12 @@ const GraficoHistorico = ({
     const ctx = canvasRef.current.getContext("2d");
     if (!ctx) return;
 
+    const backgroundImagePlugin = createBackgroundImagePlugin({
+      src: "/creminox.png",
+      widthRatio: 0.5,
+      alpha: 0.12,
+    });
+
     chartRef.current = new Chart(ctx, {
       type: "line",
       data: { datasets },
@@ -280,7 +287,7 @@ const GraficoHistorico = ({
                 style={{ color: "rgb(3, 157, 252)" }}
               >
                 <span
-                  className="w-3 h-3 rounded-sm inline-block"
+                  className="w-3 h-3 rounded inline-block"
                   style={{ background: "rgb(3, 157, 252)" }}
                 />
                 {t("min.tempAguaMax")}: <b>{general.temp_agua_max}°C</b>
@@ -290,7 +297,7 @@ const GraficoHistorico = ({
                 style={{ color: "rgb(168, 85, 247)" }}
               >
                 <span
-                  className="w-3 h-3 rounded-sm inline-block"
+                  className="w-3 h-3 rounded inline-block"
                   style={{ background: "rgb(168, 85, 247)" }}
                 />
                 {t("min.nivelAguaMax")}: <b>{general.nivel_agua_max} mm</b>

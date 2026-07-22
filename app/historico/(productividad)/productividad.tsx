@@ -27,7 +27,7 @@ const Productividad = ({
   const { t } = useTranslation();
 
   return (
-    <div className="bg-background2 rounded-md p-5 w-full gap-5 flex items-center justify-between">
+    <div className="bg-background2 rounded p-5 w-full gap-5 flex items-center justify-between">
       <div className="w-full flex flex-col justify-center">
         <h1 className="text-2xl">{t("mayus.productividad")}</h1>
         {typeof productividadFilter?.dateRange?.from !== "undefined" &&
@@ -63,9 +63,9 @@ const Productividad = ({
             <p className="text-xl text-texto">{t("min.produccionTotal")}</p>
           </span>
         </div>
-        <hr className="w-full border-3 rounded-2xl my-4" />
+        <hr className="w-full border-3 rounded my-4" />
         <BarraProductos productos={data?.productos_realizados ?? []} />
-        <hr className="w-full border-3 rounded-2xl my-4" />
+        <hr className="w-full border-3 rounded my-4" />
         <BarraCiclos
           ciclos_correctos={data?.ciclos_correctos ?? 0}
           ciclos_incorrectos={data?.ciclos_incorrectos ?? 0}

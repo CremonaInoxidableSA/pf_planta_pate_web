@@ -100,7 +100,7 @@ const BootstrapPage = () => {
 
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center">
-      <div className="h-auto w-[40vw] flex flex-col bg-background2 p-5 rounded-md">
+      <div className="h-auto w-[40vw] flex flex-col bg-background2 p-5 rounded">
         <h1 className="text-4xl font-semibold w-full flex justify-center">
           Crear Superadmin Inicial
         </h1>
@@ -134,7 +134,7 @@ const BootstrapPage = () => {
               required
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="bg-background3 p-1 rounded-md w-full h-2/3 flex items-center justify-center border-none px-4"
+              className="bg-background3 p-1 rounded w-full h-2/3 flex items-center justify-center border-none px-4"
             />
           </div>
 
@@ -151,7 +151,7 @@ const BootstrapPage = () => {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="bg-background3 p-1 rounded-md w-full h-2/3 flex items-center justify-center border-none px-4"
+              className="bg-background3 p-1 rounded w-full h-2/3 flex items-center justify-center border-none px-4"
             />
           </div>
 
@@ -168,7 +168,7 @@ const BootstrapPage = () => {
               required
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
-              className="bg-background3 p-1 rounded-md w-full h-2/3 flex items-center justify-center border-none px-4"
+              className="bg-background3 p-1 rounded w-full h-2/3 flex items-center justify-center border-none px-4"
             />
           </div>
 
@@ -185,7 +185,7 @@ const BootstrapPage = () => {
               required
               value={apellido}
               onChange={(e) => setApellido(e.target.value)}
-              className="bg-background3 p-1 rounded-md w-full h-2/3 flex items-center justify-center border-none px-4"
+              className="bg-background3 p-1 rounded w-full h-2/3 flex items-center justify-center border-none px-4"
             />
           </div>
 
@@ -202,14 +202,14 @@ const BootstrapPage = () => {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="bg-background3 p-1 rounded-md w-full h-2/3 flex items-center justify-center border-none px-4"
+              className="bg-background3 p-1 rounded w-full h-2/3 flex items-center justify-center border-none px-4"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="bg-[#e82a31] mt-4 p-1 rounded-md w-full h-13 flex items-center justify-center border-none font-semibold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed text-texto"
+            className="bg-[#e82a31] mt-4 p-1 rounded w-full h-13 flex items-center justify-center border-none font-semibold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed text-texto"
           >
             {loading ? "Creando..." : "Crear Superadmin"}
           </button>

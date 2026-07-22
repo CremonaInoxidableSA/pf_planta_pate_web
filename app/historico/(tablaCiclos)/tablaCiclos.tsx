@@ -49,7 +49,7 @@ const TablaCiclos: React.FC<TablaCiclosProps> = ({
         placeholder={t("min.buscar") || "Buscar..."}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full px-2 py-1 bg-background2 rounded-md border border-background4 focus:outline-none focus:border-gray-500"
+        className="w-full px-2 py-1 bg-background2 rounded border border-background4 focus:outline-none focus:border-gray-500"
       />
       <div className="max-h-[70vh] overflow-y-auto">
         <Table

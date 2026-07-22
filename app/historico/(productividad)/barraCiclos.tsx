@@ -28,7 +28,7 @@ const BarraCiclos = ({
 
       {totalCiclos > 0 ? (
         <>
-          <div className="w-full h-6 bg-background3 rounded-md overflow-hidden flex">
+          <div className="w-full h-6 bg-background3 rounded overflow-hidden flex">
             {ciclos_correctos > 0 && (
               <div
                 className="bg-green-500 h-full transition-all"
@@ -54,7 +54,7 @@ const BarraCiclos = ({
           <div className="flex flex-wrap gap-3 text-sm">
             {ciclos_correctos > 0 && (
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-sm bg-green-500" />
+                <div className="w-3 h-3 rounded bg-green-500" />
                 <span>
                   {t("min.ciclosCorrectos")}: {ciclos_correctos} (
                   {porcentajeCorrectos.toFixed(1)}%)
@@ -63,7 +63,7 @@ const BarraCiclos = ({
             )}
             {ciclos_incorrectos > 0 && (
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-sm bg-red-500" />
+                <div className="w-3 h-3 rounded bg-red-500" />
                 <span>
                   {t("min.ciclosIncorrectos")}: {ciclos_incorrectos} (
                   {porcentajeIncorrectos.toFixed(1)}%)
@@ -73,7 +73,7 @@ const BarraCiclos = ({
           </div>
         </>
       ) : (
-        <div className="w-full h-6 bg-background3 rounded-md" />
+        <div className="w-full h-6 bg-background3 rounded" />
       )}
     </div>
   );

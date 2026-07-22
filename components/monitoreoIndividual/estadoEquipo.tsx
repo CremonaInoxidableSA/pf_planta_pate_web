@@ -30,7 +30,7 @@ const EstadoEquipo: React.FC<EstadoEquipoProps> = ({
   };
 
   return (
-    <div className="flex flex-col bg-background2 p-5 rounded-md gap-2.5 w-1/2 h-full">
+    <div className="flex flex-col bg-background2 p-5 rounded gap-2.5 w-1/2 h-full">
       <h2 className="text-xl text-texto w-full ">{t("mayus.estadoEquipo")}</h2>
       <ul className="flex flex-col justify-between grow gap-2.5">
         {datos.map((dato, index) => {
@@ -46,7 +46,7 @@ const EstadoEquipo: React.FC<EstadoEquipoProps> = ({
           return (
             <li
               key={`${dato.label}-${index}`}
-              className="bg-background3 flex flex-col px-5 py-2.5 rounded-md"
+              className="bg-background3 flex flex-col px-5 py-2.5 rounded"
               style={
                 borderCssVar
                   ? { border: `1px solid ${borderCssVar}` }

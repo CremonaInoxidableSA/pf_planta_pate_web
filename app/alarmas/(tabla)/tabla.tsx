@@ -45,7 +45,7 @@ const Tabla: React.FC<TablaProps> = ({
 
   return (
     <div className="w-full">
-      <div className="rounded-md overflow-x-auto">
+      <div className="rounded overflow-x-auto">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((hg) => (

@@ -14,6 +14,7 @@ import {
 import type { HistorialItem } from "./graficoTypes";
 import { ESTADOS_VACIO, historialToPoints } from "./graficoData";
 import { buildChartOptions } from "./graficoConfig";
+import { createBackgroundImagePlugin } from "./chartBackgroundPlugin";
 
 Chart.register(
   LineController,
@@ -51,6 +52,11 @@ const Grafico = ({ historial, estado, isCocina }: GraficoProps) => {
 
     const aguaColor = getCssColor("--color-blue", "#30a0f0");
     const prodColor = getCssColor("--color-greengraph", "#4bc04b");
+    const backgroundImagePlugin = createBackgroundImagePlugin({
+      src: "/creminox.png",
+      widthRatio: 0.5,
+      alpha: 0.12,
+    });
 
     chartRef.current = new Chart(ctx, {
       type: "line",
@@ -81,6 +87,7 @@ const Grafico = ({ historial, estado, isCocina }: GraficoProps) => {
         ],
       },
       options: buildChartOptions(),
+      plugins: [backgroundImagePlugin],
     });
 
     return () => {
