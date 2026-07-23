@@ -31,9 +31,9 @@ interface Section {
   style: React.CSSProperties;
 }
 
-const h = "25%";
-const topL1 = "13%";
-const topL2 = "62%";
+const h = "24%";
+const topL1 = "14%";
+const topL2 = "61%";
 const width = "13%";
 
 const leftPositions = {
@@ -178,146 +178,148 @@ export function ImagenLayout() {
         <p className="text-xl text-texto">{t("mayus.paneoGeneral")}</p>
       </div>
 
-      <div className="relative w-full grow">
-        <Image
-          alt="Cocinas y Enfriadores"
-          className="w-full h-full object-contain z-1"
-          src="/cocinasEnfriadores.png"
-          fill
-          unoptimized
-        />
+      <div className="h-full w-full flex items-center justify-center">
+        <div className="relative w-full"
+          style={{aspectRatio: "1920/1080"}}>
+          <Image
+            alt="Cocinas y Enfriadores"
+            className="w-full h-full object-contain z-1"
+            src="/cocinasEnfriadores.png"
+            fill
+            unoptimized
+          />
 
-        {sections.map((section) => {
-          const equipo = getEquipoData(section);
-          const tipoEquipo =
-            section.path.slice(1) === "cocinas" ? "cocina" : "enfriador";
+          {sections.map((section) => {
+            const equipo = getEquipoData(section);
+            const tipoEquipo =
+              section.path.slice(1) === "cocinas" ? "cocina" : "enfriador";
 
-          const equipoNum = section.id;
-          const href = `${section.path}?id=${equipoNum}`;
-          const recuadroStyle: React.CSSProperties = {
-            ...section.style,
-            backgroundColor: equipo ? getEstadoColor(equipo.estado) : "black",
-          };
-          const lineaEquipo = section.line;
+            const equipoNum = section.id;
+            const href = `${section.path}?id=${equipoNum}`;
+            const recuadroStyle: React.CSSProperties = {
+              ...section.style,
+              backgroundColor: equipo ? getEstadoColor(equipo.estado) : "black",
+            };
+            const lineaEquipo = section.line;
 
-          return (
-            <Link
-              key={section.id}
-              className="z-999"
-              href={href}
-              onClick={() => {
-                if (tipoEquipo === "cocina") {
-                  localStorage.setItem("lastCocinaId", String(section.id));
-                } else {
-                  localStorage.setItem("lastEnfriadorId", String(section.id));
-                }
-              }}
-            >
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <span
-                    className={`absolute shadow border z-999 rounded p-0.5 flex flex-col justify-between ${
-                      equipo?.estado === "FALLA"
-                        ? "bg-red"
-                        : equipo?.estado === "PAUSA"
-                          ? "bg-yellow"
-                          : equipo?.estado === "INACTIVO"
-                            ? "bg-gray"
-                            : equipo?.estado === "FINALIZADO"
-                              ? "bg-blue"
-                              : "bg-green"
-                    }`}
-                    style={{
-                      ...recuadroStyle,
-                      color: "white",
-                      fontFamily: "sans-serif",
-                      textShadow: "1px 1px 2px rgba(0,0,0,0.8)",
-                    }}
-                  >
-                    {equipo && (
-                      <div className="w-full">
-                        <div className="flex flex-col mb-px ml-0.5">
-                          <p
-                            className="font-extrabold uppercase"
+            return (
+              <Link
+                key={section.id}
+                href={href}
+                onClick={() => {
+                  if (tipoEquipo === "cocina") {
+                    localStorage.setItem("lastCocinaId", String(section.id));
+                  } else {
+                    localStorage.setItem("lastEnfriadorId", String(section.id));
+                  }
+                }}
+              >
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span
+                      className={`absolute shadow border z-999 rounded p-0.5 flex flex-col justify-between ${
+                        equipo?.estado === "FALLA"
+                          ? "bg-red"
+                          : equipo?.estado === "PAUSA"
+                            ? "bg-yellow"
+                            : equipo?.estado === "INACTIVO"
+                              ? "bg-gray"
+                              : equipo?.estado === "FINALIZADO"
+                                ? "bg-blue"
+                                : "bg-green"
+                      }`}
+                      style={{
+                        ...recuadroStyle,
+                        color: "white",
+                        fontFamily: "sans-serif",
+                        textShadow: "1px 1px 2px rgba(0,0,0,0.8)",
+                      }}
+                    >
+                      {equipo && (
+                        <div className="w-full">
+                          <div className="flex flex-col mb-px ml-0.5">
+                            <p
+                              className="font-bold uppercase"
+                              style={{
+                                fontSize: "calc(0.9vw + 0.6vh)",
+                                textShadow: "1px 1px 2px black",
+                              }}
+                            >
+                              {section.name}
+                            </p>
+                            <p
+                              className="font-semibold uppercase"
+                              style={{
+                                fontSize: "calc(0.7vw + 0.5vh)",
+                              }}
+                            >
+                              {t("mayus.linea")} {lineaEquipo}
+                            </p>
+                            <p
+                              className="font-bold uppercase"
+                              style={{
+                                fontSize: "calc(0.4vw + 0.5vh)",
+                                textShadow: "1px 1px 2px black",
+                              }}
+                            >
+                              {equipo.estado}
+                            </p>
+                          </div>
+                          <div
+                            className="mt-2"
                             style={{
-                              fontSize: "calc(0.9vw + 0.6vh)",
-                              textShadow: "1px 1px 2px black",
+                              marginTop:
+                                equipo.receta && equipo.receta.length > 7
+                                  ? "14px"
+                                  : "8px",
                             }}
                           >
-                            {section.name}
-                          </p>
-                          <p
-                            className="font-semibold uppercase"
-                            style={{
-                              fontSize: "calc(0.7vw + 0.5vh)",
-                            }}
-                          >
-                            {t("mayus.linea")} {lineaEquipo}
-                          </p>
-                          <p
-                            className="font-extrabold uppercase"
-                            style={{
-                              fontSize: "calc(0.4vw + 0.5vh)",
-                              textShadow: "1px 1px 2px black",
-                            }}
-                          >
-                            {equipo.estado}
-                          </p>
+                            <p
+                              className="font-bold"
+                              style={{
+                                fontSize: "calc(0.7vw + 0.4vh)",
+                                textShadow: "1px 1px 2px black",
+                              }}
+                            >
+                              {t("min.tempAgua")}:{" "}
+                              {formatearTemperatura(equipo.tempAguaActual)}
+                            </p>
+                            <p
+                              className="font-bold mt-px"
+                              style={{
+                                fontSize: "calc(0.7vw + 0.4vh)",
+                                textShadow: "1px 1px 2px black",
+                                lineHeight: "1",
+                              }}
+                            >
+                              {t("min.receta")}: {equipo.receta ?? "-"}
+                            </p>
+                            <p
+                              className="font-bold mt-px"
+                              style={{
+                                fontSize: "calc(0.7vw + 0.4vh)",
+                                textShadow: "1px 1px 2px black",
+                              }}
+                            >
+                              {t("min.tiempo")}: {equipo.tiempoTranscurrido}
+                            </p>
+                          </div>
                         </div>
-                        <div
-                          className="mt-2"
-                          style={{
-                            marginTop:
-                              equipo.receta && equipo.receta.length > 7
-                                ? "14px"
-                                : "8px",
-                          }}
-                        >
-                          <p
-                            className="font-bold"
-                            style={{
-                              fontSize: "calc(0.7vw + 0.4vh)",
-                              textShadow: "1px 1px 2px black",
-                            }}
-                          >
-                            {t("min.tempAgua")}:{" "}
-                            {formatearTemperatura(equipo.tempAguaActual)}
-                          </p>
-                          <p
-                            className="font-bold mt-px"
-                            style={{
-                              fontSize: "calc(0.7vw + 0.4vh)",
-                              textShadow: "1px 1px 2px black",
-                              lineHeight: "1",
-                            }}
-                          >
-                            {t("min.receta")}: {equipo.receta ?? "-"}
-                          </p>
-                          <p
-                            className="font-bold mt-px"
-                            style={{
-                              fontSize: "calc(0.7vw + 0.4vh)",
-                              textShadow: "1px 1px 2px black",
-                            }}
-                          >
-                            {t("min.tiempo")}: {equipo.tiempoTranscurrido}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                  </span>
-                </TooltipTrigger>
-                <TooltipContent side="top">
-                  {t(`min.${tipoEquipo}`, {
-                    number:
-                      tipoEquipo === "cocina" ? section.id : section.id - 6,
-                    line: lineaEquipo,
-                  })}
-                </TooltipContent>
-              </Tooltip>
-            </Link>
-          );
-        })}
+                      )}
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent side="top">
+                    {t(`min.${tipoEquipo}`, {
+                      number:
+                        tipoEquipo === "cocina" ? section.id : section.id - 6,
+                      line: lineaEquipo,
+                    })}
+                  </TooltipContent>
+                </Tooltip>
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

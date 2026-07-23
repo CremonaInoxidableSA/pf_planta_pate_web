@@ -7,8 +7,8 @@ import { useTranslation } from "react-i18next";
 export default function Home() {
   const { t } = useTranslation();
   return (
-    <section className="p-5 flex flex-row w-full gap-5 items-center bg-background2 rounded h-215">
-      <div className="w-1/4 h-full flex flex-col items-center justify-center">
+    <section className="p-5 flex xl:flex-row flex-col w-full gap-5 items-center bg-background2 rounded h-215">
+      <div className="xl:w-1/4 w-full h-full flex flex-col items-center justify-center">
         <h1 className="flex justify-center w-full text-3xl text-texto font-semibold">
           {t("mayus.alarmas")}
         </h1>
@@ -16,13 +16,13 @@ export default function Home() {
           {t("mayus.activas")}
         </p>
 
-        <div className="w-full h-full flex flex-col items-center gap-5">
+        <div className="w-full h-full flex xl:flex-col flex-row items-center gap-5">
           <ContenedorAlarmas linea="1" />
           <ContenedorAlarmas linea="2" />
         </div>
       </div>
 
-      <hr className="h-[95%] w-0.5 mx-0.5 border-none bg-background6 z-500" />
+      <hr className="xl:h-[95%] w-[95%] xl:w-0.5 mx-0.5 border-none bg-background6 z-500" />
 
       <div className="w-full h-full flex items-center justify-center">
         <ImagenLayout />
