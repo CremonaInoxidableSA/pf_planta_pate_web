@@ -32,7 +32,7 @@ const Productividad = ({
         <h1 className="text-2xl">{t("mayus.productividad")}</h1>
         {typeof productividadFilter?.dateRange?.from !== "undefined" &&
           typeof productividadFilter?.dateRange?.to !== "undefined" && (
-            <span className="text-base /70 mb-1">
+            <span className="text-base/70 mb-1">
               {t("min.rangoSeleccionado")}:{" "}
               {productividadFilter.dateRange.from &&
               productividadFilter.dateRange.to

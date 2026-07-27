@@ -21,7 +21,7 @@
   --color-cyancremona: var(--color-cyancremona);
   --color-purplecremona: var(--color-purplecremona);
   --color-pinkcremona: var(--color-pinkcremona);
-  
+
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -70,8 +70,6 @@
   --color-background5: var(--background5);
   --color-background6: var(--background6);
   --color-headerbg: var(--headerbg);
-  --color-textohover: var(--textohover);
-  --color-textodesac: var(--textodesac);
   --color-datosblueback: var(--datosblueback);
   --color-datosbluebackhover: var(--datosbluebackhover);
 
@@ -230,7 +228,7 @@
   --color-cyancremona: #22d3ee;
   --color-purplecremona: #a78bfa;
   --color-pinkcremona: #f472b6;
-  
+
   --datosblueback: #073753ff;
   --datosbluebackhover: #0c4566ff;
   --waterTemp: #0a96fc;

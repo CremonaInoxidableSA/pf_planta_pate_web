@@ -122,32 +122,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const checkSession = useCallback(async () => {
     try {
-      // 1. Verificar needs-setup (con cache en sessionStorage)
-      const setupDone =
-        typeof window !== "undefined" &&
-        sessionStorage.getItem("setup_done") === "true";
-
-      if (!setupDone) {
-        const needsSetupRes = await fetch(`/api/needs-setup`);
-        if (needsSetupRes.ok) {
-          const needsSetupData = await needsSetupRes.json();
-          if (needsSetupData.needs_setup === true) {
-            setNeedBootstrap(true);
-            setUser(null);
-            setLoading(false);
-            return;
-          } else {
-            setNeedBootstrap(false);
-            if (typeof window !== "undefined") {
-              sessionStorage.setItem("setup_done", "true");
-            }
-          }
-        }
-      } else {
-        setNeedBootstrap(false);
-      }
-
-      // 2. Leer token y usuario de localStorage
       const token =
         (typeof window !== "undefined" &&
           localStorage.getItem("access_token")) ||
@@ -163,13 +137,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       }
 
-      // 3. Si tenemos token válido + usuario en storage, confiar en local y salir
       if (token && isTokenValid(token)) {
         if (hydratedFromStorage) {
           setLoading(false);
           return;
         }
-        // Token válido pero sin user en storage: crear user mínimo del token
         const payload = decodeToken(token);
         if (payload && payload.sub) {
           setUser({
@@ -181,7 +153,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       }
 
-      // 4. Sin token válido o sin datos locales → verificar con backend
       if (!token) {
         setUser(null);
         setLoading(false);
@@ -250,8 +221,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (BYPASS_AUTH) {
       if (
         pathname === "/login" ||
-        pathname === "/register" ||
-        pathname === "/bootstrap"
+        pathname === "/register"
       ) {
         router.push("/");
       }
@@ -265,7 +235,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const publicRoutes = [
         "/login",
         "/register",
-        "/bootstrap",
         "/login/recuperacion",
         "/login/recuperacion/reset_pass",
       ];
@@ -275,11 +244,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       );
 
       if (isPublicRoute) {
-        return;
-      }
-
-      if (needBootstrap && pathname !== "/bootstrap") {
-        router.push("/bootstrap");
         return;
       }
 

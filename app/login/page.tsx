@@ -95,16 +95,16 @@ const Login = () => {
           </div>
 
           <Button
-            className="bg-[#e82a31] mt-1.25 p-1 rounded w-full h-13 flex items-center justify-center border-none font-semibold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed "
+            className="bg-[#e82a31]/70 hover:bg-[#e82a31] mt-1.25 p-1 rounded w-full h-13 flex items-center justify-center border-none font-semibold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed"
             disabled={loading}
             onClick={handleSubmit}
           >
-            {loading ? <Spinner /> : t("min.acceder")}
+            {loading ? <Spinner /> : <p className="text-white">{t("min.acceder")}</p>}
           </Button>
         </form>
 
         <Link
-          className="w-full flex text-center justify-center text-[#5d5d5d] h-auto text-[14px] font-semibold tracking-[0.5px] cursor-pointer hover:text-[#e82a31] ease-in-out"
+          className="w-full flex text-center justify-center h-auto text-[14px] font-semibold tracking-[0.5px] cursor-pointer hover:text-[#e82a31] hover:opacity-100 ease-in-out opacity-30"
           href="/login/recuperacion"
         >
           {t("min.recuperar")}
