@@ -1,8 +1,17 @@
-const BASE_URL = process.env.API_DATOS_URL ?? "http://localhost:8000";
+const BASE_URL = process.env.API_DATOS_URL ?? "http://192.168.20.152:8001";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const response = await fetch(`${BASE_URL}/alarmas/defecto`, {
+    const { searchParams } = new URL(request.url);
+    const fecha_inicio = searchParams.get("fecha_inicio");
+    const fecha_fin = searchParams.get("fecha_fin");
+
+    let url = `${BASE_URL}/alarmas/defecto`;
+    if (fecha_inicio && fecha_fin) {
+      url = `${BASE_URL}/alarmas?fecha_inicio=${fecha_inicio}&fecha_fin=${fecha_fin}`;
+    }
+
+    const response = await fetch(url, {
       cache: "no-store",
     });
 

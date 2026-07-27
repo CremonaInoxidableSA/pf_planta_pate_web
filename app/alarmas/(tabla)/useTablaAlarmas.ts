@@ -17,6 +17,22 @@ import type { DateRange } from "react-day-picker";
 import type { Alarma } from "./types";
 import { getColumnDefs } from "./columnas";
 
+const formatDateForApi = (date: Date): string => {
+  const year = date.getFullYear();
+  const month = `${date.getMonth() + 1}`.padStart(2, "0");
+  const day = `${date.getDate()}`.padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
+const getDefaultDateRange = (): DateRange => {
+  const today = new Date();
+  const from = new Date(today);
+  from.setHours(0, 0, 0, 0);
+  const to = new Date(today);
+  to.setHours(23, 59, 59, 999);
+  return { from, to };
+};
+
 export function useTablaAlarmas() {
   const { t } = useTranslation();
   const [data, setData] = useState<Alarma[]>([]);
@@ -24,7 +40,9 @@ export function useTablaAlarmas() {
   const [error, setError] = useState<string | null>(null);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
+  const [dateRange, setDateRange] = useState<DateRange | undefined>(
+    getDefaultDateRange(),
+  );
   const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 });
 
   const loadData = useCallback(
@@ -32,10 +50,11 @@ export function useTablaAlarmas() {
       setIsLoading(true);
       setError(null);
       try {
+        const selectedRange = range ?? getDefaultDateRange();
         let url = "/api/alarmas";
-        if (range?.from && range?.to) {
-          const from = range.from.toISOString().slice(0, 10);
-          const to = range.to.toISOString().slice(0, 10);
+        if (selectedRange?.from && selectedRange?.to) {
+          const from = formatDateForApi(selectedRange.from);
+          const to = formatDateForApi(selectedRange.to);
           url += `?fecha_inicio=${from}&fecha_fin=${to}`;
         }
         const res = await authFetch(url);
@@ -110,9 +129,10 @@ export function useTablaAlarmas() {
 
   const handleClearFilters = () => {
     setColumnFilters([]);
-    setDateRange(undefined);
+    const resetRange = getDefaultDateRange();
+    setDateRange(resetRange);
     toast.success(t("min.filtrosLimpiados"), { position: "bottom-right" });
-    loadData(undefined);
+    loadData(resetRange);
   };
 
   return {

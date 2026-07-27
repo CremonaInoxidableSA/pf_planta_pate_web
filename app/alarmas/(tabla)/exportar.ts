@@ -1,3 +1,10 @@
+const formatDateForApi = (date: Date): string => {
+  const year = date.getFullYear();
+  const month = `${date.getMonth() + 1}`.padStart(2, "0");
+  const day = `${date.getDate()}`.padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
 export const exportExcelFromAPI = async (dateRange?: {
   from?: Date;
   to?: Date;
@@ -6,8 +13,8 @@ export const exportExcelFromAPI = async (dateRange?: {
     const today = new Date();
     const from = dateRange?.from ?? today;
     const to = dateRange?.to ?? today;
-    const fromStr = from.toISOString().slice(0, 10);
-    const toStr = to.toISOString().slice(0, 10);
+    const fromStr = formatDateForApi(from);
+    const toStr = formatDateForApi(to);
     const url = `/api/alarmas/descarga?descargar=1&fecha_inicio=${fromStr}&fecha_fin=${toStr}`;
     const response = await fetch(url);
     if (!response.ok) throw new Error("Error al descargar archivo");
@@ -36,7 +43,6 @@ export const exportExcelFromAPI = async (dateRange?: {
     });
   }
 };
-import * as XLSX from "xlsx";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import { toast } from "sonner";
@@ -150,30 +156,39 @@ export const exportPDF = (
   }
 };
 
-export const exportExcel = (
+export const exportExcel = async (
   rows: Row<Alarma>[],
   colHeaders: string[],
   fileName: string,
   dateRange?: { from?: Date; to?: Date },
-): void => {
+): Promise<void> => {
   try {
-    const sheetData = rows.map((r) => {
-      const arr = rowToArray(r.original);
-      return Object.fromEntries(colHeaders.map((h, i) => [h, arr[i]]));
-    });
-    const ws = XLSX.utils.json_to_sheet(sheetData);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Alarmas");
-    const exportDate = new Date().toISOString().slice(0, 10);
-    const fromStr = dateRange?.from
-      ? dateRange.from.toISOString().slice(0, 10)
-      : "";
-    const toStr = dateRange?.to ? dateRange.to.toISOString().slice(0, 10) : "";
+    const exportDate = formatDateForApi(new Date());
+    const from = dateRange?.from ?? new Date();
+    const to = dateRange?.to ?? new Date();
+    const fromStr = formatDateForApi(from);
+    const toStr = formatDateForApi(to);
+    const url = `/api/alarmas/descarga?descargar=1&fecha_inicio=${fromStr}&fecha_fin=${toStr}`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error("Error al descargar el Excel desde la API externa");
+    }
+
+    const blob = await response.blob();
     const fileNameWithDate =
       dateRange?.from && dateRange?.to
         ? `${fileName}_${fromStr}_a_${toStr}.xlsx`
         : `${fileName}_${exportDate}.xlsx`;
-    XLSX.writeFile(wb, fileNameWithDate);
+
+    const link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+    link.download = fileNameWithDate;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(link.href);
+
     toast.success("Éxito", {
       description: "Excel descargado correctamente",
       position: "bottom-right",
