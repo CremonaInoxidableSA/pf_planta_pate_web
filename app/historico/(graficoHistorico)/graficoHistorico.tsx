@@ -210,6 +210,14 @@ const GraficoHistorico = ({
           tooltip: {
             mode: "index",
             intersect: false,
+            callbacks: {
+              label: (context) => {
+                const label = context.dataset.label ?? "";
+                const value = context.parsed.y;
+                const unit = label === "Nivel agua" ? "mm" : "°C";
+                return `${label}: ${value} ${unit}`;
+              },
+            },
           },
           zoom: {
             zoom: {
@@ -349,7 +357,7 @@ const GraficoHistorico = ({
               </span>
               <button
                 type="button"
-                className="rounded bg-orange px-3 py-1 text-sm font-medium text-white transition hover:bg-orange/90 disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded cursor-pointer bg-orange px-3 py-1 text-sm font-medium text-white transition hover:bg-orange/90 disabled:cursor-not-allowed disabled:opacity-50"
                 onClick={handleResetZoom}
                 disabled={!hasData}
               >

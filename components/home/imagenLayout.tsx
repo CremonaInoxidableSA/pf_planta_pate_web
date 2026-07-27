@@ -18,6 +18,7 @@ interface Equipo {
   id: number;
   estado: string;
   tempAguaActual: number | null;
+  tempIngresoActual: number | null;
   receta: string;
   tiempoTranscurrido: string;
 }
@@ -140,6 +141,7 @@ export function ImagenLayout() {
           id: cocina.info.id,
           estado: cocina.info.estado,
           tempAguaActual: cocina.info.temp_agua,
+          tempIngresoActual: cocina.info.temp_ingreso,
           receta: cocina.info.receta,
           tiempoTranscurrido: cocina.info.tiempoTranscurrido,
         };
@@ -153,6 +155,7 @@ export function ImagenLayout() {
           id: enfriador.info.id,
           estado: enfriador.info.estado,
           tempAguaActual: enfriador.info.temp_agua,
+          tempIngresoActual: enfriador.info.temp_ingreso,
           receta: enfriador.info.receta,
           tiempoTranscurrido: enfriador.info.tiempoTranscurrido,
         };
@@ -164,6 +167,7 @@ export function ImagenLayout() {
       id: section.id,
       estado: "INACTIVO",
       tempAguaActual: 0,
+      tempIngresoActual: 0,
       receta: "-",
       tiempoTranscurrido: "00:00",
     };
@@ -237,7 +241,6 @@ export function ImagenLayout() {
                     >
                       {equipo && (
                         <div className="w-full">
-                          <div className="flex flex-col mb-px ml-0.5">
                             <p
                               className="font-bold uppercase"
                               style={{
@@ -264,16 +267,7 @@ export function ImagenLayout() {
                             >
                               {equipo.estado}
                             </p>
-                          </div>
-                          <div
-                            className="mt-2"
-                            style={{
-                              marginTop:
-                                equipo.receta && equipo.receta.length > 7
-                                  ? "14px"
-                                  : "8px",
-                            }}
-                          >
+                          
                             <p
                               className="font-bold"
                               style={{
@@ -283,6 +277,16 @@ export function ImagenLayout() {
                             >
                               {t("min.tempAgua")}:{" "}
                               {formatearTemperatura(equipo.tempAguaActual)}
+                            </p>
+                            <p
+                              className="font-bold"
+                              style={{
+                                fontSize: "calc(0.7vw + 0.4vh)",
+                                textShadow: "1px 1px 2px black",
+                              }}
+                            >
+                              {t("min.tempIngreso")}:{" "}
+                              {formatearTemperatura(equipo.tempIngresoActual)}
                             </p>
                             <p
                               className="font-bold mt-px"
@@ -304,7 +308,6 @@ export function ImagenLayout() {
                               {t("min.tiempo")}: {equipo.tiempoTranscurrido}
                             </p>
                           </div>
-                        </div>
                       )}
                     </span>
                   </TooltipTrigger>
