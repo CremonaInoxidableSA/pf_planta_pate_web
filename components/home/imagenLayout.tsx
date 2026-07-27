@@ -3,11 +3,6 @@
 import { useTranslation } from "react-i18next";
 import { useMemo } from "react";
 import Link from "next/link";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 import { useCocinaContext } from "@/context/CocinaContext";
 import { useEnfriadorContext } from "@/context/EnfriadorContext";
@@ -32,8 +27,8 @@ interface Section {
   style: React.CSSProperties;
 }
 
-const h = "24%";
-const topL1 = "14%";
+const h = "23%";
+const topL1 = "15.8%";
 const topL2 = "61%";
 const width = "13%";
 
@@ -176,15 +171,14 @@ export function ImagenLayout() {
   return (
     <div className="w-full h-full relative flex flex-col">
       <div className="flex flex-col justify-center items-center">
-        <h1 className="text-4xl text-texto font-semibold">
+        <h1 className="text-4xl  font-semibold">
           {t("mayus.cocinasEnfriadores")}
         </h1>
-        <p className="text-xl text-texto">{t("mayus.paneoGeneral")}</p>
+        <p className="text-xl ">{t("mayus.paneoGeneral")}</p>
       </div>
 
       <div className="h-full w-full flex items-center justify-center">
-        <div className="relative w-full"
-          style={{aspectRatio: "1920/1080"}}>
+        <div className="relative w-full" style={{ aspectRatio: "1920/1080" }}>
           <Image
             alt="Cocinas y Enfriadores"
             className="w-full h-full object-contain z-1"
@@ -218,107 +212,96 @@ export function ImagenLayout() {
                   }
                 }}
               >
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span
-                      className={`absolute shadow border z-999 rounded p-0.5 flex flex-col justify-between ${
-                        equipo?.estado === "FALLA"
-                          ? "bg-red"
-                          : equipo?.estado === "PAUSA"
-                            ? "bg-yellow"
-                            : equipo?.estado === "INACTIVO"
-                              ? "bg-gray"
-                              : equipo?.estado === "FINALIZADO"
-                                ? "bg-blue"
-                                : "bg-green"
-                      }`}
-                      style={{
-                        ...recuadroStyle,
-                        color: "white",
-                        fontFamily: "sans-serif",
-                        textShadow: "1px 1px 2px rgba(0,0,0,0.8)",
-                      }}
-                    >
-                      {equipo && (
-                        <div className="w-full">
-                            <p
-                              className="font-bold uppercase"
-                              style={{
-                                fontSize: "calc(0.9vw + 0.6vh)",
-                                textShadow: "1px 1px 2px black",
-                              }}
-                            >
-                              {section.name}
-                            </p>
-                            <p
-                              className="font-semibold uppercase"
-                              style={{
-                                fontSize: "calc(0.7vw + 0.5vh)",
-                              }}
-                            >
-                              {t("mayus.linea")} {lineaEquipo}
-                            </p>
-                            <p
-                              className="font-bold uppercase"
-                              style={{
-                                fontSize: "calc(0.4vw + 0.5vh)",
-                                textShadow: "1px 1px 2px black",
-                              }}
-                            >
-                              {equipo.estado}
-                            </p>
-                          
-                            <p
-                              className="font-bold"
-                              style={{
-                                fontSize: "calc(0.7vw + 0.4vh)",
-                                textShadow: "1px 1px 2px black",
-                              }}
-                            >
-                              {t("min.tempAgua")}:{" "}
-                              {formatearTemperatura(equipo.tempAguaActual)}
-                            </p>
-                            <p
-                              className="font-bold"
-                              style={{
-                                fontSize: "calc(0.7vw + 0.4vh)",
-                                textShadow: "1px 1px 2px black",
-                              }}
-                            >
-                              {t("min.tempIngreso")}:{" "}
-                              {formatearTemperatura(equipo.tempIngresoActual)}
-                            </p>
-                            <p
-                              className="font-bold mt-px"
-                              style={{
-                                fontSize: "calc(0.7vw + 0.4vh)",
-                                textShadow: "1px 1px 2px black",
-                                lineHeight: "1",
-                              }}
-                            >
-                              {t("min.receta")}: {equipo.receta ?? "-"}
-                            </p>
-                            <p
-                              className="font-bold mt-px"
-                              style={{
-                                fontSize: "calc(0.7vw + 0.4vh)",
-                                textShadow: "1px 1px 2px black",
-                              }}
-                            >
-                              {t("min.tiempo")}: {equipo.tiempoTranscurrido}
-                            </p>
-                          </div>
-                      )}
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent side="top">
-                    {t(`min.${tipoEquipo}`, {
-                      number:
-                        tipoEquipo === "cocina" ? section.id : section.id - 6,
-                      line: lineaEquipo,
-                    })}
-                  </TooltipContent>
-                </Tooltip>
+                <span
+                  className={`absolute shadow border z-999 rounded p-0.5 flex flex-col justify-between ${
+                    equipo?.estado === "FALLA"
+                      ? "bg-red"
+                      : equipo?.estado === "PAUSA"
+                        ? "bg-yellow"
+                        : equipo?.estado === "INACTIVO"
+                          ? "bg-gray"
+                          : equipo?.estado === "FINALIZADO"
+                            ? "bg-blue"
+                            : "bg-green"
+                  }`}
+                  style={{
+                    ...recuadroStyle,
+                    color: "white",
+                    fontFamily: "sans-serif",
+                    textShadow: "1px 1px 2px rgba(0,0,0,0.8)",
+                  }}
+                >
+                  {equipo && (
+                    <div className="w-full">
+                      <p
+                        className="font-bold uppercase"
+                        style={{
+                          fontSize: "calc(0.9vw + 0.6vh)",
+                          textShadow: "1px 1px 2px black",
+                        }}
+                      >
+                        {section.name}
+                      </p>
+                      <p
+                        className="font-semibold uppercase"
+                        style={{
+                          fontSize: "calc(0.7vw + 0.5vh)",
+                        }}
+                      >
+                        {t("mayus.linea")} {lineaEquipo}
+                      </p>
+                      <p
+                        className="font-bold uppercase"
+                        style={{
+                          fontSize: "calc(0.4vw + 0.5vh)",
+                          textShadow: "1px 1px 2px black",
+                        }}
+                      >
+                        {equipo.estado}
+                      </p>
+
+                      <p
+                        className="font-bold"
+                        style={{
+                          fontSize: "calc(0.7vw + 0.4vh)",
+                          textShadow: "1px 1px 2px black",
+                        }}
+                      >
+                        {t("min.tempAgua")}:{" "}
+                        {formatearTemperatura(equipo.tempAguaActual)}
+                      </p>
+                      <p
+                        className="font-bold"
+                        style={{
+                          fontSize: "calc(0.7vw + 0.4vh)",
+                          textShadow: "1px 1px 2px black",
+                        }}
+                      >
+                        {t("min.tempIngreso")}:{" "}
+                        {formatearTemperatura(equipo.tempIngresoActual)}
+                      </p>
+                      <p
+                        className="font-bold mt-px"
+                        style={{
+                          fontSize: "calc(0.7vw + 0.4vh)",
+                          textShadow: "1px 1px 2px black",
+                          lineHeight: "1",
+                        }}
+                      >
+                        {t("min.receta")}: {equipo.receta ?? "-"}
+                      </p>
+                      <p
+                        className="font-bold mt-px"
+                        style={{
+                          fontSize: "calc(0.7vw + 0.4vh)",
+                          textShadow: "1px 1px 2px black",
+                        }}
+                      >
+                        {t("min.tiempo")}: {equipo.tiempoTranscurrido}
+                      </p>
+                    </div>
+                  )}
+                </span>
               </Link>
             );
           })}

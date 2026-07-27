@@ -18,9 +18,7 @@ const SectorIO: React.FC<SectorIOProps> = ({ datosIO, getColorClass }) => {
 
   return (
     <div className="flex flex-col bg-background2 p-5 rounded gap-2.5">
-      <h2 className="text-lg text-texto flex text-center">
-        {t("mayus.sectorIO")}
-      </h2>
+      <h2 className="text-lg  flex text-center">{t("mayus.sectorIO")}</h2>
       <ul className="grid gap-2.5 h-full grid-cols-2">
         {datosIO.map((dato, index) => {
           const isLastAndOdd = isOddCount && index === datosIO.length - 1;
@@ -32,7 +30,7 @@ const SectorIO: React.FC<SectorIOProps> = ({ datosIO, getColorClass }) => {
                 isLastAndOdd ? "col-span-2" : ""
               }`}
             >
-              <p className="text-2.5 text-texto">{dato.label}</p>
+              <p className="text-2.5 ">{dato.label}</p>
               <p
                 className={`text-2.5 ${getColorClass(dato.label, dato.value)}`}
               >

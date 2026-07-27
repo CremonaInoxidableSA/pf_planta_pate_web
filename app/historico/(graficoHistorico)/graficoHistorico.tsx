@@ -285,7 +285,7 @@ const GraficoHistorico = ({
 
   if (!selectedCiclo) {
     return (
-      <div className="w-full h-190 flex items-center justify-center text-texto">
+      <div className="w-full h-190 flex items-center justify-center">
         {filter
           ? t("min.seleccionaCicloParaVisualizar")
           : t("min.aplicaFiltroParaComenzar")}
@@ -303,7 +303,7 @@ const GraficoHistorico = ({
       <div className="flex items-start justify-between mb-4">
         <div className="flex flex-row justify-between w-full items-center">
           <div>
-            <h3 className="text-lg font-semibold text-texto">
+            <h3 className="text-lg font-semibold">
               {t("mayus.idCiclo")}: {selectedCiclo.id_ciclo} | {t("mayus.lote")}
               : {lote} | {t("mayus.receta")}:{" "}
               {general?.receta && (
@@ -370,7 +370,7 @@ const GraficoHistorico = ({
       <div className="relative h-165">
         <canvas ref={canvasRef} className="w-full h-full" />
         {(isLoading || (!isChartReady && graficoData && !error)) && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-background2/80 text-texto">
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-background2/80 ">
             <Spinner className="w-12 h-12 text-primary" />
             <span>{t("min.cargandoDatos")}</span>
           </div>
@@ -381,7 +381,7 @@ const GraficoHistorico = ({
           </div>
         )}
         {!isLoading && !error && !hasData && graficoData && isChartReady && (
-          <div className="absolute inset-0 flex items-center justify-center text-texto">
+          <div className="absolute inset-0 flex items-center justify-center ">
             {t("min.noDatosSensores")}
           </div>
         )}

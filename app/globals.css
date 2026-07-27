@@ -63,9 +63,6 @@
   --radius-4xl: calc(var(--radius) + 16px);
 
   /*Colores personalizados*/
-  --color-header-bg: var(--header-bg);
-  --color-texto-header: var(--texto-header);
-  --color-backgroundoscuro: var(--backgroundoscuro);
   --color-background: var(--background);
   --color-background2: var(--background2);
   --color-background3: var(--background3);
@@ -73,8 +70,6 @@
   --color-background5: var(--background5);
   --color-background6: var(--background6);
   --color-headerbg: var(--headerbg);
-  --color-texto: var(--texto);
-  --color-texto2: var(--texto2);
   --color-textohover: var(--textohover);
   --color-textodesac: var(--textodesac);
   --color-datosblueback: var(--datosblueback);
@@ -157,20 +152,25 @@
   --sidebar-ring: oklch(0.708 0 0);
 
   /*Colores personalizados*/
-  --header-bg: #a4deff;
-  --texto-header: #111;
-  --backgroundoscuro: #ededed;
-  --background: #fdfdfd;
-  --background2: #f5f5f5;
-  --background3: #ededed;
+  --headerbg: #a4deff;
+  --background1: #f7f7f7;
+  --background2: #f0f0f0;
+  --background3: #e8e8e8;
   --background4: #e0e0e0;
-  --background5: #d3d3d3;
-  --background6: #cecece;
-  --headerbg: #a4deffff;
-  --texto: #222;
-  --texto2: #555;
-  --textohover: #333;
-  --textodesac: #929292ff;
+  --background5: #d8d8d8;
+  --background6: #d0d0d0;
+
+  --color-redcremona: #ed292e;
+  --color-bluecremona: #223f7f;
+
+  --color-orangecremona: #d97706;
+  --color-yellowcremona: #b88a00;
+  --color-greencremona: #2f7a3e;
+  --color-tealcremona: #0f766e;
+  --color-cyancremona: #0e7490;
+  --color-purplecremona: #6d47b1;
+  --color-pinkcremona: #be3d74;
+
   --datosblueback: #a4deffff;
   --datosbluebackhover: #93d2f7ff;
   --waterTemp: #0083ee;
@@ -212,20 +212,25 @@
   --sidebar-ring: oklch(0.556 0 0);
 
   /*Colores personalizados*/
-  --header-bg: #111;
-  --texto-header: #fafafa;
-  --backgroundoscuro: #111;
-  --background: #1b1b1b;
+  --headerbg: #111;
+  --background1: #111;
   --background2: #222;
   --background3: #292929;
   --background4: #333;
   --background5: #393939;
   --background6: #3e3e3e;
-  --headerbg: #111;
-  --texto: #eee;
-  --texto2: #aaa;
-  --textohover: #ddd;
-  --textodesac: #585858;
+
+  --color-redcremona: #ff4a4f;
+  --color-bluecremona: #4a76d1;
+
+  --color-orangecremona: #f59e0b;
+  --color-yellowcremona: #eab308;
+  --color-greencremona: #4ade80;
+  --color-tealcremona: #2dd4bf;
+  --color-cyancremona: #22d3ee;
+  --color-purplecremona: #a78bfa;
+  --color-pinkcremona: #f472b6;
+  
   --datosblueback: #073753ff;
   --datosbluebackhover: #0c4566ff;
   --waterTemp: #0a96fc;

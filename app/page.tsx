@@ -9,10 +9,10 @@ export default function Home() {
   return (
     <section className="p-5 flex xl:flex-row flex-col w-full gap-5 items-center bg-background2 rounded h-215">
       <div className="xl:w-1/4 w-full h-full flex flex-col items-center justify-center">
-        <h1 className="flex justify-center w-full text-3xl text-texto font-semibold">
+        <h1 className="flex justify-center w-full text-3xl font-semibold">
           {t("mayus.alarmas")}
         </h1>
-        <p className="flex justify-center w-full text-lg text-texto">
+        <p className="flex justify-center w-full text-lg ">
           {t("mayus.activas")}
         </p>
 

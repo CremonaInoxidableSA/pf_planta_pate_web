@@ -199,12 +199,12 @@ export default function EquipoPage({ type, initialId }: EquipoPageProps) {
           onChange={handleSelectionChange}
         />
         <p
-          className={`${bgColor} flex justify-start items-center h-12.5 p-3.75 ${borderColor} text-2xl font-semibold rounded text-texto`}
+          className={`${bgColor} flex justify-start items-center h-12.5 p-3.75 ${borderColor} text-2xl font-semibold rounded `}
         >
           {t("mayus.receta")}: {equipo?.detalles.nom_receta ?? "N/A"}
         </p>
         <p
-          className={`bg-background2 flex justify-start items-center h-12.5 p-3.75 ${borderColor} text-2xl font-semibold rounded text-texto`}
+          className={`bg-background2 flex justify-start items-center h-12.5 p-3.75 ${borderColor} text-2xl font-semibold rounded `}
         >
           {t("mayus.estado")}: {equipo?.info.estado ?? "N/A"}
         </p>
@@ -218,7 +218,7 @@ export default function EquipoPage({ type, initialId }: EquipoPageProps) {
               displayData={formattedDisplayData}
               getColorClass={(label, value) => {
                 const key = labelToKeyMap[label] || "";
-                if (!key) return "text-texto";
+                if (!key) return "";
                 return getColorClass(key, value, color);
               }}
             />

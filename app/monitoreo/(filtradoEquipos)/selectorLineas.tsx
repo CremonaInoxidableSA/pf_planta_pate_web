@@ -32,7 +32,7 @@ const Selector: React.FC = () => {
         </SelectTrigger>
         <SelectContent
           position="popper"
-          className="bg-background2 border-border text-texto w-(--radix-select-trigger-width)"
+          className="bg-background2 border-border  w-(--radix-select-trigger-width)"
         >
           {lineaList.map((linea) => (
             <SelectItem key={linea.id} value={String(linea.id)}>

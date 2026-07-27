@@ -29,7 +29,7 @@ const BarraProductos = ({ productos }: BarraProductosProps) => {
   ];
 
   return (
-    <div className="w-full gap-5 flex flex-col text-texto">
+    <div className="w-full gap-5 flex flex-col ">
       <div className="flex items-center justify-between">
         <h1 className="whitespace-nowrap">% {t("min.productoRealizado")}</h1>
         <h1>{t("min.total")}</h1>

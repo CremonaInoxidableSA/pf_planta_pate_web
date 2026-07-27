@@ -31,7 +31,7 @@ const EstadoEquipo: React.FC<EstadoEquipoProps> = ({
 
   return (
     <div className="flex flex-col bg-background2 p-5 rounded gap-2.5 w-1/2 h-full">
-      <h2 className="text-xl text-texto w-full ">{t("mayus.estadoEquipo")}</h2>
+      <h2 className="text-xl  w-full ">{t("mayus.estadoEquipo")}</h2>
       <ul className="flex flex-col justify-between grow gap-2.5">
         {datos.map((dato, index) => {
           const colorClass = getColorClass(dato.label, dato.value);
@@ -53,7 +53,7 @@ const EstadoEquipo: React.FC<EstadoEquipoProps> = ({
                   : undefined
               }
             >
-              <span className="text-lg text-texto">{dato.label}:</span>
+              <span className="text-lg ">{dato.label}:</span>
               <span className={`text-lg ${colorClass}`}>
                 {formatValue(dato.value, dato.unit)}
               </span>

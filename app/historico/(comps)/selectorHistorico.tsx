@@ -91,7 +91,7 @@ const Selector: React.FC<SelectorProps> = ({
       </SelectTrigger>
       <SelectContent
         position="popper"
-        className="bg-background2 border-border text-texto w-(--radix-select-trigger-width) max-h-100"
+        className="bg-background2 border-border  w-(--radix-select-trigger-width) max-h-100"
       >
         <SelectGroup>
           <SelectLabel className="text-orange px-2 py-1.5 text-sm font-semibold">

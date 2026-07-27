@@ -31,7 +31,7 @@ export default function ContenedorAlarmas({ linea }: ContenedorAlarmasProps) {
         {activas.map((a) => (
           <li
             key={a.id}
-            className="bg-background5 rounded px-2 py-1 text-sm text-texto truncate"
+            className="bg-background5 rounded px-2 py-1 text-sm  truncate"
             title={a.nombre}
           >
             {a.nombre}

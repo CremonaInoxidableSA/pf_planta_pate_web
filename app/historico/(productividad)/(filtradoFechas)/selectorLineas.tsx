@@ -100,7 +100,7 @@ const SelectorEquiposProductividad: React.FC<
       </SelectTrigger>
       <SelectContent
         position="popper"
-        className="bg-background2 border-border text-texto w-(--radix-select-trigger-width) max-h-75"
+        className="bg-background2 border-border  w-(--radix-select-trigger-width) max-h-75"
       >
         <SelectGroup>
           {opcionesEquipos.general.map((option) => (

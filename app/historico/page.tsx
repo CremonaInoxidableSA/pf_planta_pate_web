@@ -299,14 +299,14 @@ export default function Historico() {
           />
         </div>
 
-        <h2 className="w-[30%] flex justify-center items-center text-texto text-xl">
+        <h2 className="w-[30%] flex justify-center items-center text-xl">
           {t("mayus.filtroPeriodo")}
         </h2>
 
         <div className="flex flex-row items-stretch gap-5 w-[35%] justify-end h-full">
           <SelectorHistorico
             optionClasses="p-0.5 bg-background3 font-bold"
-            selectClasses="w-full bg-background3 px-5 border-b-[2px] focus:outline-none text-lg text-texto transition-colors cursor-pointer"
+            selectClasses="w-full bg-background3 px-5 border-b-[2px] focus:outline-none text-lg transition-colors cursor-pointer"
             value={equipoId}
             onChange={setEquipoId}
           />
@@ -329,7 +329,7 @@ export default function Historico() {
           className="w-fit sm:max-w-fit max-w-[calc(100%-2rem)] shadow-none p-5"
         >
           <DialogHeader>
-            <DialogTitle className="text-texto">
+            <DialogTitle>
               {t("min.seleccionarCiclo")}
             </DialogTitle>
           </DialogHeader>
@@ -361,7 +361,7 @@ export default function Historico() {
           />
         </div>
 
-        <h2 className="w-[30%] flex justify-center items-center text-texto text-xl">
+        <h2 className="w-[30%] flex justify-center items-center text-xl">
           {t("mayus.productividad")}
         </h2>
 

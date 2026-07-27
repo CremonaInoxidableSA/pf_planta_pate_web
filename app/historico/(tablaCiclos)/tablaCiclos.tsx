@@ -54,7 +54,7 @@ const TablaCiclos: React.FC<TablaCiclosProps> = ({
       <div className="max-h-[70vh] overflow-y-auto">
         <Table
           aria-label="Tabla de ciclos"
-          className="min-w-150 backdrop-blur-sm text-texto"
+          className="min-w-150 backdrop-blur-sm "
         >
           <TableHeader>
             <TableRow>

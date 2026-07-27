@@ -6,7 +6,7 @@ export const getColorClass = (
   defaultColor: "orange" | "blue" | "lightRed",
 ): string => {
   if (value === "N/A") {
-    return "text-texto !important";
+    return " !important";
   }
 
   if (value === false) {

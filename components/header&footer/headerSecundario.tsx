@@ -50,7 +50,7 @@ const HeaderSecundario = () => {
               } ${styleClass}`}
             >
               <Link
-                className="flex items-center gap-2 hover:text-texto2"
+                className="flex items-center gap-2"
                 href={Array.isArray(path) ? path[0] : path}
               >
                 {isActive ? (

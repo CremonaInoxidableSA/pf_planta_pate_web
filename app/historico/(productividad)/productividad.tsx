@@ -32,7 +32,7 @@ const Productividad = ({
         <h1 className="text-2xl">{t("mayus.productividad")}</h1>
         {typeof productividadFilter?.dateRange?.from !== "undefined" &&
           typeof productividadFilter?.dateRange?.to !== "undefined" && (
-            <span className="text-base text-texto/70 mb-1">
+            <span className="text-base /70 mb-1">
               {t("min.rangoSeleccionado")}:{" "}
               {productividadFilter.dateRange.from &&
               productividadFilter.dateRange.to
@@ -42,16 +42,14 @@ const Productividad = ({
           )}
         <div className="w-full flex justify-evenly">
           <span className="flex flex-col items-center gap-1">
-            <p className="text-4xl text-texto">
-              {data?.ciclos_realizados ?? "-"}
-            </p>
-            <p className="text-xl text-texto">{t("min.ciclosTotales")}</p>
+            <p className="text-4xl ">{data?.ciclos_realizados ?? "-"}</p>
+            <p className="text-xl ">{t("min.ciclosTotales")}</p>
           </span>
           <span className="flex flex-col items-center gap-1">
-            <p className="text-4xl text-texto">
+            <p className="text-4xl ">
               {data ? `${data.produccion_total} Tn` : "-"}
             </p>
-            <p className="text-xl text-texto">{t("min.produccionTotal")}</p>
+            <p className="text-xl ">{t("min.produccionTotal")}</p>
           </span>
         </div>
         <hr className="w-full border-3 rounded my-4" />

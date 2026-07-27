@@ -20,7 +20,7 @@ const BarraCiclos = ({
     totalCiclos > 0 ? (ciclos_incorrectos / totalCiclos) * 100 : 0;
 
   return (
-    <div className="w-full gap-5 flex flex-col text-texto">
+    <div className="w-full gap-5 flex flex-col ">
       <div className="flex items-center justify-between">
         <h1 className="whitespace-nowrap">% {t("min.ciclosCorrectos")}</h1>
         <h1>{t("min.total")}</h1>

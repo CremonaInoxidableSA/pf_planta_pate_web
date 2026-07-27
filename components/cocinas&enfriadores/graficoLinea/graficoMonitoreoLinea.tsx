@@ -32,6 +32,7 @@ const GraficoMonitoreo: React.FC<{ id: number }> = ({ id }) => {
     : enfriador?.detalles.num_enfriador;
 
   const estado = info?.estado ?? "INACTIVO";
+  const receta = info?.receta ?? "-";
   const label = isCocina
     ? `COCINA ${numero ?? id}`
     : `ENFRIADOR ${numero ?? id}`;
@@ -58,14 +59,16 @@ const GraficoMonitoreo: React.FC<{ id: number }> = ({ id }) => {
       className={`flex flex-col w-full h-full bg-background2 rounded p-3 border-b-2 ${borderColor} gap-2 min-h-0`}
     >
       <div className="flex items-center justify-between shrink-0 w-full">
-        <div className="flex flex-col items-center">
-          <span
-            onClick={handleEquipoClick}
-            className={`font-semibold ${textColor} cursor-pointer hover:opacity-80 transition-opacity justify-start w-full`}
-          >
+        <div
+          className="flex flex-col items-start bg-redcremona/20 hover:bg-redcremona/50 px-2 rounded cursor-pointer"
+          onClick={handleEquipoClick}
+        >
+          <span className={`font-semibold ${textColor} justify-start w-full`}>
             {label}
           </span>
-          <span className={"text-sm"}>{t("mayus.receta")}: {info?.receta}</span>
+          <span className={"text-sm"}>
+            {t("mayus.receta")}: {receta}
+          </span>
         </div>
         <span
           className={`flex flex-col text-sm px-2 justify-center items-center ${estadoColor}`}
