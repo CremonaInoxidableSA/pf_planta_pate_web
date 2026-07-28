@@ -124,7 +124,9 @@
     "tempIngresoMax": "Max inlet temp.",
     "idCiclo": "Cycle ID",
     "reiniciarZoom": "Reset zoom",
-    "verificando": "Verifying..."
+    "verificando": "Verifying...",
+    "duracion": "Duration",
+    "fecha": "Date"
   },
   "mayus": {
     "linea": "LINE",

@@ -324,13 +324,13 @@ const GraficoHistorico = ({
               )}
             </h3>
             <p className="text-sm text-orange">
-              Fecha: {format(new Date(fechaInicio), "dd/MM/yyyy")} de{" "}
+              {t("min.fecha")}: {format(new Date(fechaInicio), "dd/MM/yyyy")} de{" "}
               {format(new Date(fechaInicio), "HH:mm")} a{" "}
               {format(new Date(fechaFin), "HH:mm")}
             </p>
             {general?.tiempo_transcurrido && (
               <p className="text-sm text-orange">
-                Duracion (HH:MM:SS): {general.tiempo_transcurrido}
+                {t("min.duracion")} (HH:MM:SS): {general.tiempo_transcurrido}
               </p>
             )}
           </div>
@@ -354,7 +354,7 @@ const GraficoHistorico = ({
                   className="w-3 h-3 rounded inline-block"
                   style={{ background: "rgb(84, 196, 45)" }}
                 />
-                {t("min.tempAguaMax")}: <b>{general.temp_agua_max}°C</b>
+                {t("min.tempIngresoMax")}: <b>{general.temp_ingreso_max}°C</b>
               </span>
               <span
                 className="flex items-center gap-1 text-sm"
