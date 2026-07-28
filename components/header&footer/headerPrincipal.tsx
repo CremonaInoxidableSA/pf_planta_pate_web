@@ -3,7 +3,6 @@ import { ThemeSwitcher } from "@/components/theme/themeSwitcher";
 import { useTranslation } from "react-i18next";
 
 import Link from "next/link";
-import Image from "next/image";
 import { JSX } from "react";
 
 import DropdownBanderas from "@/components/translate/dropdownBanderas";

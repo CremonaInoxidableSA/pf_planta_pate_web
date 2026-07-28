@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { LogoCreminox as Logo } from "@/components/Logos";
 import { FiMapPin } from "react-icons/fi";
 import { CiMail } from "react-icons/ci";

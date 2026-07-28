@@ -11,7 +11,6 @@ import {
   SelectGroup,
   SelectLabel,
 } from "@/components/ui/select";
-import { cn } from "@/lib/utils";
 
 interface SelectorProps {
   value: number;
@@ -40,8 +39,6 @@ export const EQUIPOS_HISTORICO = [
 const Selector: React.FC<SelectorProps> = ({
   value = 1,
   onChange,
-  selectClasses,
-  optionClasses,
 }) => {
   const [, setInternalValue] = React.useState<number>(value);
   const { t } = useTranslation();

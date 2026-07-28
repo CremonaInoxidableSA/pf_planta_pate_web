@@ -20,8 +20,6 @@ interface ProductividadProps {
 
 const Productividad = ({
   data = null,
-  isLoading = false,
-  error = null,
   productividadFilter,
 }: ProductividadProps) => {
   const { t } = useTranslation();
@@ -32,7 +30,7 @@ const Productividad = ({
         <h1 className="text-2xl">{t("mayus.productividad")}</h1>
         {typeof productividadFilter?.dateRange?.from !== "undefined" &&
           typeof productividadFilter?.dateRange?.to !== "undefined" && (
-            <span className="text-base/70 mb-1">
+            <span>
               {t("min.rangoSeleccionado")}:{" "}
               {productividadFilter.dateRange.from &&
               productividadFilter.dateRange.to
