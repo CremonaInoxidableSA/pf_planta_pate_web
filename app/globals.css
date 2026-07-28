@@ -5,7 +5,7 @@
 
 @theme inline {
   --color-headerbg: var(--headerbg);
-  --color-background: var(--background);
+  --color-background1: var(--background1);
   --color-background2: var(--background2);
   --color-background3: var(--background3);
   --color-background4: var(--background4);
@@ -63,7 +63,7 @@
   --radius-4xl: calc(var(--radius) + 16px);
 
   /*Colores personalizados*/
-  --color-background: var(--background);
+  --color-background1: var(--background1);
   --color-background2: var(--background2);
   --color-background3: var(--background3);
   --color-background4: var(--background4);
@@ -242,6 +242,6 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background1 text-foreground;
   }
 }

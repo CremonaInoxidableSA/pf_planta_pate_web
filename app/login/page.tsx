@@ -50,7 +50,7 @@ const Login = () => {
 
   return (
     <section className="flex h-full w-full items-center justify-center">
-      <div className="w-auto h-[60vh] gap-3.75 flex flex-col items-center p-[3rem_4rem_2rem_4rem] max-w-480  bg-background rounded">
+      <div className="w-auto h-[60vh] gap-3.75 flex flex-col items-center p-[3rem_4rem_2rem_4rem] max-w-480  bg-background1 rounded">
         <LogoBase64 className="flex w-[65%] p-0 h-auto" />
         <form
           className="flex flex-col w-full justify-between h-[60%] gap-2.5"
