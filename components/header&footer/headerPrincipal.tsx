@@ -43,7 +43,7 @@ export const HeaderPrincipal: React.FC<Header> = ({ currentPath }) => {
   ];
 
   return (
-    <header className="flex bg-headerbg p-5">
+    <header className="flex bg-background2 p-5 shadow-2xl">
       <div className="flex flex-row h-full w-[30%] justify-start gap-7.5 items-center">
         {opcionesIconos.map(({ id, icon }) => (
           <div

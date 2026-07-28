@@ -35,7 +35,7 @@ const HeaderSecundario = () => {
   ];
 
   return (
-    <div className="w-full bg-background2 flex flex-row justify-center shadow-[5px_5px_5px_5px_rgba(0,0,0,0.20)]">
+    <div className="w-full bg-background3 flex flex-row justify-center shadow-[5px_5px_5px_5px_rgba(0,0,0,0.20)]">
       <ul className="flex flex-row items-center gap-6">
         {opcionesBotones.map(({ id, path, text, styleClass }) => {
           const isActive = Array.isArray(path)

@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="flex flex-col align-middle bg-headerbg">
+    <footer className="flex flex-col align-middle bg-background2">
       <div className="flex flex-row w-full max-w-1920 h-40 justify-between align-middle p-10">
         <ul className="flex flex-col justify-center align-middle h-full w-[30%]">
           {opcionesIzq.map(({ id, icono, link, texto }) => (
