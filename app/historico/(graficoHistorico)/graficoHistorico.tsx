@@ -87,9 +87,10 @@ const GraficoHistorico = ({
   const handleResetZoom = () => {
     if (
       chartRef.current &&
-      typeof (chartRef.current as any).resetZoom === "function"
+      typeof (chartRef.current as Chart & { resetZoom?: () => void })
+        .resetZoom === "function"
     ) {
-      (chartRef.current as any).resetZoom();
+      (chartRef.current as Chart & { resetZoom?: () => void }).resetZoom?.();
     }
   };
 
@@ -143,7 +144,7 @@ const GraficoHistorico = ({
 
     fetchData();
     return () => controller.abort();
-  }, [selectedCiclo?.id_ciclo, filter?.equipoId]);
+  }, [selectedCiclo?.id_ciclo, filter?.equipoId, onDataLoaded, selectedCiclo]);
 
   useEffect(() => {
     if (!graficoData || !canvasRef.current || !zoomPluginLoaded) return;

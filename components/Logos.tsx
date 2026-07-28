@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from "next/image";
 
 export function LogoCreminox({ extraClass }: { extraClass?: string }) {
   return (
@@ -9,7 +9,7 @@ export function LogoCreminox({ extraClass }: { extraClass?: string }) {
       height={48}
       className={`w-auto ${extraClass || ""}`}
     />
-  )
+  );
 }
 
 export function LogoCx({ extraClass }: { extraClass?: string }) {
@@ -21,7 +21,7 @@ export function LogoCx({ extraClass }: { extraClass?: string }) {
       height={48}
       className={`w-auto ${extraClass || ""}`}
     />
-  )
+  );
 }
 
 export function LogoCreminoxInnovate({ extraClass }: { extraClass?: string }) {
@@ -34,5 +34,5 @@ export function LogoCreminoxInnovate({ extraClass }: { extraClass?: string }) {
       className={`w-auto ${extraClass || ""}`}
       loading="eager"
     />
-  )
+  );
 }

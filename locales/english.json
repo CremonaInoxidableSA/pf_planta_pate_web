@@ -122,12 +122,12 @@
     "tiempoTranscurrido": "Elapsed time",
     "buscar": "Search...",
     "tempIngresoMax": "Max inlet temp.",
-    "idCiclo":"Cycle ID",
+    "idCiclo": "Cycle ID",
     "reiniciarZoom": "Reset zoom",
     "verificando": "Verifying..."
   },
   "mayus": {
-    "linea":"LINE",
+    "linea": "LINE",
     "titulo": "PF PLANTA PATE - DATA ACQUISITION SYSTEM",
     "alarmas": "ALARMS",
     "activas": "ACTIVE",
@@ -148,7 +148,7 @@
     "exportarBDD": "EXPORT DATABASE",
     "generarReclamo": "GENERATE CLAIM",
     "listaUsuarios": "USER LIST",
-    "idCiclo":"CYCLE ID",
-    "lote":"LOT"
+    "idCiclo": "CYCLE ID",
+    "lote": "LOT"
   }
 }

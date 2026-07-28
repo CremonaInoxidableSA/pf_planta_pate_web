@@ -19,10 +19,7 @@ export const highlightText = (
     const parts = text.split(regex);
     return parts.map((part, i) =>
       part.toLowerCase() === filter.toLowerCase() ? (
-        <mark
-          key={i}
-          className="bg-yellow-400/40 font-bold rounded"
-        >
+        <mark key={i} className="bg-yellow-400/40 font-bold rounded">
           {part}
         </mark>
       ) : (

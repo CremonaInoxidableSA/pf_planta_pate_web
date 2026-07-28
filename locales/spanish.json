@@ -122,12 +122,12 @@
     "tiempoTranscurrido": "Tiempo transcurrido",
     "buscar": "Buscar...",
     "tempIngresoMax": "Temp. ingreso máx",
-    "idCiclo":"ID Ciclo",
+    "idCiclo": "ID Ciclo",
     "reiniciarZoom": "Reiniciar zoom",
     "verificando": "Verificando..."
   },
   "mayus": {
-    "linea":"LINEA",
+    "linea": "LINEA",
     "titulo": "PF PLANTA PATE - SISTEMA DE ADQUISICIÓN DE DATOS",
     "alarmas": "ALARMAS",
     "activas": "ACTIVAS",
@@ -148,7 +148,7 @@
     "exportarBDD": "EXPORTAR BASE DE DATOS",
     "generarReclamo": "GENERAR RECLAMO",
     "listaUsuarios": "LISTA DE USUARIOS",
-    "idCiclo":"ID CICLO",
-    "lote":"LOTE"
+    "idCiclo": "ID CICLO",
+    "lote": "LOTE"
   }
 }

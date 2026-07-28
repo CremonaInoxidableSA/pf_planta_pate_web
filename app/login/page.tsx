@@ -99,7 +99,11 @@ const Login = () => {
             disabled={loading}
             onClick={handleSubmit}
           >
-            {loading ? <Spinner /> : <p className="text-white">{t("min.acceder")}</p>}
+            {loading ? (
+              <Spinner />
+            ) : (
+              <p className="text-white">{t("min.acceder")}</p>
+            )}
           </Button>
         </form>
 

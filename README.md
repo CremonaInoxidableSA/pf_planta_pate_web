@@ -14,6 +14,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
    // DESPUÉS (autenticación normal):
    const BYPASS_AUTH = false;
    ```
+
 ---
 
 ## Getting Started

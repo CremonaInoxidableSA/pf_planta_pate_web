@@ -219,10 +219,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (BYPASS_AUTH) {
-      if (
-        pathname === "/login" ||
-        pathname === "/register"
-      ) {
+      if (pathname === "/login" || pathname === "/register") {
         router.push("/");
       }
       return;

@@ -7,7 +7,7 @@ import { JSX } from "react";
 
 import DropdownBanderas from "@/components/translate/dropdownBanderas";
 import UserIcon from "@/components/userIcon/userIcon";
-import { LogoCreminoxInnovate as Logo} from "@/components/Logos";
+import { LogoCreminoxInnovate as Logo } from "@/components/Logos";
 
 interface Header {
   currentPath: string;

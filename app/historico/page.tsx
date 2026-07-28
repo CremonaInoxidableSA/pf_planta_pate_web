@@ -329,9 +329,7 @@ export default function Historico() {
           className="w-fit sm:max-w-fit max-w-[calc(100%-2rem)] shadow-none p-5"
         >
           <DialogHeader>
-            <DialogTitle>
-              {t("min.seleccionarCiclo")}
-            </DialogTitle>
+            <DialogTitle>{t("min.seleccionarCiclo")}</DialogTitle>
           </DialogHeader>
           <TablaCiclos
             ciclos={Array.isArray(ciclos) ? ciclos : []}

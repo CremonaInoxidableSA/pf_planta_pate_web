@@ -36,10 +36,7 @@ export const EQUIPOS_HISTORICO = [
   { id: 14, shortName: "E8", type: "enfriador", lineKey: "linea2" },
 ] as const;
 
-const Selector: React.FC<SelectorProps> = ({
-  value = 1,
-  onChange,
-}) => {
+const Selector: React.FC<SelectorProps> = ({ value = 1, onChange }) => {
   const [, setInternalValue] = React.useState<number>(value);
   const { t } = useTranslation();
 
