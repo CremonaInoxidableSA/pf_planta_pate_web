@@ -192,6 +192,16 @@ const GraficoHistorico = ({
     const ctx = canvasRef.current.getContext("2d");
     if (!ctx) return;
 
+    const general = graficoData.general as CicloGeneral;
+    const tempMin = Math.floor(
+      Math.min(general.temp_agua_min, general.temp_ingreso_min),
+    );
+    const tempMax = Math.ceil(
+      Math.max(general.temp_agua_max, general.temp_ingreso_max),
+    );
+    const nivelMin = Math.floor(general.nivel_agua_min);
+    const nivelMax = Math.ceil(general.nivel_agua_max);
+
     const backgroundImagePlugin = createBackgroundImagePlugin({
       src: "/creminox.png",
       widthRatio: 0.5,
@@ -252,8 +262,8 @@ const GraficoHistorico = ({
               text: t("min.temperaturaC"),
               color: "rgb(59, 130, 246)",
             },
-            min: 0,
-            max: 100,
+            min: tempMin,
+            max: tempMax,
             position: "left",
             ticks: { color: "rgb(59, 130, 246)" },
             grid: { color: "rgba(156, 163, 175, 0.1)" },
@@ -264,8 +274,8 @@ const GraficoHistorico = ({
               text: t("min.nivelAguaMm"),
               color: "rgb(168, 85, 247)",
             },
-            min: 1000,
-            max: 2000,
+            min: nivelMin,
+            max: nivelMax,
             position: "right",
             ticks: { color: "rgb(168, 85, 247)" },
             grid: { drawOnChartArea: false },
