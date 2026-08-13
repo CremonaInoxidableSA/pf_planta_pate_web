@@ -3,7 +3,7 @@ version: "3.9"
 services:
   frontend:
     container_name: pf-planta-pate-web
-
+    image: pf_planta_pate_web-frontend:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -15,6 +15,8 @@ services:
 
     env_file:
       - .env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
     environment:
       NODE_ENV: production
