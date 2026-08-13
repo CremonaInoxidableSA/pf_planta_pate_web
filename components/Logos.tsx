@@ -1,14 +1,13 @@
 import Image from "next/image";
 
-export function LogoCreminox({ extraClass }: { extraClass?: string }) {
+export function LogoCreminox() {
   return (
     <Image
       alt="Creminox Logo"
       src="/creminox.png"
       width={200}
       height={48}
-      className={`w-auto ${extraClass || ""}`}
-      loading="eager"
+      unoptimized
     />
   );
 }
